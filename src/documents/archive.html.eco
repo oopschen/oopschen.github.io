@@ -1,0 +1,15 @@
+---
+layout: blank
+title: 博客存档
+isMenu: true
+---
+<% for year,arr of @formatArchive(@getCollection("pages").toJSON()): %>
+    <section>
+      <h3><%= year %>年</h3>
+      <ul>
+        <% for page in arr: %>
+          <li><a href="<%= page.url %>"><%= page.title %></a></li>
+        <% end %>
+      </ul>
+    </section>
+<% end %>

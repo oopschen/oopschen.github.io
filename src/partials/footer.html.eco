@@ -1,0 +1,10 @@
+      <%- if @site.include3rd and @site.includeComm then @partial('comm') %>
+
+      <footer>
+        <p><small>Hosted on <a href="<%= @getUrl("/") %>">GitHub Pages</a> using the Dinky theme modified by Mr. C</small></p>
+      </footer>
+    </div>
+    
+  </body>
+
+</html>

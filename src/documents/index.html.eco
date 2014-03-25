@@ -1,0 +1,24 @@
+---
+layout: blank
+title: Blog
+isMenu: true
+---
+<section>
+
+<section>
+
+<% for page in @getCollection("indexPages").toJSON(): %>
+  <h3><%= page.title %></h3>
+
+  <p>
+    <%= if "summary" of page then @page.summary + "<br/>"  %>
+    
+    <a class="truncate_repl" href="<%= page.url %>">阅读全文</a>
+  </p>
+
+<% end %>
+
+</section>
+
+
+</section>

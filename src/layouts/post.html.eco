@@ -1,0 +1,19 @@
+<%- @partial('header') %>
+<%- if @site.include3rd then @partial('share') %>
+
+<section>
+
+<h3><%= @document.title %></h3>
+
+<div class="postdate">
+<%= if @document.date == @document.udate then "Written " else "Updated " %>@<%= @document.udate %>
+</div>
+
+<%- @document.content %>
+
+</section>
+
+
+<%- if @site.include3rd then @partial('sharepage') %>
+
+<%- @partial('footer', {includeComm: true}) %>
