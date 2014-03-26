@@ -15,6 +15,7 @@ module.exports = {
       description: "Focued on Tech"
       include3rd : true
       donateURL: "https://me.alipay.com/sangeshitou"
+      rippleaddr: "rMffqNoGBzzdzWTqtdeGto74GypdToywML"
 
     getPreparedTitle: ->
       if @document.title
