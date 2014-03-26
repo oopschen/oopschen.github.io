@@ -1,3 +1,6 @@
+---
+sitemap: false
+---
 User-agent:*
 Disallow: /file/
 Disallow: /img/
