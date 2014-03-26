@@ -27,7 +27,7 @@ push: dep
 	@docpad -e deploy generate
 	@git push -u origin master:project
 	@git checkout staticmaster 
-	@cp /home/ray/tmp/blog_out/* ./
+	@cp -r /home/ray/tmp/blog_out/* ./
 	@ls ./ | grep -v "node_modules" | xargs git add
 	@git commit -m "publish blog $(date \"+%Y%m%d%H%M%s\")" && \
 		git push origin staticmaster:master
