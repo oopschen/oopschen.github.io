@@ -3,8 +3,7 @@ layout: blank
 title: Mr. C Profile
 isMenu: true
 ---
-<section>
-<h3>Mr. C Profile</h3>
+### Mr. C Profile
 
     #include <stdio.h>
     #include <stdint.h>
@@ -57,4 +56,3 @@ isMenu: true
       return hire(&me);
     }
 
-</section>

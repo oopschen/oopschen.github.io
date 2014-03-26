@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="<%= @getPreparedDescription() %>">
     <meta name="revisit-after" content="7 days">
-    <%- @getBlock("styles").add(["/assets/style/all.css"]).toHTML() %>
+    <%- @getBlock("styles").add(["/assets/style/styles.css", "/assets/style/monokai_sublime.css"]).toHTML() %>
     <%- if @site.include3rd then @partial('stat') %>
   </head>
   <body>

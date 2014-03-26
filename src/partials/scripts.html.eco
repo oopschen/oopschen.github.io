@@ -1,6 +1,6 @@
 <!--[if lt IE 9]>
-  <script src="{{site.url}}/static/js/html5.js"></script>
+  <script src="<%- @getUrl("/assets/script/html5.js") %>"></script>
 <![endif]-->
-<script src="{{site.url}}/static/js/scale.fix-min.js"></script>
+<script src="<%- @getUrl("/assets/script/scale.js") %>"></script>
 <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 {% include stat.html %}

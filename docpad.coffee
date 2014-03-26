@@ -1,13 +1,20 @@
 module.exports = {
   port : 8080
   outPath : "/home/ray/tmp/blog_out"
+  plugins:
+    marked:
+      pedantic: false
+      gfm: true
+      sanitize: false
+      highlight: null
+
   templateData : 
     site: 
       url: "http://oopschen.github.io",
       title: "Mr.C Blog",
       description: "Focued on Tech"
-        
       include3rd : true
+      donateURL: "https://me.alipay.com/sangeshitou"
 
     getPreparedTitle: ->
       if @document.title

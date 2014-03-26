@@ -6,8 +6,8 @@ date: 2013-02-27 13:56:00
 udate: 2013-09-17 20:49:00
 category: 个人作品
 ---
-[download]: /file/fuckad.crx "点击下载插件" 
-[donate]: https://me.alipay.com/sangeshitou "捐赠地址"
+[download]: <%= @getUrl("/file/fuckad.crx") %> "点击下载插件" 
+[donate]: <%= @site.donateURL %> "捐赠地址"
 [commloc]: #disqus_thread "去评论"
 
 你是否对优酷，土豆的45秒广告感到厌烦？   
@@ -18,15 +18,15 @@ category: 个人作品
 
 #### 支持的视频网站  
     
-    优酷  
-    土豆  
-    乐视  
-    风行  
-    腾讯视频  
-    爱奇艺(暂时时效,等待修复)  
-    PPTV  
-    搜狐TV  
-    CNTV  
+* 优酷  
+* 土豆  
+* 乐视  
+* 风行  
+* 腾讯视频  
+* 爱奇艺(暂时时效,等待修复)  
+* PPTV  
+* 搜狐TV  
+* CNTV  
   
   
 #### 安装方法， **重要，请不要略过**
@@ -38,10 +38,10 @@ category: 个人作品
    
 #### 特色 
 安装后会在各大支持屏蔽的网站打开时展现一个彩色导航条，方便大家在各大视频网站穿梭，如下图。  
-<img src='/static/img/fuckad/navihidden.png' style="max-width:1000px;width:1000px;height:100px;overflow:hidden;"/>
+<img src='<%= @getUrl("/img/fuckad/navihidden.png") %>' style="max-width:1000px;width:1000px;height:100px;overflow:hidden;"/>
   
 当鼠标移上去时会出现导航条全景，当然还有[捐赠地址][donate]和作者博客。  
-<img src='/static/img/fuckad/navishow.png' style="max-width:1000px;width:1000px;height:100px;overflow:hidden;"/>
+<img src='<%= @getUrl("/img/fuckad/navishow.png") %>' style="max-width:1000px;width:1000px;height:100px;overflow:hidden;"/>
    
 #### 推广
 插件会每*24小时*打开作者的广告页，大家可以随意点击，也算是支持我的一种方式，当然弹出的广告是在后台，不会打扰你的视觉。  

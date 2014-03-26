@@ -9,11 +9,10 @@
   "dependencies": {
     "docpad": "~6.64.0",
     "docpad-plugin-eco": "~2.0.3",
-    "docpad-plugin-markdown": "~2.0.3",
     "docpad-plugin-marked": "~2.2.0",
     "docpad-plugin-geturl": "~2.1.1",
     "docpad-plugin-partials": "~2.9.0",
-    "docpad-plugin-pygments": "~2.2.0"
+    "docpad-plugin-highlightjs": "~2.2.1"
   },
   "main": "node_modules/docpad/bin/docpad-server",
   "scripts": {

@@ -9,7 +9,7 @@
 <%= if @document.date == @document.udate then "Written " else "Updated " %>@<%= @document.udate %>
 </div>
 
-<%- @document.content %>
+<%- @content %>
 
 </section>
 
@@ -17,3 +17,4 @@
 <%- if @site.include3rd then @partial('sharepage') %>
 
 <%- @partial('footer', {includeComm: true}) %>
+
