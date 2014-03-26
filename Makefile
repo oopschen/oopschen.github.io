@@ -23,6 +23,7 @@ web: dep
 
 push: dep
 	@cd ${base}
+	@git push origin master..project
 	@docpad -e deploy generate
 	@git push -u origin master:project
 	@git checkout staticmaster 
