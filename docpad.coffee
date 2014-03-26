@@ -71,6 +71,7 @@ module.exports = {
             page[y].push p
           else
             page[y] = [p]
+      page["list"] = (y for y of page).sort (a,b) -> b - a
       page
 
     formatDate: (x)->
@@ -78,8 +79,7 @@ module.exports = {
 
   collections:
     pages: ->
-      @getCollection("html").findAllLive({layout: "post"}, [{date: -1}]).on "add", (model) ->
-                model.setMetaDefaults({htmlmin: true})
+      @getCollection("html").findAllLive({layout: "post"}, [{date: -1}])
 
     indexPages: ->
       doc = @getCollection("html").findAllLive({layout: "post"}, [{date: -1}])

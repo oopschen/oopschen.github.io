@@ -2,12 +2,13 @@
 layout: blank
 title: Blog
 isMenu: true
+menupri: 10
 ---
 <section>
 
 <section>
 
-<% for page in @getCollection("indexPages").toJSON(): %>
+<% for page in @getIndexPages("indexPages").toJSON(): %>
   <h3><%= page.title %></h3>
 
   <p>

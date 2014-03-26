@@ -1,7 +1,8 @@
 ---
 layout: blank
-title: Mr. C Profile
+title: Profile
 isMenu: true
+menupri: 9
 ---
 ### Mr. C Profile
 

@@ -14,7 +14,7 @@
     <div class="wrapper">
       <header>
         <ul>
-          <% for page in @getCollection("html").findAllLive({isMenu:true}).toJSON(): %>
+          <% for page in @getCollection("html").findAllLive({isMenu:true}, {menupri:-1}).toJSON(): %>
             <li><a class="buttons github" href="<%= page.url %>"><%= page.title %></a></li>
           <% end %>
         </ul>

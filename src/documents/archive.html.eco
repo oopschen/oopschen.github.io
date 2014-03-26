@@ -1,13 +1,14 @@
 ---
 layout: blank
-title: 博客存档
+title: Archive
 isMenu: true
+menupri: 8
 ---
-<% for year,arr of @formatArchive(@getCollection("pages").toJSON()): %>
+<% obj = @formatArchive(@getCollection("pages").toJSON()) %>
+<% for year in obj["list"]: %>
     <section>
       <h3><%= year %>年</h3>
-      <ul>
-        <% for page in arr: %>
+        <% for page in obj[year]: %>
           <li><a href="<%= page.url %>"><%= page.title %></a></li>
         <% end %>
       </ul>
