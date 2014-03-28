@@ -1,5 +1,5 @@
 <%- @partial('header') %>
-<%- @getBlock("styles").add(["/css/bootstrap.css"]).toHTML() %>
+<%- @getBlock("styles").add(["/css/bootstrap.css", "/css/blog-home.css"]).toHTML() %>
 <%- @partial('nav') %>
 
 <div class="container">

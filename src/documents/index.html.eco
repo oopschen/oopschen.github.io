@@ -4,12 +4,10 @@ title: Blog
 isMenu: true
 menupri: 10
 ---
-<%- @getBlock("styles").add(["/css/blog-home.css"]).toHTML() %>
-
 <div class="row">
 
+<div class="col-lg-8">
 <% for page in @getIndexPages("indexPages").toJSON(): %>
-  <div class="col-lg-8">
 
       <!-- blog entry -->
       <h1><a href="<%= page.url %>"><%= page.title %></a>
@@ -20,16 +18,14 @@ menupri: 10
           <span class="glyphicon glyphicon-time"></span> Posted on <%= @formatDate(@document.udate) %> </p>
       <hr>
 
-      
-        <%- page.summary %>
+      <%- page.summary %>
 
       <a class="btn btn-primary" href="<%= page.url %>">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
 
       <hr>
-  </div>
 <% end %>
+</div>
 
 <%- @partial('side') %>
 
 </div>
-<hr>

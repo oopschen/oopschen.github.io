@@ -28,7 +28,7 @@
             <div class="col-lg-6">
                 <ul class="list-unstyled">
                   <% for tag in tags: %>
-                      <li><a href="javascripts:void(0);"><%= tag %></a></li>
+                      <li><a href="javascript:void(0);"><%= tag %></a></li>
                   <% end %>
                 </ul>
             </div>
@@ -42,6 +42,9 @@
     </div>
     <% end %>
 
+    <div class="well">
+      广告位出租
+    </div>
     <!-- /well -->
 </div>
 
