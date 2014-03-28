@@ -20,7 +20,7 @@
     </div>
 
     <!-- /well -->
-    <% tags = @getPreparedTags(@document) %>
+  <% tags = @getPreparedTags(@document) %>
     <% if 0 < tags.length : %>
     <div class="well">
         <h4>标签</h4>
@@ -33,12 +33,6 @@
                 </ul>
             </div>
         </div>
-    </div>
-    <% end %>
-
-    <%- if @include3rd: %>
-    <div class="well">
-      <%- @partial('share') %>
     </div>
     <% end %>
 

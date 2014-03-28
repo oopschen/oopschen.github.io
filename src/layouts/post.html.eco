@@ -22,6 +22,10 @@
 
         <%- @content %>
 
+
+        <%- if @include3rd then @partial('share') %>
+        <hr>
+
         <%- if @include3rd and not @document.noComm then @partial('comm') %>
     </div>
 
