@@ -1,20 +1,33 @@
 <%- @partial('header') %>
-<%- if @include3rd then @partial('share') %>
 
-<section>
+<%- @getBlock("styles").add(["/css/bootstrap.css", "/css/blog-post.css", "/css/highlight.css"]).toHTML() %>
 
-<h3><%= @document.title %></h3>
+<%- @partial('nav') %>
 
-<div class="postdate">
-<%= if @document.date == @document.udate then "Written " else "Updated " %>@<%= @formatDate(@document.udate) %>
+
+<div class="row">
+    <div class="col-lg-8">
+
+        <h1><%= @document.title %></h1>
+        <p class="lead">
+          <a href="javascript:void(0);">Category:</a> 
+          <%= @document.category %>
+        </p>
+        <hr>
+        <p>
+            <span class="glyphicon glyphicon-time"></span>
+            <%= if @document.date == @document.udate then "Posted on" else "Updated on" %>@<%= @formatDate(@document.udate) %>
+        </p>
+        <hr>
+
+        <%- @content %>
+
+        <%- if @include3rd and not @document.noComm then @partial('comm') %>
+    </div>
+
+  <%- @partial('side') %>
 </div>
+  
+<hr>  
 
-<%- @content %>
-
-</section>
-
-
-<%- if @include3rd then @partial('sharepage') %>
-
-<%- @partial('footer', {includeComm: true}) %>
-
+<%- @partial('footer') %>

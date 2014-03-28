@@ -1,5 +1,13 @@
 <%- @partial('header') %>
-<section>
+<%- @getBlock("styles").add(["/css/bootstrap.css"]).toHTML() %>
+<%- @partial('nav') %>
+
+<div class="container">
   <%- @content %>
-</section>
+
+  <%- @partial('footer_row') %>
+</div>
+
 <%- @partial('footer') %>
+  
+  

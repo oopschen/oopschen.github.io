@@ -43,11 +43,14 @@ module.exports = {
 
   templateData : 
     site: 
-      url: "http://oopschen.github.io",
       title: "Mr.C Blog",
+      author: "Mr.C",
       description: "Focued on Tech"
       donateURL: "https://me.alipay.com/sangeshitou"
       rippleaddr: "rMffqNoGBzzdzWTqtdeGto74GypdToywML"
+        
+    getThisYear: ->  
+      @moment(new Date()).format('YYYY') 
 
     getPreparedTitle: ->
       if @document.title
@@ -60,6 +63,16 @@ module.exports = {
 
     getIndexPages: ->
       @getCollection("indexPages")
+
+    getPreparedTags: (doc) ->
+      tags = []
+      if doc.tags
+        tags = doc.tags
+        tags2 = []
+        for t in tags
+          tags2.push x for x in t.split "，"
+        tags = tags2
+      tags
 
     formatArchive: (colls) ->
       page = {}
@@ -93,13 +106,15 @@ module.exports = {
     development:  
       enabled: false
       templateData : 
-        url: "http://127.0.0.1:8080"
         include3rd : false
+        site:
+          url: "http://127.0.0.1:8080"
 
     product:
       enabled: false
       templateData : 
-        url: "http://127.0.0.1:8080"
+        site:
+          url: "http://127.0.0.1:8080"
         include3rd : true
 
     # for github push
@@ -107,4 +122,6 @@ module.exports = {
       enabled: true
       templateData : 
         include3rd : true
+        site:
+          url: "http://oopschen.github.io",
 }

@@ -4,22 +4,32 @@ title: Blog
 isMenu: true
 menupri: 10
 ---
-<section>
+<%- @getBlock("styles").add(["/css/blog-home.css"]).toHTML() %>
 
-<section>
+<div class="row">
 
 <% for page in @getIndexPages("indexPages").toJSON(): %>
-  <h3><%= page.title %></h3>
+  <div class="col-lg-8">
 
-  <p>
-    <%= if "summary" of page then @page.summary + "<br/>"  %>
-    
-    <a class="truncate_repl" href="<%= page.url %>">阅读全文</a>
-  </p>
+      <!-- blog entry -->
+      <h1><a href="<%= page.url %>"><%= page.title %></a>
+      </h1>
+      <hr>
 
+      <p>
+          <span class="glyphicon glyphicon-time"></span> Posted on <%= @formatDate(@document.udate) %> </p>
+      <hr>
+
+      
+        <%- page.summary %>
+
+      <a class="btn btn-primary" href="<%= page.url %>">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
+
+      <hr>
+  </div>
 <% end %>
 
-</section>
+<%- @partial('side') %>
 
-
-</section>
+</div>
+<hr>

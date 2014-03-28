@@ -1,24 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="zh_CN">
+<head>
     <meta charset="utf-8">
-    <title><%= @getPreparedTitle() %></title>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
     <meta name="description" content="<%= @getPreparedDescription() %>">
-    <meta name="revisit-after" content="7 days">
-    <%- @getBlock("styles").add(["/assets/style/styles.css", "/assets/style/monokai_sublime.css"]).toHTML() %>
+    <meta name="author" content="<%= @site.author %>">
+    <title><%= @getPreparedTitle() %></title>
     <%- if @include3rd then @partial('stat') %>
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <ul>
-          <% for page in @getCollection("html").findAllLive({isMenu:true}, {menupri:-1}).toJSON(): %>
-            <li><a class="buttons github" href="<%= page.url %>"><%= page.title %></a></li>
-          <% end %>
-        </ul>
+</head>
 
-        <h1 class="header"><a href="<%= @getUrl('/index.html') %>" class="nounderline">Mr. C</a></h1>
-        <p class="header">int main = 0; // Ooops?</p>
-      </header>
+<body>

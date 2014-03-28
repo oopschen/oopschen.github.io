@@ -4,6 +4,8 @@ title: Profile
 isMenu: true
 menupri: 9
 ---
+<%- @getBlock("styles").add(["/css/highlight.css"]).toHTML() %>
+
 ### Mr. C Profile
 
     #include <stdio.h>

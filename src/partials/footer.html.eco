@@ -1,9 +1,5 @@
-      <%- if @include3rd and @includeComm then @partial('comm') %>
-      <footer>
-        <p><small>Hosted on <a href="<%= @getUrl("/") %>">GitHub Pages</a> using the Dinky theme modified by Mr. C</small></p>
-      </footer>
-    </div>
-    
   </body>
+
+  <%- @getBlock("scripts").add(["/js/jquery.js", "/js/bootstrap.js"]).toHTML() %>
 
 </html>
