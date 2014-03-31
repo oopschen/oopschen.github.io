@@ -22,7 +22,7 @@
     <!-- /well -->
   <% tags = @getPreparedTags(@document) %>
   <% if 0 < tags.length : %>
-  <% tagColumLen = tags.length / 2 + 1 %>
+  <% tagColumLen = Math.floor(tags.length / 2) + 1 %>
     <div class="well">
         <h4>标签</h4>
         <div class="row">

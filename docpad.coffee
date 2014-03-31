@@ -67,7 +67,9 @@ module.exports = {
         tags = doc.tags
         tags2 = []
         for t in tags
-          tags2.push x for x in t.split "，"
+          for x in t.split "，"
+            if 0 < x.length
+              tags2.push x
         tags = tags2
       tags
 
