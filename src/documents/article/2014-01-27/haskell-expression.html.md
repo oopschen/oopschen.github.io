@@ -38,6 +38,7 @@ Expression
       |	qcon { fbind1 , … , fbindn }	    (labeled construction, n ≥ 0)
       |	aexp⟨qcon⟩ { fbind1 , … , fbindn }	    (labeled update, n  ≥  1)
   
+<!-- more --> 
 中缀(infix)
 ====  
 在这里我们似乎看到了一个很熟悉的名词--infix, 表达式解析的时候我们经常能看到infix.先来回顾下后缀, 中缀和前缀的*1 + 1*的表达式:

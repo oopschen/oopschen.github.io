@@ -5,12 +5,13 @@
 <%- @partial('nav') %>
 
 
+<div class="container">
 <div class="row">
     <div class="col-lg-8">
 
         <h1><%= @document.title %></h1>
         <p class="lead">
-          <a href="javascript:void(0);">Category:</a> 
+          <a href="javascript:void(0);">Category:&nbsp;</a> 
           <%= @document.category %>
         </p>
         <hr>
@@ -29,7 +30,8 @@
         <%- if @include3rd and not @document.noComm then @partial('comm') %>
     </div>
 
-  <%- @partial('side') %>
+  <%- @partial('side', {lastestPost: true}) %>
+</div>
 </div>
   
 <hr>  

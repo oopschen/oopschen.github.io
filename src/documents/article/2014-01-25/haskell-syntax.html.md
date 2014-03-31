@@ -28,6 +28,7 @@ Lexeme BNF
 
 上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义.这里值得关注的是newline中包含formfeed的定义,也就是ascii值为12的字符.其他的和其他语言类似.
   
+<!-- more --> 
 再来看看对comment的定义:
 
     comment	→	dashes [ any⟨symbol⟩ {any} ] newline

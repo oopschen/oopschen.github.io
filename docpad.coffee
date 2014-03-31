@@ -61,9 +61,6 @@ module.exports = {
     getPreparedDescription: ->
       @document.description or @site.description
 
-    getIndexPages: ->
-      @getCollection("indexPages")
-
     getPreparedTags: (doc) ->
       tags = []
       if doc.tags
@@ -90,17 +87,42 @@ module.exports = {
     formatDate: (x)->
       @moment(x).format('MMMM Do YYYY, HH:mm') 
 
+    subArray: (arr, maxlen) ->
+      if arr
+        if maxlen < arr.length
+          arr[0..maxlen-1]
+        else
+          arr
+      else
+        arr
+
+    shortenTitle: (title) ->
+      if not title
+        "none"
+      else if 32 < title.length
+        (title.substring 0, 32) + "..."
+      else
+        title
+      
+    getLatestPosts: ->
+      @subArray(@getCollection("pages").toJSON(), 3)
+
+    getCuttedContent: (content) ->            
+      i = content.search('<!-- more -->')
+      if i >= 0
+        content[0..i-1]                
+      else
+        content
+
+    hasReadMore: (content) ->
+        content.search('<!-- more -->') >= 0
+
   collections:
     pages: ->
       @getCollection("html").findAllLive({layout: "post"}, [{date: -1}])
 
     indexPages: ->
-      doc = @getCollection("html").findAllLive({layout: "post"}, [{date: -1}])
-      if doc
-        if 7 < doc.length
-          doc[0..7]
-        else
-          doc
+      @getCollection("html").findAllLive({layout: "post"}, [{date: -1}])
         
   environments:  
     development:  

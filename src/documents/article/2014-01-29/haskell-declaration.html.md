@@ -47,6 +47,7 @@ Declarations
 2. 类型类和重载, 包含class, instance, default  
 3. 层级的声明, 包含value binding, type signatures和fixity  
   
+<!-- more --> 
 
 我们来看下class **Num**在Prelude中的定义:
 

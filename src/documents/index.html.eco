@@ -4,10 +4,12 @@ title: Blog
 isMenu: true
 menupri: 10
 ---
+<%- @getBlock("styles").add(["/css/highlight.css"]).toHTML() %>
+
 <div class="row">
 
 <div class="col-lg-8">
-<% for page in @getIndexPages("indexPages").toJSON(): %>
+<% for page in @subArray(@getCollection("indexPages").toJSON(), 5): %>
 
       <!-- blog entry -->
       <h1><a href="<%= page.url %>"><%= page.title %></a>
@@ -15,12 +17,15 @@ menupri: 10
       <hr>
 
       <p>
-          <span class="glyphicon glyphicon-time"></span> Posted on <%= @formatDate(@document.udate) %> </p>
+          <span class="glyphicon glyphicon-time"></span> Posted on <%= @formatDate(page.udate) %> </p>
       <hr>
 
-      <%- page.summary %>
+      <%- @getCuttedContent(String(page.contentRenderedWithoutLayouts)) %>
+      <% if @hasReadMore(String(page.contentRenderedWithoutLayouts)): %>
+        <br/>
+        <a class="btn btn-primary" href="<%= page.url %>">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
+      <% end %>
 
-      <a class="btn btn-primary" href="<%= page.url %>">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
 
       <hr>
 <% end %>

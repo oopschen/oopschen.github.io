@@ -13,6 +13,7 @@ category: 技术
   
 在Haskell中, 所有操作符, 比如+, =, .等, 都是函数, 我想这也可能是他是最纯粹的函数语言的原因之一. 所以这些操作符都是由用户实现的, 而实现他们的正是标准库**Prelude**. 貌似扯远了, 再回到Typeclass. Haskell就是通过Typeclass从而实现了, 操作符对不同类型的支持.  
   
+<!-- more --> 
 先来看段完整的例子:
 
     data People = Peo {

@@ -21,20 +21,49 @@
 
     <!-- /well -->
   <% tags = @getPreparedTags(@document) %>
-    <% if 0 < tags.length : %>
+  <% if 0 < tags.length : %>
+  <% tagColumLen = tags.length / 2 + 1 %>
     <div class="well">
         <h4>标签</h4>
         <div class="row">
+
             <div class="col-lg-6">
                 <ul class="list-unstyled">
-                  <% for tag in tags: %>
+                  <% for tag in tags[0..tagColumLen-1]: %>
                       <li><a href="javascript:void(0);"><%= tag %></a></li>
+                  <% end %>
+                </ul>
+            </div>
+
+            <div class="col-lg-6">
+                <ul class="list-unstyled">
+                  <% for tag in tags[tagColumLen..tags.length-1]: %>
+                      <li><a href="javascript:void(0);"><%= tag %></a></li>
+                  <% end %>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+  <% end %>
+
+  <% if @lastestPost : %>
+  <% posts = @getLatestPosts() %>
+    <% if 0 < posts.length : %>
+    <div class="well">
+        <h4>最新文章</h4>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="list-unstyled">
+                  <% for post in posts: %>
+                      <li><a href="<%= post.url %>"><%= @shortenTitle(post.title) %></a></li>
                   <% end %>
                 </ul>
             </div>
         </div>
     </div>
     <% end %>
+  <% end %>
 
     <div class="well">
       广告位出租
