@@ -1,22 +1,55 @@
+{-
+ - Xmonad configuration file
+ - @author linxray@gmail.com
+ - @since 2014.3.8
+ - 
+ - features:
+ -  key binding:
+ -    M-d: run app launcher
+ -    M-s: run ssh
+ -    defaults
+ -
+ -  layouts:
+ -    1. full screen, default
+ -    2. auto master focus and grid
+ -    2. auto master focus and grid, tall
+ -
+ -  workspace:
+ -    1. main, default
+ -    2. web, browser
+ -    3. im, skype, webqq
+ -    4. media, tab with "Chromium" title
+ -    5. other, reserved
+ -
+ -}
 import XMonad
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
-import System.IO
+import XMonad.Util.EZConfig(additionalKeysP)
 import qualified XMonad.StackSet as W
-import XMonad.Util.EZConfig
 import Data.List
 import Data.Char
 import Control.Monad
+-- layout
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Master
+import XMonad.Layout.GridVariants
+-- prompt
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+import XMonad.Prompt.Ssh
 
 
-myWorkspaces = ["main","web","im","media", "other", "6", "7", "8", "9"]
+myWorkspaces = ["main","web","im","media", "other"]
+chromeFullModeTitle = "Google Chrome"
+
+mylayouts = Full ||| myGrid 
+  where 
+    myGrid = SplitGrid T 1 1 (2/5) (16/9) (5/100)
+    myTall = mastered (1/100) (1/3) $ Tall 1 (5/100) (2/3)
 
 myManageHook = composeAll . concat $
    [
-     [ title =? "Chromium" --> viewShift "media" ] -- full screen page will have Chromium in title
+     [ title =? chromeFullModeTitle --> doFloat ] -- full screen page will have Chromium in title
+     , [ title =? chromeFullModeTitle --> viewShift "media" ] -- full screen page will have Chromium in title
      , [ fmap ( b `isInfixOf`) className --> viewShift "main" | b <- devShfits ]
      , [ fmap ( b `isInfixOf`) className --> viewShift "web" | b <- webShifts ]
      , [ fmap ( b `isInfixOf`) className --> viewShift "media" | b <- mediaShifts ]
@@ -24,26 +57,38 @@ myManageHook = composeAll . concat $
    ]
    where 
     viewShift = doF . liftM2 (.) W.greedyView W.shift
-    webShifts = ["Chromium"]
-    devShfits = ["urxvt", "Terminal"]
+    webShifts = ["google-chrome-stable", "Google-chrome-stable"]
+    devShfits = ["URxvt"]
     imShifts = ["Skype"]
-    mediaShifts = ["mplayer"]
+    mediaShifts = ["MPlayer"]
 
--- M-r means run programs
+myXPConfig = defaultXPConfig {
+          font = "xft:Source Code Pro:size=11, xft:WenQuanYi Zen Hei Mono:size=11",
+          fgColor = "#3079ed",
+          bgColor = "#F1FFFF",
+          position = Top,
+          height = 23,
+          promptBorderWidth=0,
+          historySize = 10000
+        }
+
 myKeys = [ 
-          ("M-r c", spawn "chromium")
-          , ("M-r i", spawn "fcitx")
+        ("M-d", shellPrompt myXPConfig)
+        ,("M-s", sshPrompt myXPConfig)
         ] 
 
-main = do
-    xmonad $ defaultConfig {
+myXmonadConfig = defaultConfig {
             workspaces = myWorkspaces
           , manageHook = myManageHook
           , terminal = "urxvt"
           , modMask = mod4Mask
-          , borderWidth = 2
+          , borderWidth = 1
           , focusedBorderColor = "#3079ed"
-          , layoutHook = smartBorders $ layoutHook defaultConfig
+          , layoutHook = smartBorders mylayouts
         }
         `additionalKeysP` myKeys
+
+
+main = do
+    xmonad myXmonadConfig
         
