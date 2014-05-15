@@ -65,9 +65,6 @@
     <% end %>
   <% end %>
 
-    <div class="well">
-      广告位出租
-    </div>
     <!-- /well -->
 </div>
 
