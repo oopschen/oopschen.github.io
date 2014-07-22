@@ -32,3 +32,14 @@ window是session的具体展现,可以理解为我们能看到的session.
   
 #### pane  
 pane是把window切割成多个部分,也就是说我们可以在一个window中看到多个ssh.  
+  
+### 使用后感受  
+使用了tmux大概有3天, 总体感觉得心应手, 特别是session的概念, 让多个程序管理起来有序,清晰, 非常使用.  
+下面罗列下常用的组合(所有组合都是默认的均未特别设置过):  
+  
+1. ctrl+b + [, 进入scroll模式, 默认用emacs的按键来移动, 也可配置成vi的模式  
+2. ctrl+b + [ 进入scroll模式后科使用space进入复制选择模式, 然后用enter复制选中的文本  
+3. ctrl+b + :, 进入tmux的命令行, 比如可以重开session, killsession等  
+4. ctrl+b + %, 新建pane并按垂直分割, ctrl+b + %, 水平新建pane  
+5. ctrl+b + s, 查看所有session  
+6. ctrl+b + ?, 查看按键绑定
