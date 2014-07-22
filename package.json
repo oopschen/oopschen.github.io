@@ -19,7 +19,8 @@
     "docpad-plugin-cleancss": "~2.0.2",
     "docpad-plugin-uglify": "~2.3.0",
     "safeps": "~2.2.11",
-    "grunt": "~0.4.4"
+    "grunt": "~0.4.4",
+    "docpad-plugin-grunt": "~2.1.1"
   },
   "main": "node_modules/docpad/bin/docpad-server",
   "scripts": {
