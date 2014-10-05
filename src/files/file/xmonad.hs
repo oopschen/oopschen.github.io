@@ -6,7 +6,6 @@
  - features:
  -  key binding:
  -    M-d: run app launcher
- -    M-s: run ssh
  -    defaults
  -
  -  layouts:
@@ -30,37 +29,35 @@ import Data.Char
 import Control.Monad
 -- layout
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Master
 import XMonad.Layout.GridVariants
 -- prompt
 import XMonad.Prompt
 import XMonad.Prompt.Shell
-import XMonad.Prompt.Ssh
+import XMonad.Hooks.SetWMName
+import XMonad.Util.Run(unsafeSpawn)
+import XMonad.Util.Run(safeSpawnProg)
 
 
-myWorkspaces = ["main","web","im","media", "other"]
-chromeFullModeTitle = "Google Chrome"
+myWorkspaces = ["terminal", "ide", "web", "main", "media", "other", "o1", "o2", "o3"]
 
-mylayouts = Full ||| myGrid 
+mylayouts = noBorders Full ||| myTall
   where 
     myGrid = SplitGrid T 1 1 (2/5) (16/9) (5/100)
-    myTall = mastered (1/100) (1/3) $ Tall 1 (5/100) (2/3)
+    myTall = Tall 1 (2/100) (1/2)
 
 myManageHook = composeAll . concat $
    [
-     [ title =? chromeFullModeTitle --> doFloat ] -- full screen page will have Chromium in title
-     , [ title =? chromeFullModeTitle --> viewShift "media" ] -- full screen page will have Chromium in title
-     , [ fmap ( b `isInfixOf`) className --> viewShift "main" | b <- devShfits ]
+     [ fmap ( b `isInfixOf`) className --> viewShift "terminal" | b <- devShifts ]
+     , [ fmap ( b `isInfixOf`) className --> viewShift "ide" | b <- ideShifts ]
      , [ fmap ( b `isInfixOf`) className --> viewShift "web" | b <- webShifts ]
      , [ fmap ( b `isInfixOf`) className --> viewShift "media" | b <- mediaShifts ]
-     , [ fmap ( b `isInfixOf`) className --> viewShift "im" | b <- imShifts ]
    ]
    where 
-    viewShift = doF . liftM2 (.) W.greedyView W.shift
+    viewShift = doF . W.shift
     webShifts = ["google-chrome-stable", "Google-chrome-stable"]
-    devShfits = ["URxvt"]
-    imShifts = ["Skype"]
-    mediaShifts = ["MPlayer"]
+    devShifts = ["URxvt"]
+    ideShifts = [ "jetbrains-idea-ce"]
+    mediaShifts = ["MPlayer", "mplayer2"]
 
 myXPConfig = defaultXPConfig {
           font = "xft:Source Code Pro:size=11, xft:WenQuanYi Zen Hei Mono:size=11",
@@ -73,8 +70,7 @@ myXPConfig = defaultXPConfig {
         }
 
 myKeys = [ 
-        ("M-d", shellPrompt myXPConfig)
-        ,("M-s", sshPrompt myXPConfig)
+        ("M-r", shellPrompt myXPConfig)
         ] 
 
 myXmonadConfig = defaultConfig {
@@ -85,6 +81,11 @@ myXmonadConfig = defaultConfig {
           , borderWidth = 1
           , focusedBorderColor = "#3079ed"
           , layoutHook = smartBorders mylayouts
+          , startupHook = do
+              setWMName "LG3D" -- java gui program must have this
+              unsafeSpawn "urxvt -e tmux -2 attach"
+              safeSpawnProg "google-chrome-stable"
+              safeSpawnProg "fcitx"
         }
         `additionalKeysP` myKeys
 
