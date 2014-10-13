@@ -7,7 +7,7 @@ udate: 2014-01-21 10:02:11
 category: 杂谈
 ---
   
-[config]: <%= @getUrl("/file/xmonad.hs") %> "默认Xmonad配置"  
+[config]: https://github.com/oopschen/linuxmisc/blob/master/.xmonad/xmonad.hs "默认Xmonad配置"  
   
 一直在用xfce和docky构成的类mac os的桌面系统，最近看腻了，换个新鲜的玩玩。不搜不知道，一搜吓一跳，桌面系统已经有很多版本了，比如基于box概念的gnome，kde，xfce，基于tiling概念的xmonad，awesome等。今天我就来玩玩xmonad的桌面。  
   
