@@ -1,5 +1,4 @@
 <%- @partial('header') %>
-<%- @getBlock("styles").add(["/css/bootstrap.css", "/css/clean-blog.css"]).toHTML() %>
 
 <%- @partial('nav') %>
 

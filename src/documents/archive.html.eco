@@ -4,22 +4,12 @@ title: Archive
 isMenu: true
 menupri: 8
 ---
-<div class="row">
-    <div class="col-lg-8">
-
-    <% obj = @formatArchive(@getCollection("pages").toJSON()) %>
-    <% for year in obj["list"]: %>
-          <h3><%= year %>年</h3>
-            <% for page in obj[year]: %>
-              <li><a href="<%= page.url %>"><%= page.title %></a></li>
-            <% end %>
-          </ul>
-          <hr>
-    <% end %>
-
-    </div>
-
-  <%- @partial('side') %>
-</div>
-  
-<hr>  
+<% obj = @formatArchive(@getCollection("pages").toJSON()) %>
+<% for year in obj["list"]: %>
+      <h3><%= year %>年</h3>
+        <% for page in obj[year]: %>
+          <li><a href="<%= page.url %>"><%= page.title %></a></li>
+        <% end %>
+      </ul>
+      <hr>
+<% end %>

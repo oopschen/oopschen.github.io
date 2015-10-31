@@ -1,39 +1,37 @@
 <%- @partial('header') %>
 
-<%- @getBlock("styles").add(["/css/bootstrap.css", "/css/blog-post.css", "/css/highlight.css"]).toHTML() %>
-
 <%- @partial('nav') %>
 
 
-<div class="container">
-<div class="row">
-    <div class="col-lg-8">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <h1><%= @document.title %></h1>
+              <p class="lead">
+                <a href="javascript:void(0);">Category:&nbsp;</a> 
+                <%= @document.category %>
+              </p>
+              <hr>
+              <p>
+                  <span class="glyphicon glyphicon-time"></span>
+                  <%= if @document.date == @document.udate then "Posted on" else "Updated on" %>@<%= @formatDate(@document.udate) %>
+              </p>
+              <hr>
 
-        <h1><%= @document.title %></h1>
-        <p class="lead">
-          <a href="javascript:void(0);">Category:&nbsp;</a> 
-          <%= @document.category %>
-        </p>
-        <hr>
-        <p>
-            <span class="glyphicon glyphicon-time"></span>
-            <%= if @document.date == @document.udate then "Posted on" else "Updated on" %>@<%= @formatDate(@document.udate) %>
-        </p>
-        <hr>
-
-        <%- @content %>
+              <%- @content %>
 
 
-        <%- if @include3rd then @partial('share') %>
-        <hr>
+              <%- @partial('share') if @include3rd %>
+              <hr>
 
-        <%- if @include3rd and not @document.noComm then @partial('comm') %>
+              <%- @partial('comm') if @include3rd and not @document.noComm %>
+
+
+            </div>
+        </div>
     </div>
-
-  <%- @partial('side', {lastestPost: true}) %>
-</div>
-</div>
-  
-<hr>  
+</article>
 
 <%- @partial('footer') %>

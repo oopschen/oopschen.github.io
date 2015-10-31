@@ -6,6 +6,8 @@
     <meta name="description" content="<%= @getPreparedDescription() %>">
     <meta name="author" content="<%= @site.author %>">
     <title><%= @getPreparedTitle() %></title>
+    <%- @getBlock("styles").add(["/css/bootstrap.css", "/css/clean-blog.css"]).toHTML() %>
+
     <%-@partial('stat') if @include3rd %>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
