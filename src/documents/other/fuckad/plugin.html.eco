@@ -1,18 +1,18 @@
 ---
 layout: other
-title: fuckad广告和公告页面，请见谅
+title: fuckad广告和公告页面,请见谅
 ---
-  <div>您可以通过点击页面下方的广告，分享插件给朋友，<a href="<%= @site.donateURL %>">捐赠现金</a>和送我ripple币（地址：<%= @site.rippleaddr %>）来帮助我维护这个插件。</div>
+  <div>您可以通过点击页面下方的广告,分享插件给朋友,<a href="<%= @site.donateURL %>">捐赠现金</a>和送我ripple币（地址：<%= @site.rippleaddr %>）来帮助我维护这个插件。</div>
   <div>
     <h3>升级后遗症</h3>
-    <p>由于加入新的网站导致的权限问题，每当插件升级的时候，chrome会自动将插件禁止，不能用的用户可以在chrome://extensions页面重新启用插件。</p>
+    <p>由于加入新的网站导致的权限问题,每当插件升级的时候,chrome会自动将插件禁止,不能用的用户可以在chrome://extensions页面重新启用插件。</p>
   </div>
   <div>  
     <h3>特色 </h3>
-    安装后会在各大支持屏蔽的网站打开时展现一个彩色导航条，方便大家在各大视频网站穿梭，如下图。<br/>
+    安装后会在各大支持屏蔽的网站打开时展现一个彩色导航条,方便大家在各大视频网站穿梭,如下图。<br/>
     <img src='<%= @getUrl("/img/fuckad/navihidden.png") %>' style="max-width:1000px;width:1000px;height:100px;overflow:hidden;"/><br/>
   
-当鼠标移上去时会出现导航条全景，当然还有捐赠地址和作者博客。<br/>  
+当鼠标移上去时会出现导航条全景,当然还有捐赠地址和作者博客。<br/>  
 <img src='<%= @getUrl("/img/fuckad/navishow.png") %>' style="max-width:1000px;width:1000px;height:100px;overflow:hidden;"/>
   </div>  
 

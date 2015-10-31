@@ -9,7 +9,7 @@ category:
 [dom2]: http://www.w3.org/TR/DOM-Level-2-Events/ "DOM2 EVENT SPEC"
 [dom3]: http://www.w3.org/TR/DOM-Level-3-Events/ "DOM3 EVENT SPEC"
 
-在javascript中模拟dom的事件是一件非常有趣的事情，他不仅可以将人工机器化，也让页面变得更加丰富。DOM时间参考资料可参见[DOM2][dom2]和[DOM3][dom3]。   
+在javascript中模拟dom的事件是一件非常有趣的事情,他不仅可以将人工机器化,也让页面变得更加丰富。DOM时间参考资料可参见[DOM2][dom2]和[DOM3][dom3]。   
   
 #### 常用方式
 我们在javascript中模拟dom事件一般用两种方法：  
@@ -30,10 +30,10 @@ category:
     element.dispatchEvent(evt);
 
 ##### 区别
-这两种方式其实没有区别，都会进行完整的时间传递从capture phase到target phase，最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数，比如点击的位置等。  
+这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。  
   
 #### webkit 中KeyboardEvent
-在webkit中无法通过KeyboardEvent来完全模拟按键，原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：  
+在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：  
 
     // Event Constructor Syntax:
     [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)]
@@ -53,7 +53,7 @@ category:
     };
   
 我们来主要看几个参数：  
-1. charArg表示按键的值和keyArg等同，如果值是不可见字符则charArg为空字符
+1. charArg表示按键的值和keyArg等同,如果值是不可见字符则charArg为空字符
 2. modifiersListArg表示是否有按键Control等修饰符
   
 然而在webkit中*core/dom/KeyboardEvent.idl*中确是这样的代码:
@@ -71,7 +71,7 @@ category:
                            [Default=Undefined] optional boolean metaKey,
                            [Default=Undefined] optional boolean altGraphKey);
   
-和上面完全不一致，而从实现的类的177到200行来看我们无法通过创建KeyboardEvent来创建一个按键，因为无法设置keyCode值。
+和上面完全不一致,而从实现的类的177到200行来看我们无法通过创建KeyboardEvent来创建一个按键,因为无法设置keyCode值。
 
     int KeyboardEvent::keyCode() const
     {
@@ -97,7 +97,7 @@ category:
         return static_cast<int>(text.characterStartingAt(0));
     }
 
-m_keyEvent是一个PlatformKeyboardEvent的实例，而这个实例无法通过js创建。  
+m_keyEvent是一个PlatformKeyboardEvent的实例,而这个实例无法通过js创建。  
   
 #### 总结
-在这个实现未被修改之前，我们仍无法通过javascript在webkit内核下创建一个真实的按键效果。
+在这个实现未被修改之前,我们仍无法通过javascript在webkit内核下创建一个真实的按键效果。
