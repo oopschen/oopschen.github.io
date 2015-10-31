@@ -3,6 +3,10 @@ var _ = require('underscore');
 module.exports = {
   port: 8080,
   plugins: {
+    ghpages: {
+      deployRemote: 'origin',
+      deployBranch: 'master'
+    },
     marked: {
       pedantic: false,
       gfm: true,
@@ -64,7 +68,7 @@ module.exports = {
     }, 
 
     getPreparedTitle: function(){
-      return this.document.title ?  
+      return !this.document.title ?  
         "#{this.document.title} | #{this.site.title}"
         : this.site.title;
     },
