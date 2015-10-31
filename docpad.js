@@ -50,7 +50,6 @@ module.exports = {
     }
   },
 
-
   templateData : {
     site: {
       title: "Mr.C Blog",
@@ -78,7 +77,7 @@ module.exports = {
       var tags = [];
       if (doc.hasOwnProperty('tags')) {
         _.each(doc.tags, function(tag) {
-          _.each(tags[t].split(","), function(t) {
+          _.each(tag.split(","), function(t) {
             if (0 < t.length) {
               tags.push(t);
             }
@@ -92,21 +91,30 @@ module.exports = {
     },
 
     formatArchive: function(colls){
-      page = {};
+      var page = {};
       if (colls) {
         _.each(colls, function(col) {
-          var y = p.date.getFullYear();
+          var y = col.date.getFullYear();
           if (y in page) {
-            page[y].push(colls[p]);
+            page[y].push(col);
           } else {
-            page[y] = [colls[0]];
+            page[y] = [col];
           }
 
         });
       }
 
-      // TODO page["list"] = _.sortBy(page, ) (y for y of page).sort (a,b){ b - a
+      var sortList = [];
+      _.each(page, function(val, year) {
+        sortList.push(year);
+      });
+      page["list"] = _.sortBy(sortList, function(year) { return -year;});
+
       return page;
+    },
+
+    subArray: function(list, num) {
+      return _.first(list, num);
     },
 
     formatDate: function(x) {
