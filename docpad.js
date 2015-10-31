@@ -58,7 +58,7 @@ module.exports = {
     site: {
       title: "Mr.C Blog",
       author: "Mr.C",
-      description: "Focued on Tech",
+      description: "Focused on Tech",
       donateURL: "https://me.alipay.com/sangeshitou",
       rippleaddr: "rMffqNoGBzzdzWTqtdeGto74GypdToywML",
       githubPage: "https://github.com/oopschen"

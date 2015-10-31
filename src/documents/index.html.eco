@@ -5,25 +5,20 @@ isMenu: true
 menupri: 10
 ---
 <%- @getBlock("styles").add(["/css/highlight.css"]).toHTML() %>
-<div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-      <% for page in @subArray(@getCollection("indexPages").toJSON(), 5): %>
-        <div class="post-preview">
-            <a href="<%= page.url %>">
-                <h2 class="post-title">
-                  <%= page.title %>
-                </h2>
+<% for page in @subArray(@getCollection("indexPages").toJSON(), 5): %>
+  <div class="post-preview">
+      <a href="<%= page.url %>">
+          <h2 class="post-title">
+            <%= page.title %>
+          </h2>
 
-                <% if page.subtitle: %>
-                  <h3 class="post-subtitle">
-                    <%= page.subtitle %>
-                  </h3>
-                <% end %>
-            </a>
-            <p class="post-meta">Posted on <%= @formatDate(page.udate) %></p>
-          </div>
-      <% end %>
-
+          <% if page.subtitle: %>
+            <h3 class="post-subtitle">
+              <%= page.subtitle %>
+            </h3>
+          <% end %>
+      </a>
+      <p class="post-meta">Posted on <%= @formatDate(page.udate) %></p>
     </div>
-</div>
+<% end %>
