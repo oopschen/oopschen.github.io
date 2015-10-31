@@ -2,24 +2,31 @@
 
 <%- @partial('nav') %>
 
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1><%= @document.title %></h1>
+                    <h2 class="subheading">
+                      [<%= @document.category %>]
+                      <%= @document.subtitle if @document.subtitle %>
+                    </h2>
+                    <span class="meta">
+                        <%= if @document.date == @document.udate then "Posted on" else "Updated on" %>@<%= @formatDate(@document.udate) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <!-- Post Content -->
 <article>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-              <h1><%= @document.title %></h1>
-              <p class="lead">
-                <a href="javascript:void(0);">Category:&nbsp;</a> 
-                <%= @document.category %>
-              </p>
-              <hr>
-              <p>
-                  <span class="glyphicon glyphicon-time"></span>
-                  <%= if @document.date == @document.udate then "Posted on" else "Updated on" %>@<%= @formatDate(@document.udate) %>
-              </p>
-              <hr>
-
               <%- @content %>
 
 
@@ -34,4 +41,5 @@
     </div>
 </article>
 
+<hr>
 <%- @partial('footer') %>
