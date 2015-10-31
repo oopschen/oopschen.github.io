@@ -1,5 +1,5 @@
   </body>
 
-  <%- @getBlock("scripts").add(["/js/jquery.js", "/js/bootstrap.js"]).toHTML() %>
+  <%- @getBlock("scripts").add(["/lib/jquery.min.js", "/lib/bootstrap.min.js", "/lib/clean-blog.min.js"]).toHTML() %>
 
 </html>

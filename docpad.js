@@ -60,7 +60,8 @@ module.exports = {
       author: "Mr.C",
       description: "Focued on Tech",
       donateURL: "https://me.alipay.com/sangeshitou",
-      rippleaddr: "rMffqNoGBzzdzWTqtdeGto74GypdToywML"
+      rippleaddr: "rMffqNoGBzzdzWTqtdeGto74GypdToywML",
+      githubPage: "https://github.com/oopschen"
     },
         
     getThisYear: function () {

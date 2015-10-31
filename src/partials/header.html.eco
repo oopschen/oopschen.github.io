@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
     <meta name="description" content="<%= @getPreparedDescription() %>">
     <meta name="author" content="<%= @site.author %>">
     <title><%= @getPreparedTitle() %></title>
-    <%- if @include3rd then @partial('stat') %>
+    <%-@partial('stat') if @include3rd %>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <%- @getBlock("scripts").add(["/lib/html5shiv.js", "/lib/respond.min.js"]).toHTML() %>
+    <![endif]-->
 </head>
 
 <body>
