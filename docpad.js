@@ -190,7 +190,7 @@ module.exports = {
     },
 
     // for github push
-    deploy: {
+    static: {
       enabled: true,
       templateData : { 
         include3rd : true,
