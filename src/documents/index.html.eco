@@ -19,6 +19,6 @@ menupri: 10
             </h3>
           <% end %>
       </a>
-      <p class="post-meta">Posted on <%= @formatDate(page.udate) %></p>
+      <p class="post-meta">Posted on <%= @formatDate(page.date) %></p>
     </div>
 <% end %>

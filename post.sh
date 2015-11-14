@@ -15,8 +15,8 @@ cat > ${targetfile} <<EOF
 layout: post
 title: 
 tags: 
-date: #date#
-udate: #date#
+date: '#date#'
+udate: '#date#'
 category: 
 ---
 EOF
