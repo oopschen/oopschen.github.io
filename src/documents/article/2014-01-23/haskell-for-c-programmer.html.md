@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记二--理解Haskell的思路
 tags: Haskell, how to work
-date: 2014-01-23 17:18:00
-udate: 2014-01-23 17:18:00
+date: '2014-01-23 17:18:00'
+udate: '2014-01-23 17:18:00'
 category: 技术
 ---
   

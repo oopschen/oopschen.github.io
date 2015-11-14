@@ -2,8 +2,8 @@
 layout: post
 title: Nginx - CPU Cacheline 深思
 tags: nginx,cache, cpu cacheline
-date: 2013-09-01 19:38:24
-udate: 2013-09-01 19:38:24
+date: '2013-09-01 19:38:24'
+udate: '2013-09-01 19:38:24'
 category: 技术
 ---
   

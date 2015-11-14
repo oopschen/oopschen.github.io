@@ -2,8 +2,8 @@
 layout: post
 title: Dig Nginx - Nginx 源代码初见
 tags: nginx source code overview,源代码,解读
-date: 2013-08-02 15:14:19
-udate: 2013-08-02 15:14:19
+date: '2013-08-02 15:14:19'
+udate: '2013-08-02 15:14:19'
 category: 技术
 ---
 最近有点时间,看了下nginx源代码,先对这部分内容做点小札记。  

@@ -2,8 +2,8 @@
 layout: post
 title: webkit下的KeyboardEvent模拟
 tags: webkit,js模拟KeyboardEvent
-date: 2013-06-17 10:14:13
-udate: 2013-06-17 10:14:13
+date: '2013-06-17 10:14:13'
+udate: '2013-06-17 10:14:13'
 category: 
 ---
 [dom2]: http://www.w3.org/TR/DOM-Level-2-Events/ "DOM2 EVENT SPEC"

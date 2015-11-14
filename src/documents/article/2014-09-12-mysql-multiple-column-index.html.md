@@ -2,8 +2,8 @@
 layout: post
 title: Mysql 复合索引记录
 tags: mysql, multiple-column index
-date: 2014-09-12 17:51:56
-udate: 2014-09-14 09:51:56
+date: '2014-09-12 17:51:56'
+udate: '2014-09-14 09:51:56'
 category: 技术
 ---
   

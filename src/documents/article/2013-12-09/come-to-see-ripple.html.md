@@ -2,8 +2,8 @@
 layout: post
 title: ripple币的一些想法 
 tags: ripple, ripple币
-date: 2013-12-09 16:13:59
-udate: 2013-12-09 16:13:59
+date: '2013-12-09 16:13:59'
+udate: '2013-12-09 16:13:59'
 category: 杂谈
 ---
   

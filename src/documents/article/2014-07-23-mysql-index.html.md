@@ -2,8 +2,8 @@
 layout: post
 title: Mysql使用index基本原则
 tags: mysql, index, cluster index, secondary index
-date: 2014-07-23 09:24:37
-udate: 2014-07-23 09:24:37
+date: '2014-07-23 09:24:37'
+udate: '2014-07-23 09:24:37'
 category: 技术
 ---
   

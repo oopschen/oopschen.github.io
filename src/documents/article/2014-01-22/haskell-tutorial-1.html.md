@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记一--Overview
 tags: haskell, tutorial
-date: 2014-01-22 10:23:18
-udate: 2014-01-22 10:23:18
+date: '2014-01-22 10:23:18'
+udate: '2014-01-22 10:23:18'
 category: 技术,haskell
 ---
   

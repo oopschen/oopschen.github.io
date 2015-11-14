@@ -2,8 +2,8 @@
 layout: post
 title: Linux 时间
 tags: linux,时间,系统时间,硬件时间,hwclock,date
-date: 2013-06-11 17:52:55
-udate: 2013-06-11 17:52:55
+date: '2013-06-11 17:52:55'
+udate: '2013-06-11 17:52:55'
 category: 技术
 ---
 

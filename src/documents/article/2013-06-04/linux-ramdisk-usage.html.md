@@ -2,8 +2,8 @@
 layout: post
 title: Linux下的Ramdisk使用
 tags: linux,ramdisk,tmpfs,ramfs,setcap,capability
-date: 2013-06-04 09:51:35
-udate: 2013-06-04 09:51:35
+date: '2013-06-04 09:51:35'
+udate: '2013-06-04 09:51:35'
 category: 技术
 ---
 [redhatbug]: https://bugzilla.redhat.com/show_bug.cgi?id=648653 "Setcap 无法使用在tmpfs文件上bug"

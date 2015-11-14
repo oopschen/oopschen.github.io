@@ -2,8 +2,8 @@
 layout: post
 title: 如何获取某个国家的ip段分配,以及ip所对应的服务商
 tags: ip段,ip拥有者,apnic, 国内ip地址库,IANA
-udate: 2013-07-26 14:29:00
-date: 2013-05-31 16:45:00
+udate: '2013-07-26 14:29:00'
+date: '2013-05-31 16:45:00'
 category: 技术
 ---
 [IANAwebsite]: http://www.iana.org/ "IANA Website"

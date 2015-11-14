@@ -2,8 +2,8 @@
 layout: post
 title: 尝试Tmux
 tags: tmux, linux, terminals
-date: 2014-07-19 19:41:48
-udate: 2014-07-19 19:41:48
+date: '2014-07-19 19:41:48'
+udate: '2014-07-19 19:41:48'
 category: 技术
 ---
 [tmuxsite]: http://tmux.sourceforge.net/ "Tmux Website"

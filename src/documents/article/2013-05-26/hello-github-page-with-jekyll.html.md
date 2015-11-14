@@ -2,8 +2,8 @@
 layout: post
 title: 博客迁移到github
 tags: github,jekyll,tutorial,部署博客,迁移到jekyll
-date: 2013-05-26 18:00:00
-udate: 2013-07-25 10:44:00
+date: '2013-05-26 18:00:00'
+udate: '2013-07-25 10:44:00'
 category: 杂谈
 ---
 [jekyllwebsite]: http://jekyllrb.com/docs/home/ "Jekyll website"

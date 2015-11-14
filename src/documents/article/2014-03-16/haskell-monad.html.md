@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记- Monad, IO和Functor 
 tags: haskell, monad, io, functor
-date: 2014-03-16 09:24:08
-udate: 2014-03-16 09:24:08
+date: '2014-03-16 09:24:08'
+udate: '2014-03-16 09:24:08'
 category: 技术
 ---
   

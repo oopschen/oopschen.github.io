@@ -2,8 +2,8 @@
 layout: post
 title: 我们为什么要选择DNS服务器
 tags: DNS,加快上网速度,钓鱼,安全,翻墙
-date: 2013-06-06 08:46:56
-udate: 2013-06-06 08:46:56
+date: '2013-06-06 08:46:56'
+udate: '2013-06-06 08:46:56'
 category: 技术
 ---
 [baiduurl]: http://www.baidu.com, "百度"

@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记三--语法 
 tags: haskell, syntax, grammer, syntax
-date: 2014-01-25 15:36:26
-udate: 2014-01-25 15:36:26
+date: '2014-01-25 15:36:26'
+udate: '2014-01-25 15:36:26'
 category: 技术
 ---
   

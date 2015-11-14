@@ -2,8 +2,8 @@
 layout: post
 title: Dig Webcore - 代码生成机制
 tags: webkit,webcore,代码生成,idl,make-generated-sources.sh
-date: 2013-07-01 17:29:13
-udate: 2013-07-01 17:29:13
+date: '2013-07-01 17:29:13'
+udate: '2013-07-01 17:29:13'
 category: 技术
 ---
 [gperf]: http://www.gnu.org/software/gperf/manual/gperf.html#Top "GPERF DOC"

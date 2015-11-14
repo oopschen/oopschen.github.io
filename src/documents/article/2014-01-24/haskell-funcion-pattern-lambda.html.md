@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记一--More on function
 tags: Haskell, tutorial, function
-date: 2014-01-24 13:27:21
-udate: 2014-01-24 13:27:21
+date: '2014-01-24 13:27:21'
+udate: '2014-01-24 13:27:21'
 category: 技术
 ---
   

@@ -2,8 +2,8 @@
 layout: post
 title: 在linux下删除setitimer设置的timer
 tags: setitimer, linux, timer
-date: 2013-10-25 10:27:27
-udate: 2013-10-25 10:27:27
+date: '2013-10-25 10:27:27'
+udate: '2013-10-25 10:27:27'
 category: 技术
 ---
   

@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记--Declarations and Bindings
 tags: Haskell, declarations, bindings
-date: 2014-01-29 20:32:43
-udate: 2014-01-29 20:32:43
+date: '2014-01-29 20:32:43'
+udate: '2014-01-29 20:32:43'
 category: 技术, haskell
 ---
 即将到年三十了, 好学的年轻人还是决定在今天花一个小时提升下自己的技能. 今天来看看Haskell 2010语言规范中的Declarations和Bindings.  

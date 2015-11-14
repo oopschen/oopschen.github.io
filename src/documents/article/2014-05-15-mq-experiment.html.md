@@ -2,8 +2,8 @@
 layout: post
 title: MQ的尝试 
 tags: rabbitMQ, activemq
-date: 2014-05-15 19:14:32
-udate: 2014-05-15 19:14:32
+date: '2014-05-15 19:14:32'
+udate: '2014-05-15 19:14:32'
 category: 技术
 ---
   

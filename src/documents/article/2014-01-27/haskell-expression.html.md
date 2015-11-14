@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记--Expression
 tags: haskell, expression
-date: 2014-01-27 20:04:13
-udate: 2014-01-27 20:04:13
+date: '2014-01-27 20:04:13'
+udate: '2014-01-27 20:04:13'
 category: 技术
 ---
   

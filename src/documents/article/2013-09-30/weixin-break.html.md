@@ -2,8 +2,8 @@
 layout: post
 title: 微信破解研究总结 
 tags: 微信,破解,微信协议
-date: 2013-09-30 19:59:29
-udate: 2013-09-30 19:59:29
+date: '2013-09-30 19:59:29'
+udate: '2013-09-30 19:59:29'
 category: 技术 
 ---
 [apk]: https://code.google.com/p/android-apktool/ "APK"

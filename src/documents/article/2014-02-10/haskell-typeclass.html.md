@@ -2,8 +2,8 @@
 layout: post
 title: Haskell学习笔记--Typeclass
 tags: Haskell, typeclass
-date: 2014-02-10 20:08:23
-udate: 2014-02-10 20:08:23
+date: '2014-02-10 20:08:23'
+udate: '2014-02-10 20:08:23'
 category: 技术
 ---
   
