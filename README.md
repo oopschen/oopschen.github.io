@@ -17,6 +17,9 @@
 2. 主体
 3. 评论
   
+###### deploy
+
+    docpad deploy-ghpages --env static
 
 ## License
 Copyright &copy; 2014+ All rights reserved.
