@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Focused on Tech">
+    <meta name="author" content="Mr.C">
+    <title>Mr.C Blog</title>
+    <link  rel="stylesheet" href="/css/bootstrap.css" /><link  rel="stylesheet" href="/css/clean-blog.css" />
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49453400-1', 'oopschen.github.io');
+  ga('send', 'pageview');
+</script>
+<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb92e3fa3521db5146fa7ee476d69fa7f' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script defer="defer"  src="/lib/html5shiv.js"></script><script defer="defer"  src="/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://oopschen.github.io/index.html">Mr.C Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                  <li><a href="/index.html">Blog</a></li>
+                
+                  <li><a href="/about.html">Profile</a></li>
+                
+                  <li><a href="/archive.html">Archive</a></li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>CPU在linux下的调试</h1>
+                    <h2 class="subheading">
+                      [系统管理]
+                      
+                    </h2>
+                    <span class="meta">
+                        Updated on@December 4th 2015, 21:21
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <p>Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.</p>
+<p>先介绍一个工具--<strong>CPUPower</strong>, CPUPower是linux下展示和设置cpu相关属性的工具.</p>
+<h2 id="-">实验机器</h2>
+<p>cpu: i5-480m
+笔记本: thinkpad x201 nn5, 2011年款</p>
+<h2 id="-cpupower">应用cpupower</h2>
+<p>  cpupower frequency-info  </p>
+<p>会看到如下的提示:</p>
+<blockquote>
+<p>analyzing CPU 0:
+  driver: acpi-cpufreq<br>  CPUs which run at the same hardware frequency: 0<br>  CPUs which need to have their frequency coordinated by software: 0<br>  maximum transition latency: 10.0 us.<br>  hardware limits: 1.20 GHz - 2.67 GHz<br>  available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1.87 GHz, 1.73 GHz, 1.60 GHz, 1.47 GHz, 1.33 GHz, 1.20 GHz<br>  available cpufreq governors: userspace, ondemand, performance<br>  current policy: frequency should be within 1.20 GHz and 2.67 GHz.<br>                  The governor &quot;performance&quot; may decide which speed to use<br>                  within this range.<br>  current CPU frequency is 2.67 GHz (asserted by call to hardware).<br>  boost state support:<br>    Supported: yes<br>    Active: yes<br>    2200 MHz max turbo 2 active cores<br>    2200 MHz max turbo 1 active cores  </p>
+</blockquote>
+<p>从上面的输出结果可以看出cpu使用的Governor是<strong>performance</strong>, 当前cpu频率是2.67GHz. CPU可用的Governor有userspace, ondemand, performance, cpu可用的频率有2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1.87 GHz, 1.73 GHz, 1.60 GHz, 1.47 GHz, 1.33 GHz, 1.20 GHz.</p>
+<h2 id="cpu-governor">CPU Governor</h2>
+<table>
+  <tr>
+    <th>Governor</th>
+    <th>说明</th>
+  </tr>
+
+  <tr>
+    <td>performance</td>
+    <td>使用scaling_min_freq和scaling_max_freq之间最高的频率</td>
+  </tr>
+
+  <tr>
+    <td>ondemand</td>
+    <td>根据当前cpu的繁忙程度调整cpu的频率</td>
+  </tr>
+
+  <tr>
+    <td>userspace</td>
+    <td>允许uid为root的用户设置cpu频率</td>
+  </tr>
+</table>
+
+<h3 id="-governor">设置Governor</h3>
+<pre class="highlight"><code class="hljs lasso">cpupower <span class="hljs-attribute">-c</span> <span class="hljs-literal">all</span> frequency<span class="hljs-attribute">-set</span> <span class="hljs-subst">--</span>governor performance
+</code></pre><p>使用如上命令设置cpu governor为performance</p>
+<h3 id="-">设置频率</h3>
+<pre class="highlight"><code class="hljs lasso">cpupower <span class="hljs-attribute">-c</span> <span class="hljs-literal">all</span> frequency<span class="hljs-attribute">-set</span>  <span class="hljs-attribute">-f</span> <span class="hljs-number">1.33</span>GHz
+</code></pre><p>使用如上命令设置cpu的频率为1.33GHz</p>
+<h2 id="-">其他</h2>
+<p>使用过程中可能会遇到一个问题,当笔记本电脑没有接电池只接AC的时候,linux默认会使用最低频率.如想突破此限制,可以在内核启动参数中添加如下参数:</p>
+<pre class="highlight"><code class="hljs fix"><span class="hljs-attribute">processor.ignore_ppc</span>=<span class="hljs-string">1 
+</span></code></pre><p>此参数会忽略bios的限制.</p>
+
+
+
+              <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qq" data-cmd="qq" title="分享到QQ收藏"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin","tieba","douban","qq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin","tieba","douban","qq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+              <hr>
+
+              <script type="text/javascript"> var disqus_shortname = 'sangeshitou'; (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+  </body>
+
+  <script defer="defer"  src="/lib/jquery.min.js"></script><script defer="defer"  src="/lib/bootstrap.min.js"></script><script defer="defer"  src="/lib/clean-blog.min.js"></script>
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</html>
+

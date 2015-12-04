@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Focused on Tech">
+    <meta name="author" content="Mr.C">
+    <title>Mr.C Blog</title>
+    <link  rel="stylesheet" href="/css/bootstrap.css" /><link  rel="stylesheet" href="/css/clean-blog.css" />
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49453400-1', 'oopschen.github.io');
+  ga('send', 'pageview');
+</script>
+<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb92e3fa3521db5146fa7ee476d69fa7f' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script defer="defer"  src="/lib/html5shiv.js"></script><script defer="defer"  src="/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://oopschen.github.io/index.html">Mr.C Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                  <li><a href="/index.html">Blog</a></li>
+                
+                  <li><a href="/about.html">Profile</a></li>
+                
+                  <li><a href="/archive.html">Archive</a></li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>微信破解研究总结</h1>
+                    <h2 class="subheading">
+                      [技术]
+                      
+                    </h2>
+                    <span class="meta">
+                        Updated on@September 30th 2013, 19:59
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <p>微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。  </p>
+<h4 id="-">理论分析</h4>
+<p>首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：  </p>
+<ol>
+<li>android版本  </li>
+<li>iphone版本  </li>
+</ol>
+<p>由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。  </p>
+<h4 id="-">实践</h4>
+<p>android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择<a href="https://code.google.com/p/android-apktool/" title="APK">APK</a>进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是<a href="https://code.google.com/p/smali/" title="Smali">smali</a>的机制,我们可以根据<a href="http://source.android.com/devices/tech/dalvik/dalvik-bytecode.html" title="Dalvik Bytecode Format">Dalvik的字节码</a>总结出源代码--基本能和java的源代码相对应。  </p>
+<h4 id="-">微信客户端的架构</h4>
+<p>微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c++代码进行封装,因此想要破解并不容易--看了一天就没什么信心再去看c++的反编译代码了。<em>libnetwork.so</em>这个文件主要封装了微信的网络操作--长连接和短链接的创建,dns的查询等等,<em>libMMProtocalJni.so</em>这个文件封装了微信的所有通信协议--包括加密和压缩。
+而java代码封装了UI和网络适配器,基本流程如下：<br>java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作
+这样的结构,确实增加了破译的难度,除非耐着性子看完<strong>800K+</strong>汇编代码。</p>
+<h5 id="libmmprotocaljni">libMMProtocalJni</h5>
+<p>通过libMMProtocalJni的反汇编代码,我们可以看到关键字<strong>aes</strong>和<strong>cbc</strong>,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。</p>
+<h4 id="-">另类的破解</h4>
+<p>与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别--通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。</p>
+
+
+
+              <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qq" data-cmd="qq" title="分享到QQ收藏"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin","tieba","douban","qq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin","tieba","douban","qq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+              <hr>
+
+              <script type="text/javascript"> var disqus_shortname = 'sangeshitou'; (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+  </body>
+
+  <script defer="defer"  src="/lib/jquery.min.js"></script><script defer="defer"  src="/lib/bootstrap.min.js"></script><script defer="defer"  src="/lib/clean-blog.min.js"></script>
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</html>
+

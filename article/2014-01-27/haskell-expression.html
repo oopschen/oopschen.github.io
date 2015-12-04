@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Focused on Tech">
+    <meta name="author" content="Mr.C">
+    <title>Mr.C Blog</title>
+    <link  rel="stylesheet" href="/css/bootstrap.css" /><link  rel="stylesheet" href="/css/clean-blog.css" />
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49453400-1', 'oopschen.github.io');
+  ga('send', 'pageview');
+</script>
+<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb92e3fa3521db5146fa7ee476d69fa7f' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script defer="defer"  src="/lib/html5shiv.js"></script><script defer="defer"  src="/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://oopschen.github.io/index.html">Mr.C Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                  <li><a href="/index.html">Blog</a></li>
+                
+                  <li><a href="/about.html">Profile</a></li>
+                
+                  <li><a href="/archive.html">Archive</a></li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Haskell学习笔记--Expression</h1>
+                    <h2 class="subheading">
+                      [技术]
+                      
+                    </h2>
+                    <span class="meta">
+                        Updated on@January 27th 2014, 20:04
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <p>休息了一天,今天本想再偷懒下的,还是不能太放纵自己,把这宝贵的一小时奉献给Haskell.今天来看看haskell expression的定义.  </p>
+<h1 id="expression-">Expression  </h1>
+<p>全局的看下Haskell的expression的定义.  </p>
+<pre class="highlight"><code class="hljs oxygene">exp    →    infixexp :: [context =&gt;] <span class="hljs-keyword">type</span>        (expression <span class="hljs-keyword">type</span> signature)
+  |    infixexp
+infixexp    →    lexp qop infixexp        (infix <span class="hljs-keyword">operator</span> application)
+  |    - infixexp        (prefix negation)
+  |    lexp
+lexp    →    \ apat1 … apatn -&gt; exp        (lambda abstraction, n ≥ <span class="hljs-number">1</span>)
+  |    let decls <span class="hljs-keyword">in</span> exp        (let expression)
+  |    <span class="hljs-keyword">if</span> exp [;] <span class="hljs-keyword">then</span> exp [;] <span class="hljs-keyword">else</span> exp        (conditional)
+  |    <span class="hljs-keyword">case</span> exp <span class="hljs-keyword">of</span> <span class="hljs-comment">{ alts }</span>        (<span class="hljs-keyword">case</span> expression)
+  |    <span class="hljs-keyword">do</span> <span class="hljs-comment">{ stmts }</span>        (<span class="hljs-keyword">do</span> expression)
+  |    fexp
+fexp    →    [fexp] aexp        (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">application</span>)
+<span class="hljs-title">aexp</span>    →    <span class="hljs-title">qvar</span>        <span class="hljs-params">(variable)</span>
+  |    <span class="hljs-title">gcon</span>        <span class="hljs-params">(general <span class="hljs-keyword">constructor</span>)</span>
+  |    <span class="hljs-title">literal</span>
+  |    <span class="hljs-params">( exp )</span>        <span class="hljs-params">(parenthesized expression)</span>
+  |    <span class="hljs-params">( exp1 , … , expk )</span>        <span class="hljs-params">(<span class="hljs-keyword">tuple</span>, k ≥ 2)</span>
+  |    [ <span class="hljs-title">exp1</span> , … , <span class="hljs-title">expk</span> ]        <span class="hljs-params">(list, k ≥ 1)</span>
+  |    [ <span class="hljs-title">exp1</span> [, <span class="hljs-title">exp2</span>] .. [<span class="hljs-title">exp3</span>] ]        <span class="hljs-params">(arithmetic <span class="hljs-keyword">sequence</span>)</span>
+  |    [ <span class="hljs-title">exp</span> | <span class="hljs-title">qual1</span> , … , <span class="hljs-title">qualn</span> ]        <span class="hljs-params">(list comprehension, n ≥ 1)</span>
+  |    <span class="hljs-params">( infixexp qop )</span>        <span class="hljs-params">(left section)</span>
+  |    <span class="hljs-params">( qop⟨-⟩ infixexp )</span>        <span class="hljs-params">(right section)</span>
+  |    <span class="hljs-title">qcon</span> <span class="hljs-comment">{ fbind1 , … , fbindn }</span>        <span class="hljs-params">(labeled construction, n ≥ 0)</span>
+  |    <span class="hljs-title">aexp</span>⟨<span class="hljs-title">qcon</span>⟩ <span class="hljs-comment">{ fbind1 , … , fbindn }</span>        <span class="hljs-params">(labeled update, n  ≥  1)</span>
+</span></code></pre><!-- more --> 
+<h1 id="-infix-">中缀(infix)</h1>
+<p>在这里我们似乎看到了一个很熟悉的名词--infix, 表达式解析的时候我们经常能看到infix.先来回顾下后缀, 中缀和前缀的<em>1 + 1</em>的表达式:</p>
+<table><br>  <tr><br>    <td>名称</td><td>表达式</td>
+  </tr>
+  <tr><br>    <td>前缀</td><td>+ 1 1</td>
+  </tr>
+  <tr><br>    <td>中缀</td><td>1 + 1</td>
+  </tr>
+  <tr><br>    <td>后缀</td><td>1 1 +</td>
+  </tr>
+</table>
+
+<p>可以看到表达式的定义十分简单, 就两种,一种是我们上篇见过的constructor的定义,另一种就是最平常的表达式.下面我们一个接一个看lexp的定义:  </p>
+<h1 id="lambda-">lambda  </h1>
+<pre class="highlight"><code class="hljs glsl">\ apat1 … apatn -&gt; <span class="hljs-built_in">exp</span>        (lambda abstraction, n ≥ <span class="hljs-number">1</span>)
+</code></pre><p>这是lambda的表达式, 以\开头.  </p>
+<h1 id="-">例子</h1>
+<pre class="highlight"><code class="hljs haskell">(\ x -&gt; x + <span class="hljs-number">1</span>) <span class="hljs-number">1</span> <span class="hljs-comment">--output 2</span>
+</code></pre><h1 id="let-">let  </h1>
+<pre class="highlight"><code class="hljs vbscript"><span class="hljs-keyword">let</span> decls <span class="hljs-keyword">in</span> <span class="hljs-built_in">exp</span>        (<span class="hljs-keyword">let</span> expression)
+</code></pre><h1 id="-">例子</h1>
+<pre class="highlight"><code class="hljs sql">let x = 1 in x + 1 <span class="hljs-comment">-- output 2</span>
+<span class="hljs-operator"><span class="hljs-keyword">show</span> x -- x <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> scope
+</span></code></pre><h1 id="conditional-">conditional  </h1>
+<pre class="highlight"><code class="hljs livecodeserver"><span class="hljs-keyword">if</span> <span class="hljs-built_in">exp</span> [;] <span class="hljs-keyword">then</span> <span class="hljs-built_in">exp</span> [;] <span class="hljs-keyword">else</span> <span class="hljs-built_in">exp</span>        (conditional)
+</code></pre><h1 id="-">例子</h1>
+<pre class="highlight"><code class="hljs haskell"><span class="hljs-title">con</span> :: <span class="hljs-type">Num</span> x =&gt; x -&gt; x
+<span class="hljs-title">con</span> x = <span class="hljs-keyword">if</span> x == <span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">2</span>
+<span class="hljs-title">show</span> (con <span class="hljs-number">1</span>) <span class="hljs-comment">-- output 1</span>
+<span class="hljs-title">show</span> (con <span class="hljs-number">10</span>) <span class="hljs-comment">-- output 2</span>
+</code></pre><h1 id="case-">case  </h1>
+<pre class="highlight"><code class="hljs haskell"><span class="hljs-title">case</span> exp <span class="hljs-keyword">of</span> { alts }        (<span class="hljs-keyword">case</span> expression)
+<span class="hljs-title">alts</span>    →    alt1 ; … ; altn        (n ≥ <span class="hljs-number">1</span>)
+<span class="hljs-title">alt</span>    →    pat -&gt; exp [<span class="hljs-keyword">where</span> decls]
+    |    pat gdpat [<span class="hljs-keyword">where</span> decls]
+    |            (empty alternative)
+<span class="hljs-title">gdpat</span>    →    guards -&gt; exp [ gdpat ]
+<span class="hljs-title">guards</span>    →    | guard1, …, guardn        (n ≥ <span class="hljs-number">1</span>)
+<span class="hljs-title">guard</span>    →    pat &lt;- infixexp        (pattern guard)
+    |    <span class="hljs-keyword">let</span> decls        (local declaration)
+    |    infixexp        (boolean guard)
+</code></pre><h1 id="-">例子</h1>
+<pre class="highlight"><code class="hljs coffeescript">con :: <span class="hljs-function"><span class="hljs-params">(Num x, Eq x)</span> =&gt;</span> x<span class="hljs-function"> -&gt;</span> x
+con x = <span class="hljs-reserved">case</span> x <span class="hljs-keyword">of</span>
+    <span class="hljs-number">1</span><span class="hljs-function"> -&gt;</span> <span class="hljs-number">1</span>  
+    otherwise<span class="hljs-function"> -&gt;</span> <span class="hljs-number">2</span>
+
+show (con <span class="hljs-number">1</span>) -- output <span class="hljs-number">1</span>
+show (con <span class="hljs-number">10</span>) -- output <span class="hljs-number">2</span>
+</code></pre><p>这里要补充说明下为什么x是两种类型, 因为Num这个class并没有==的操作, 所以需要对类型a额外的定义Eq的class.</p>
+<h1 id="do-">do  </h1>
+<pre class="highlight"><code class="hljs vbscript"><span class="hljs-keyword">do</span> { stmts }        (<span class="hljs-keyword">do</span> expression)
+stmts    →    stmt1 … stmtn <span class="hljs-built_in">exp</span> [;]        (n ≥ <span class="hljs-number">0</span>)
+stmt    →    <span class="hljs-built_in">exp</span> ;
+  |    pat &lt;- <span class="hljs-built_in">exp</span> ;
+  |    <span class="hljs-keyword">let</span> decls ;
+  |    ;        (<span class="hljs-literal">empty</span> statement)
+</code></pre><h1 id="function-expression-">function expression  </h1>
+<pre class="highlight"><code class="hljs css"><span class="hljs-tag">fexp</span>    →    <span class="hljs-attr_selector">[fexp]</span> <span class="hljs-tag">aexp</span>
+</code></pre><h1 id="-">例子  </h1>
+<pre class="highlight"><code class="hljs livecodeserver">doStat :: Num <span class="hljs-operator">a</span> =&gt; <span class="hljs-operator">a</span> -&gt; <span class="hljs-operator">a</span>
+doStat x = <span class="hljs-built_in">do</span>  
+  x + <span class="hljs-number">1</span>
+show (doStat <span class="hljs-number">10</span>) <span class="hljs-comment">--output 11</span>
+</code></pre><h1 id="section-">Section  </h1>
+<p>section是和infixexp一样的货. 具体定义如下:  </p>
+<pre class="highlight"><code class="hljs vbscript">aexp    →    ( infixexp qop )        (<span class="hljs-built_in">left</span> section)
+      |    ( qop⟨-⟩ infixexp )        (<span class="hljs-built_in">right</span> section)
+</code></pre><p>qop中除去-符号. 我们可以把section理解为infixexp的group.</p>
+<h1 id="errors-">Errors  </h1>
+<p>Prelude提供两种方式报错, 能让程序立马停止:  </p>
+<pre class="highlight"><code class="hljs autohotkey"><span class="hljs-label">error     ::</span> String -&gt; <span class="hljs-literal">a</span>  
+<span class="hljs-label">undefined ::</span> <span class="hljs-literal">a</span>
+</code></pre><h1 id="-">例子  </h1>
+<pre class="highlight"><code class="hljs autohotkey"><span class="hljs-label">throwEx ::</span> Num <span class="hljs-literal">a</span> =&gt; <span class="hljs-literal">a</span> -&gt; <span class="hljs-literal">a</span>
+throwEx x =  
+  error <span class="hljs-string">"hello world"</span>
+  x + <span class="hljs-number">1</span>
+
+show (throwEx <span class="hljs-number">10</span>) --output <span class="hljs-string">"hello world exception"</span>, must be no <span class="hljs-number">11</span>
+</code></pre><h1 id="list-">List  </h1>
+<pre class="highlight"><code class="hljs livecodeserver">aexp    →    [ <span class="hljs-built_in">exp</span> | qual1 , … , qualn ]        (list comprehension, n ≥ <span class="hljs-number">1</span>)
+qual    →    pat &lt;- <span class="hljs-built_in">exp</span>        (generator)
+        |    let decls        (<span class="hljs-built_in">local</span> declaration)
+        |    <span class="hljs-built_in">exp</span>        (boolean guard)
+</code></pre><p>这里的generator比较好玩, 看如下的代码  </p>
+<pre class="highlight"><code class="hljs livecodeserver">createTuple :: (Num <span class="hljs-operator">a</span>, Ord <span class="hljs-operator">a</span>) =&gt; [<span class="hljs-operator">a</span>] -&gt; [<span class="hljs-operator">a</span>] -&gt; [(<span class="hljs-operator">a</span>, <span class="hljs-operator">a</span>)]
+list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list2 = [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]
+createTuple l1 l2 = [(<span class="hljs-operator">a</span>, b) | <span class="hljs-operator">a</span> &lt;- l1, b &lt;- l2, <span class="hljs-operator">a</span> &gt; <span class="hljs-number">2</span>]
+show (createTuple list1 list2) <span class="hljs-comment">--output ?</span>
+</code></pre><p>这里的输出的结果是  </p>
+<pre class="highlight"><code class="hljs json">[(<span class="hljs-number">3</span>,<span class="hljs-number">5</span>), (<span class="hljs-number">3</span>,<span class="hljs-number">6</span>)]
+</code></pre><p>为什么?其实他的解析规则是从|开始到后的每个表达式为true的结果,所以当a是1的时候,在a&gt;2的时候为false, 因此他不会出现在结果中.  </p>
+<h1 id="pattern-matching-">Pattern Matching  </h1>
+<p>pattern matching出现在lambda, function, pattern binding, list, do 和case表达式中. haskell最终都会翻译成case的样子, 所以我们只需要关心haskell对case的处理. 他的主要作用是将变量分解成不用的名字,更方便使用.下来先来看看什么是pattern.  </p>
+<pre class="highlight"><code class="hljs oxygene">pat    →    lpat qconop pat        (infix <span class="hljs-function"><span class="hljs-keyword">constructor</span>)
+    |    <span class="hljs-title">lpat</span>
+<span class="hljs-title">lpat</span>    →    <span class="hljs-title">apat</span>
+    |    - <span class="hljs-params">(integer | float)</span>        <span class="hljs-params">(negative literal)</span>
+    |    <span class="hljs-title">gcon</span> <span class="hljs-title">apat1</span> … <span class="hljs-title">apatk</span>        <span class="hljs-params">(arity gcon  =  k, k ≥ 1)</span>
+<span class="hljs-title">apat</span>    →    <span class="hljs-title">var</span> [ @ <span class="hljs-title">apat</span>]        <span class="hljs-params">(<span class="hljs-keyword">as</span> pattern)</span>
+    |    <span class="hljs-title">gcon</span>        <span class="hljs-params">(arity gcon  =  0)</span>
+    |    <span class="hljs-title">qcon</span> <span class="hljs-comment">{ fpat1 , … , fpatk }</span>        <span class="hljs-params">(labeled pattern, k ≥ 0)</span>
+    |    <span class="hljs-title">literal</span>
+    |    _        <span class="hljs-params">(wildcard)</span>
+    |    <span class="hljs-params">( pat )</span>        <span class="hljs-params">(parenthesized pattern)</span>
+    |    <span class="hljs-params">( pat1 , … , patk )</span>        <span class="hljs-params">(<span class="hljs-keyword">tuple</span> pattern, k ≥ 2)</span>
+    |    [ <span class="hljs-title">pat1</span> , … , <span class="hljs-title">patk</span> ]        <span class="hljs-params">(list pattern, k ≥ 1)</span>
+    |    ~ <span class="hljs-title">apat</span>        <span class="hljs-params">(irrefutable pattern)</span>
+<span class="hljs-title">fpat</span>    →    <span class="hljs-title">qvar</span> = <span class="hljs-title">pat</span>
+</span></code></pre><p>其中值得注意的是<strong>_</strong>表示全匹配以及<strong>var@(..)</strong>这种格式.</p>
+<h1 id="-">例子  </h1>
+<pre class="highlight"><code class="hljs coffeescript"><span class="hljs-reserved">case</span> e <span class="hljs-keyword">of</span> { xs@<span class="hljs-function"><span class="hljs-params">(x:rest)</span> -&gt;</span> <span class="hljs-keyword">if</span> x==<span class="hljs-number">0</span> <span class="hljs-keyword">then</span> rest <span class="hljs-keyword">else</span> xs }
+</code></pre><p>和  </p>
+<pre class="highlight"><code class="hljs coffeescript"><span class="hljs-reserved">let</span> { xs = e } <span class="hljs-keyword">in</span>  
+<span class="hljs-reserved">case</span> xs <span class="hljs-keyword">of</span> { <span class="hljs-function"><span class="hljs-params">(x:rest)</span> -&gt;</span> <span class="hljs-keyword">if</span> x==<span class="hljs-number">0</span> <span class="hljs-keyword">then</span> rest <span class="hljs-keyword">else</span> xs }
+</code></pre><p>这两种写法是等价的. 不难看出xs被分解成x和rest变量, 在后续的表达式中被使用.</p>
+
+
+
+              <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qq" data-cmd="qq" title="分享到QQ收藏"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin","tieba","douban","qq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin","tieba","douban","qq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+              <hr>
+
+              <script type="text/javascript"> var disqus_shortname = 'sangeshitou'; (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+  </body>
+
+  <script defer="defer"  src="/lib/jquery.min.js"></script><script defer="defer"  src="/lib/bootstrap.min.js"></script><script defer="defer"  src="/lib/clean-blog.min.js"></script>
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</html>
+

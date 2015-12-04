@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Focused on Tech">
+    <meta name="author" content="Mr.C">
+    <title>Mr.C Blog</title>
+    <link  rel="stylesheet" href="/css/bootstrap.css" /><link  rel="stylesheet" href="/css/clean-blog.css" />
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49453400-1', 'oopschen.github.io');
+  ga('send', 'pageview');
+</script>
+<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb92e3fa3521db5146fa7ee476d69fa7f' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script defer="defer"  src="/lib/html5shiv.js"></script><script defer="defer"  src="/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://oopschen.github.io/index.html">Mr.C Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                  <li><a href="/index.html">Blog</a></li>
+                
+                  <li><a href="/about.html">Profile</a></li>
+                
+                  <li><a href="/archive.html">Archive</a></li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>我们为什么要选择DNS服务器</h1>
+                    <h2 class="subheading">
+                      [技术]
+                      
+                    </h2>
+                    <span class="meta">
+                        Updated on@June 6th 2013, 08:46
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <p>DNS?所谓DNS,是将人类可理解的网络地址转化成计算机可理解的网络地址的协议。一般上网用户不会注意到DNS,因为当我们接入运营商(电信,联通,铁通,移动等)的时候,他们会默认给我们一个DNS服务器地址。电信的默认的DNS服务器还算过的去,但是其他的就不敢恭维了,所以我们需要更好的DNS服务器地址。  </p>
+<h4 id="-">为什么</h4>
+<p>我们为什么需要选择DNS服务器？开头我们介绍了DNS的功能,具体到实际,我们用以下例子解释DNS到底帮我们干了什么。  </p>
+<ol>
+<li>当我们在浏览器输入<a href="http://www.baidu.com," title="百度">www.baidu.com</a>的时候,浏览器首先会根据<strong>www.baidu.com</strong>这个域名去DNS服务器查询他的ip地址,然后和这个ip地址进行通信</li>
+<li>当我们打不开国内网页的时候,很大一部分可能是域名无法被解析,也就是找不到1中的ip地址,无法通信</li>
+</ol>
+<p>所以DNS服务器是多么的重要,当然如果DNS被攻陷,也就是说原本www.baidu.com对应的ip地址是115.239.210.26,而攻陷后它对应的ip地址是1.0.0.1,那么你所有看似对www.baidu.com的操作实际上都是在别人的服务器上进行。更甚者,当你进行账户操作的时候,你的私人信息包括密码,帐号等等都会被盗。  </p>
+<h4 id="-dns">推荐的DNS</h4>
+<p>由此看来,我们很有必要选择一个安全,可靠,快速的DNS服务器。以前,博主喜欢用Google的服务器</p>
+<blockquote>
+<p>8.8.8.8<br>8.8.4.4  </p>
+</blockquote>
+<p>然后,他毕竟不是本土企业,所有的域名解析都是以加快美国本土为目的,结果就是国内访问新浪都很慢。这样不是得不偿失么。<br>幸好博主发现了<a href="http://safe.114dns.com/index.html," title="114DNS服务器">114DNS</a>  </p>
+<blockquote>
+<p>114.114.114.114<br>114.114.115.115  </p>
+</blockquote>
+<p>用了半年,速度是刚刚的,而且上google被墙的次数也比较少。 而且114DNS还提供了许多人性化服务,比如他有专门放病毒网站的DNS服务器地址,有防色情的DNS服务器地址,用来保护孩子也是不错的选择。  </p>
+<h4 id="-">测试对比</h4>
+<ol>
+<li>测试平台： debian6 64bit</li>
+<li>网络服务商： 电信</li>
+<li>带宽： 6M </li>
+</ol>
+<h5 id="114-dns-">114 DNS访问</h5>
+<p>命令
+    dig @114.114.114.114 www.baidu.com<br>结果  </p>
+<blockquote>
+<p>; &lt;&lt;&gt;&gt; DiG 9.7.3 &lt;&lt;&gt;&gt; @114.114.114.114 www.baidu.com<br>; (1 server found)<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 30652<br>;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 0  </p>
+<p>;; QUESTION SECTION:<br>;www.baidu.com.            IN    A  </p>
+<p>;; ANSWER SECTION:<br>www.baidu.com.        995    IN    CNAME    www.a.shifen.com.<br>www.a.shifen.com.    81    IN    A    115.239.210.27<br>www.a.shifen.com.    81    IN    A    115.239.210.26  </p>
+<p>;; Query time: 19 msec<br>;; SERVER: 114.114.114.114#53(114.114.114.114)<br>;; WHEN: Wed Jun  5 19:16:17 2013<br>;; MSG SIZE  rcvd: 90  </p>
+</blockquote>
+<h5 id="google-dns-">Google DNS访问</h5>
+<p>命令</p>
+<pre class="highlight"><code class="hljs avrasm">dig <span class="hljs-localvars">@8</span><span class="hljs-number">.8</span><span class="hljs-number">.8</span><span class="hljs-number">.8</span> www<span class="hljs-preprocessor">.baidu</span><span class="hljs-preprocessor">.com</span>  
+</code></pre><p>结果  </p>
+<blockquote>
+<p>; &lt;&lt;&gt;&gt; DiG 9.7.3 &lt;&lt;&gt;&gt; @8.8.8.8 www.baidu.com<br>; (1 server found)<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 11906<br>;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 0  </p>
+<p>;; QUESTION SECTION:<br>;www.baidu.com.            IN    A  </p>
+<p>;; ANSWER SECTION:<br>www.baidu.com.        1041    IN    CNAME    www.a.shifen.com.<br>www.a.shifen.com.    141    IN    A    220.181.112.143<br>www.a.shifen.com.    141    IN    A    220.181.111.148  </p>
+<p>;; Query time: 50 msec<br>;; SERVER: 8.8.8.8#53(8.8.8.8)<br>;; WHEN: Wed Jun  5 19:17:47 2013<br>;; MSG SIZE  rcvd: 90  </p>
+</blockquote>
+<p>从上面的<em>Query time</em>看出,我们就节省了31毫秒。</p>
+<h4 id="-">如何设置</h4>
+<h5 id="linux">linux</h5>
+<p>在<strong>/etc/resolv.conf</strong>加入下面的代码</p>
+<blockquote>
+<p>nameserver 114.114.114.114<br>nameserver 114.114.115.115  </p>
+</blockquote>
+<h5 id="win7">win7</h5>
+<p>在当前网卡的属性选项卡中选择ipv4,填入dns服务器地址。当然,如果家里有路由器的话,直接在路由器管理页面里的DHCP设置里面设置DNS服务器即可。</p>
+<h4 id="-">综述</h4>
+<p>看了这么多,我们还有什么理由不设置自己的DNS服务器,好处很多：</p>
+<ol>
+<li>加快上网速度</li>
+<li>保护网站安全不被钓鱼</li>
+<li>不会打不开网页</li>
+</ol>
+
+
+
+              <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qq" data-cmd="qq" title="分享到QQ收藏"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin","tieba","douban","qq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin","tieba","douban","qq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+              <hr>
+
+              <script type="text/javascript"> var disqus_shortname = 'sangeshitou'; (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+  </body>
+
+  <script defer="defer"  src="/lib/jquery.min.js"></script><script defer="defer"  src="/lib/bootstrap.min.js"></script><script defer="defer"  src="/lib/clean-blog.min.js"></script>
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</html>
+

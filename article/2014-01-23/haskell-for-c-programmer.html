@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Focused on Tech">
+    <meta name="author" content="Mr.C">
+    <title>Mr.C Blog</title>
+    <link  rel="stylesheet" href="/css/bootstrap.css" /><link  rel="stylesheet" href="/css/clean-blog.css" />
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49453400-1', 'oopschen.github.io');
+  ga('send', 'pageview');
+</script>
+<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb92e3fa3521db5146fa7ee476d69fa7f' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script defer="defer"  src="/lib/html5shiv.js"></script><script defer="defer"  src="/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://oopschen.github.io/index.html">Mr.C Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                  <li><a href="/index.html">Blog</a></li>
+                
+                  <li><a href="/about.html">Profile</a></li>
+                
+                  <li><a href="/archive.html">Archive</a></li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Haskell学习笔记二--理解Haskell的思路</h1>
+                    <h2 class="subheading">
+                      [技术]
+                      
+                    </h2>
+                    <span class="meta">
+                        Updated on@January 23rd 2014, 17:18
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <p>想要使用好一门语言, 必须先掌握他的核心思想. 对于熟悉C语言的程序员来说, 过程就是一切, 而对熟悉java语言的程序员来说对象就是一切, 那么Haskell又如何?先给大家打一支止痛针, 因为看得真的头痛.  </p>
+<h1 id="-">金科玉律  </h1>
+<blockquote>
+<p>It is often easier to code the general definition for something than to write a function that generates a specific value  </p>
+</blockquote>
+<p>也就是说定义事情的特性远比实现他做什么容易么?  </p>
+<h1 id="-">有趣的例子  </h1>
+<p>我们先来看一段代码</p>
+<pre class="highlight"><code class="hljs autohotkey"><span class="hljs-label">myList ::</span> [Int]  
+<span class="hljs-label">myList = 0 : 1 :</span> [ <span class="hljs-literal">a</span> * b | (<span class="hljs-literal">a</span>, b) &lt;- zip myList (tail myList)]
+</code></pre><p>初看过去,这段代码究竟干了什么事情.是定义了一个函数?是定义了一个列表?还是定义了一个货?在解析这段代码之前先来补点基础知识.  </p>
+<p><em>:</em>符号在haskell中代码数组的连接符  </p>
+<pre class="highlight"><code class="hljs css">1 : <span class="hljs-attr_selector">[2]</span> <span class="hljs-tag">--</span> <span class="hljs-tag">output</span> <span class="hljs-attr_selector">[1, 2]</span>
+</code></pre><p><em>|</em>符号在haskell中代表输入,也就是说|右边的值当作左边表达式的输入<br><em>&lt;-</em>表示把右边的值依次赋值给左边  </p>
+<p><em>zip</em>是haskell定义的一个函数  </p>
+<pre class="highlight"><code class="hljs css"><span class="hljs-tag">zip</span> <span class="hljs-attr_selector">[1,2]</span> <span class="hljs-attr_selector">[3,4]</span> <span class="hljs-tag">--</span> <span class="hljs-tag">ouput</span> <span class="hljs-attr_selector">[(1,3), (2,4)]</span>
+<span class="hljs-tag">zip</span> <span class="hljs-attr_selector">[1]</span> <span class="hljs-attr_selector">[3,4]</span> <span class="hljs-tag">--</span> <span class="hljs-tag">ouput</span> <span class="hljs-attr_selector">[(1,3)]</span>
+</code></pre><p><em>tail</em>同样也是haskell定义的一个函数  </p>
+<pre class="highlight"><code class="hljs css"><span class="hljs-tag">tail</span> <span class="hljs-attr_selector">[1]</span> <span class="hljs-tag">--</span> <span class="hljs-tag">ouput</span> <span class="hljs-attr_selector">[]</span>
+<span class="hljs-tag">tail</span> <span class="hljs-attr_selector">[1,2]</span> <span class="hljs-tag">--</span> <span class="hljs-tag">ouput</span> <span class="hljs-attr_selector">[2]</span>
+<span class="hljs-tag">tail</span> <span class="hljs-attr_selector">[1,2,3]</span> <span class="hljs-tag">--</span> <span class="hljs-tag">ouput</span> <span class="hljs-attr_selector">[2,3]</span>
+</code></pre><p>有了这些基本概念, 我们再来看上面的例子.第一行代码很好理解,我们声明<em>myList</em>是一个数组,数组里的元素是整型.问题是后面这段代码是个啥玩意.我们从左到右逐一拆解来看.    </p>
+<pre class="highlight"><code class="hljs r">myList = <span class="hljs-number">0</span> : <span class="hljs-number">1</span> : [<span class="hljs-keyword">...</span>]  
+</code></pre><p>这段代码给myList赋值为一个数组, 第一个和第二个元素分别为0和1  </p>
+<pre class="highlight"><code class="hljs json">[a * b |]  
+</code></pre><p>这个也很好理解, 数组里的元素是a和b的乘积  </p>
+<pre class="highlight"><code class="hljs haskell">(a, b) &lt;- zip ..
+</code></pre><p>这个表达式是把zip后的内容赋值给a, b</p>
+<pre class="highlight"><code class="hljs erlang"><span class="hljs-function"><span class="hljs-title">myList</span> <span class="hljs-params">(tail my<span class="hljs-variable">List</span>)</span>
+</span></code></pre><p>这个表达式理解起来就相对比较头疼.这里使用了myList,但是我们不是在赋值给myList的么?不会出现segment fault么?答案是否定的, 当然不会出现segment fault.这得亏得haskell的lazy解析特性, 在myList没被使用的时候他不会被解析.好了,至此这两段其貌不扬的代码做了非常复杂的工作,首先他把myList定义为[0,1]的列表, 当你访问myList的第3个元素的时候他通过中括号内的表达式生成一个新的list,然后取他的第三个元素,也就是0.至于为啥是0,就留给读者自己做下演算.  </p>
+<p>到这里我们再回顾下上面的金科玉律,是不是没那么难理解?这种编程思路虽然比较费脑,但是却很便捷.  </p>
+<h1 id="-polymorphic-">神奇的多态(Polymorphic) </h1>
+<p>我们先来回想下java中多态的应用: </p>
+<pre class="highlight"><code class="hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> A {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sum</span>(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b) {
+    <span class="hljs-keyword">return</span> a + b;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">sum</span>(<span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b) {
+    <span class="hljs-keyword">return</span> a + b;
+  }
+}
+</code></pre><p>这就是java中多态的简单应用, 让sum不仅可以对int也可以对double类型进行相加.  </p>
+<h1 id="haskell-">Haskell中的真多态  </h1>
+<p>用haskell对上述代码进行重构</p>
+<pre class="highlight"><code class="hljs livecodeserver"><span class="hljs-built_in">sum</span> :: (Num <span class="hljs-operator">a</span>, Num b) =&gt; <span class="hljs-operator">a</span> -&gt; b -&gt; b
+<span class="hljs-built_in">sum</span> <span class="hljs-operator">a</span> b = <span class="hljs-operator">a</span> + b
+<span class="hljs-built_in">sum</span> (<span class="hljs-number">4</span> :: Int) <span class="hljs-number">1</span> <span class="hljs-comment">-- ouput 5</span>
+<span class="hljs-built_in">sum</span> (<span class="hljs-number">4</span> :: Double) <span class="hljs-number">1</span> <span class="hljs-comment">-- ouput 5.0</span>
+</code></pre><p>我们只需要定义一个函数,他会适用于多种数据类型.那他是怎么工作的呢?其实他的思想是把4这个数值定义为类型a,然后a是一个class Num, 当进行相加操作的时候,先去判断类型a是否有相加的操作(因为这里a是class Int,所以a拥有相加的操作), 然后进行class Int的相加操作并返回.  </p>
+<p>为什么说是真多态呢?因为java中的多态是绑定在数据上的,而haskell的多态是绑定在class上的,所以才能达到上述效果.</p>
+<h1 id="-">语法解释  </h1>
+<p><em>::</em>符号表示对函数的定义  </p>
+<pre class="highlight"><code class="hljs coffeescript"><span class="hljs-function"><span class="hljs-params">(Num a, Num b)</span> =&gt;</span> a<span class="hljs-function"> -&gt;</span> b<span class="hljs-function"> -&gt;</span> b
+</code></pre><p>表示a和b是class Num,其中ab指的是后续当中的ab, 而=&gt;符号表示对后面的变量的类型指向. 最后一个-&gt;表示返回值,其余表示参数的个数和类型.</p>
+<h1 id="-">再次提醒</h1>
+<p>看完这么多例子,是否更好的理解什么叫做定义而不是实现</p>
+
+
+
+              <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qq" data-cmd="qq" title="分享到QQ收藏"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin","tieba","douban","qq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin","tieba","douban","qq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+              <hr>
+
+              <script type="text/javascript"> var disqus_shortname = 'sangeshitou'; (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+  </body>
+
+  <script defer="defer"  src="/lib/jquery.min.js"></script><script defer="defer"  src="/lib/bootstrap.min.js"></script><script defer="defer"  src="/lib/clean-blog.min.js"></script>
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</html>
+

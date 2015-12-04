@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Focused on Tech">
+    <meta name="author" content="Mr.C">
+    <title>Mr.C Blog</title>
+    <link  rel="stylesheet" href="/css/bootstrap.css" /><link  rel="stylesheet" href="/css/clean-blog.css" />
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49453400-1', 'oopschen.github.io');
+  ga('send', 'pageview');
+</script>
+<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb92e3fa3521db5146fa7ee476d69fa7f' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script defer="defer"  src="/lib/html5shiv.js"></script><script defer="defer"  src="/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://oopschen.github.io/index.html">Mr.C Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                  <li><a href="/index.html">Blog</a></li>
+                
+                  <li><a href="/about.html">Profile</a></li>
+                
+                  <li><a href="/archive.html">Archive</a></li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Haskell学习笔记一--More on function</h1>
+                    <h2 class="subheading">
+                      [技术]
+                      
+                    </h2>
+                    <span class="meta">
+                        Updated on@January 24th 2014, 13:27
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <p>在haskell中我们可以对function做的更多, 这节一起来看看什么是function pattern和lambda function, 以及什么是多态类.  </p>
+<h1 id="function-pattern-">Function Pattern  </h1>
+<p>首先我们来看下我们在python的一段代码  </p>
+<pre class="highlight"><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sumList</span><span class="hljs-params">(l)</span> :</span>  
+    <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> &gt; len(l) :  
+      <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-number">2</span> &gt; len(l) :  
+      <span class="hljs-keyword">return</span> l[<span class="hljs-number">0</span>] 
+    <span class="hljs-keyword">return</span> l[<span class="hljs-number">0</span>] + l[<span class="hljs-number">1</span>] 
+</code></pre><p>那么用function pattern写会如何呢?  </p>
+<pre class="highlight"><code class="hljs autohotkey"><span class="hljs-label">sumList ::</span> Num <span class="hljs-literal">a</span> =&gt; [<span class="hljs-literal">a</span>] -&gt; <span class="hljs-literal">a</span>  
+<span class="hljs-label">sumList (ele:</span>oEle) = ele + sumList oEle  
+sumList [x] = x
+sumList [] = <span class="hljs-number">0</span>
+</code></pre><p>这段函数该如何解读?看起来我们像是对<em>sumList</em>定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候<strong>Funtion Pattern</strong>就开始发挥作用了.  </p>
+<p>先来看第一段代码:  </p>
+<pre class="highlight"><code class="hljs fix"><span class="hljs-attribute">sumList (ele:oEle) </span>=<span class="hljs-string"> ele + sumList oEle  
+</span></code></pre><p>这段代码定义了当sumList的参数多余一个元素的时候将第一个元素的值和后续元素递归调用后的值相加.  </p>
+<p>再来看第二段代码:  </p>
+<pre class="highlight"><code class="hljs fix"><span class="hljs-attribute">sumList [x] </span>=<span class="hljs-string"> x
+</span></code></pre><p>当sumList的参数有且只有一个元素的时候返回该元素的值.  </p>
+<p>最后是第三段代码:  </p>
+<pre class="highlight"><code class="hljs fix"><span class="hljs-attribute">sumList [] </span>=<span class="hljs-string"> 0
+</span></code></pre><p>这段代码是最容易理解的,当为空数组的时候返回0.  </p>
+<p>好了,这就是Funcion Pattern的功用了, 他没有定义了3次函数, 而是根据不同参数定义不同的函数, 实现了上述python的功能.  </p>
+<h1 id="lambda-">Lambda  </h1>
+<p>接下来我们来看看lambda, 可以理解为没有函数名字的函数, 一般用在这个函数极其简单, 且只会被使用一次.还是先来看看python是如何写lambda的:  </p>
+<pre class="highlight"><code class="hljs clojure"><span class="hljs-list">(<span class="hljs-title">lambda</span> x: x+1)</span><span class="hljs-list">(<span class="hljs-title">1</span>)</span>
+</code></pre><p>再来看看haskell是如何写的:  </p>
+<pre class="highlight"><code class="hljs lisp"><span class="hljs-list">(\ x -&gt; x + <span class="hljs-number">1</span>)</span> <span class="hljs-number">1</span>
+</code></pre><p>其中<strong>\</strong>表示lambda函数的开头, 其他就和一般函数定义是一样的.  </p>
+<h1 id="-polymorphic-types-type-constructors-">多态类(Polymorphic Types)和类构造器(Type Constructors)</h1>
+<p>来看下这么一段超级奇怪的代码:  </p>
+<pre class="highlight"><code class="hljs bash">main = <span class="hljs-keyword">return</span> ()
+</code></pre><p>main同样是所有Haskell程序的入口, 这段代码是最简单的Haskell程序.他的功能只是把main这个变量赋值成一个类型,而这个类型是null, 也就是我们看到的<strong>()</strong>. 可以把他理解成python中的None.</p>
+<p>再来看看关于main的一种定义:  </p>
+<pre class="highlight"><code class="hljs autohotkey"><span class="hljs-label">main ::</span> IO ()
+</code></pre><p>咋看起来,这怎么像python中的函数调用?等等,Haskell 的函数调用也不是这样的,而且在定义中也没办法出现函数调用呀?这货到底是什么?首先,IO就是我们说的多态类, 他接受一个类型的参数, 也就是(). 而这段定义是说main是被IO构造出来的类型, 而IO接受一个()的参数.  </p>
+<h1 id="maybe-">Maybe  </h1>
+<p>我们再来看一个标准库中Maybe的模块.  </p>
+<pre class="highlight"><code class="hljs haskell"><span class="hljs-typedef"><span class="hljs-keyword">data</span> <span class="hljs-type">Maybe</span> a = <span class="hljs-type">Nothing</span> | <span class="hljs-type">Just</span> a</span>
+</code></pre><p><em>data</em>是用来定义类型的关键字, 这段代码是把a这个类型定义为Nothing或者Just a.  </p>
+<p>再来看下一个例子  </p>
+<pre class="highlight"><code class="hljs vbscript">showPet :: Maybe (<span class="hljs-built_in">String</span>, <span class="hljs-built_in">Int</span>, <span class="hljs-built_in">String</span>) -&gt; <span class="hljs-built_in">String</span>
+showPet <span class="hljs-literal">Nothing</span>        = <span class="hljs-string">"none"</span>
+showPet (Just (name, age, species))    = <span class="hljs-string">"a "</span> ++ species ++ <span class="hljs-string">" named "</span> ++ name ++ <span class="hljs-string">", aged "</span> ++ (show age)
+</code></pre><p>这个例子我们可以看到showPet接收一个Maybe类型的参数, 当参数为Nothing的时候返回none的字符串.而当参数的类型是Just (name, age, species)类型的时候, 他就是一个(name, age, species)类型.真是要彻底颠覆对类型(也就是type)的理解了.对这里笔者还是不十分理解,有待深入研究Maybe到底干了什么事情.</p>
+
+
+
+              <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qq" data-cmd="qq" title="分享到QQ收藏"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin","tieba","douban","qq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin","tieba","douban","qq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+              <hr>
+
+              <script type="text/javascript"> var disqus_shortname = 'sangeshitou'; (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+  </body>
+
+  <script defer="defer"  src="/lib/jquery.min.js"></script><script defer="defer"  src="/lib/bootstrap.min.js"></script><script defer="defer"  src="/lib/clean-blog.min.js"></script>
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</html>
+
