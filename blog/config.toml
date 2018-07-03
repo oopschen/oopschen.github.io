@@ -1,0 +1,34 @@
+baseurl                 = "http://oopschen.github.io"               # Your domain name. Must end with "/"
+languageCode            = "zh-CN"
+title                   = "Oopschen的日志"
+theme                   = "sam"
+pygmentsStyle           = "monokai"                     # https://help.farbox.com/pygments.html
+pygmentsCodefences      = true
+googleAnalytics         = "UA-49453400-1"             # Tracking code, eg. "UA-111111111-1"
+
+[params]
+    dateform            = "Mon Jan 02, 2006"
+    dateformfull        = "Mon Jan 2 2006 15:04:05 EST"
+    favicon             = "/sam.ico"
+    homepage            = "home"                        # What to call the home page link
+    galleryFolder       = "imgs/"                     # Where you've put your images, after "/content/gallery/"
+    clickablePhotos     = true                          # Allow links to the full size images
+    footerText          = "石头, OOPS!!!"
+
+# Metadata
+    description         = "石头的博客."            # Max 160 characters show in search results
+    twitterCard         = "summary_large_image"         # Card value “summary”, “summary_large_image”, “app”, or “player”
+    primaryImage        = "/tn.png"                     # Image that shows on Twitter cards and OpenGraph links
+
+[[params.mainMenu]]
+    link = "/posts"
+    text = "博客日志"
+
+#[[params.mainMenu]]
+#    link = "/gallery"
+#    text = "gallery"
+
+[[params.mainMenu]]
+    link = "/about"
+    text = "我是谁?"
+
