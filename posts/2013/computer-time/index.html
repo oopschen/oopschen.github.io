@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Linux 时间</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Linux 时间</div><div class="section" id="content">Tue Jun 11, 2013 &#183; 24 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/linux">linux</a></span><span id="tag"><a href="http://oopschen.github.io/tags/%E6%97%B6%E9%97%B4">时间</a></span><span id="tag"><a href="http://oopschen.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4">系统时间</a></span><span id="tag"><a href="http://oopschen.github.io/tags/%E7%A1%AC%E4%BB%B6%E6%97%B6%E9%97%B4">硬件时间</a></span><span id="tag"><a href="http://oopschen.github.io/tags/hwclock">hwclock</a></span><span id="tag"><a href="http://oopschen.github.io/tags/date">date</a></span></div><hr/>
+
+<p>最近刚用Gentoo从零开始构建出了一个linux系统,使用ck内核。在此过程中碰到了一个时间问题,当我选用<strong>Asia/Shanghai</strong>的时候hwclock的时间比date的时间晚了近8个小时。然而,对照手表上的时间,hwclock的时间是正确的,而date的时间是错误的。这个问题废了我好多劲,今天终于有时间把这个问题整理下,记录下。</p>
+
+<h4 id="时间">时间</h4>
+
+<p>在了解问题前我们先了解下计算机里时间的概念。首先,在计算机里时间的记录是靠一个叫控制频率的硬件,每隔固定的时间给cpu发送中断,这样计算机才能知道到底过了多长时间。比如,我们控制频率的硬件的中断频率为100MHz,那么计算机能识别的最小的时间单位是0.01s（1/100MHz）,也就是说如果我们要求这台计算机每间隔0.001秒启动一个任务,那是办不到,因为cpu无法在0.001秒的时候中断。<br />
+时间在计算机里分为两块：<br />
+1. 硬件时间
+2. 系统时间</p>
+
+<h5 id="硬件时间">硬件时间</h5>
+
+<p>所谓硬件时间,就是当系统关闭的时候,能持久保存在主板上的时间数据。它不包含只包含年月日,时分秒,却不包含zoneinfo（比如Asia/Shanghai）。</p>
+
+<h5 id="系统时间">系统时间</h5>
+
+<p>系统时间是根据硬件时间和设定的zoneinfo计算出本地时间,也可以理解为本地的时间。</p>
+
+<h4 id="正确的设定时间">正确的设定时间</h4>
+
+<p>在BIOS里面设置系统时间,这里设置的是硬件时间</p>
+
+<p>更新/etc/conf.d/hwclock文件中的<strong>clock=&ldquo;UTC&rdquo;</strong>的值,如果BIOS设置的是UTC时间,那这里设置UTC,否则设置local。这个文件根据linux发行版不同而不同,这里用Gentoo做例子。这个文件同时还能配置是否将硬件时间写入系统时间或者关机时将系统时间写入硬件时间。</p>
+
+<p>将/usr/share/zone中对应的时区信息文件拷贝到/etc/localtime</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">cp /usr/share/zone/Asia/Shanghai /etc/localtime</code></pre></div>
+<p>将文件名写入/etc/timezone</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">echo <span style="color:#e6db74">&#34;Asia/Shanghai&#34;</span> &gt; /etc/timezone</code></pre></div></div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

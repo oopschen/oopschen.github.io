@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Dig Webcore - 代码生成机制</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Dig Webcore - 代码生成机制</div><div class="section" id="content">Mon Jul 01, 2013 &#183; 110 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/webkit">webkit</a></span><span id="tag"><a href="http://oopschen.github.io/tags/webcore">webcore</a></span><span id="tag"><a href="http://oopschen.github.io/tags/idl">idl</a></span></div><hr/>
+
+<p>一直对webkit神秘的面纱抱有极大的好奇心,但是苦于一直没时间好好的对其进行研究。最近终于的空,开始对webkit进行探索并做一些摘记。<br />
+在刚开始的时候,由于对google的偏爱,所以选择chromium进行探究,但探究了2天始终不太有头绪,感觉chromium的代码还是太复杂,因为它对渲染层的代码完全是对webkit core的扩展,而其大部分的代码都是界面和多线程架构的,最后决定还是对Webkit的代码直接进行研究。</p>
+
+<h4 id="代码生成">代码生成</h4>
+
+<p>在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？<a href="http://www.w3.org/TR/WebIDL/" title="IDL W3C">IDL</a>, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。<br />
+webkit的代码生成主要靠*make-generated-sources.sh*脚本,这个脚本根据WebCore下的子目录中的idl文件和后缀为in的配置文件生成相关的.h和.cpp文件。而生成的代码则在*DerivedSources/WebCore*下。</p>
+
+<h4 id="gperf">GPERF</h4>
+
+<p><a href="http://www.gnu.org/software/gperf/manual/gperf.html#Top" title="GPERF DOC">GPERF</a>是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。</p>
+
+<h5 id="gperf列表">GPERF列表</h5>
+
+<ol>
+<li>CSSPropertyNames.{h,cpp}<br /></li>
+<li>CSSValueKeywords.{h,cpp}<br /></li>
+<li>ColorData.cpp
+以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。
+<br /></li>
+</ol>
+
+<h4 id="idl">IDL</h4>
+
+<p>IDL相关的代码生成脚本在*bindings/scripts*下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：</p>
+
+<h5 id="预处理">预处理</h5>
+
+<p>IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：</p>
+
+<blockquote>
+<p>Outputs the dependency.
+ The format of a supplemental dependency file:</p>
+
+<p>DOMWindow.idl P.idl Q.idl R.idl
+ Document.idl S.idl
+ Event.idl
+ &hellip;</p>
+
+<p>The above indicates that DOMWindow.idl is supplemented by P.idl, Q.idl and R.idl,
+ Document.idl is supplemented by S.idl, and Event.idl is supplemented by no IDLs.
+ The IDL that supplements another IDL (e.g. P.idl) never appears in the dependency file.</p>
+</blockquote>
+
+<p>举例说明：<br />
+比如我们有如下的关系</p>
+
+<pre><code>DOMWindow.idl P.idl Q.idl R.idl
+</code></pre>
+
+<p>这个例子表明DOMWindow.idl需要依赖P.idl, Q.idl和R.idl这几个文件</p>
+
+<h5 id="生成代码">生成代码</h5>
+
+<p>generate-bindings.pl 脚本则将生成的依赖关系,html的属性文件（IDLAttributes.txt）以及多个idl文件合成cpp和h文件,也就是接口。而这些文件都是以JSxxx.h的文件名形式存在于DerivedSources/Webcore下,其中xxx是指idl的原始文件名。</p>
+
+<h4 id="其他">其他</h4>
+
+<p>除了上述两种方式之外,make-generated-sources.sh脚本还利用python,perl脚本以及in配置文件生成特殊的cpp和h文件。具体可参考<br />
+1. inspector/xxd.pl
+2. html/parser/create-html-entity-table(python 脚本)
+3. css/makegrammar.pl<br />
+4. css/make-css-file-arrays.pl<br />
+5. dom/make_names.pl<br />
+6. dom/make_event_factory.pl<br />
+7. page/make_settings.pl<br />
+8. inspector/generate-inspector-protocol-version(python 脚本)</p>
+
+<h4 id="总结">总结</h4>
+
+<p>看了这么多代码生成的脚本,webkit大部分还是利用perl脚本,但其中也参杂少量的python脚本,可能也是开源的缘故造成的吧。</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

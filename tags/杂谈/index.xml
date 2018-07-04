@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>杂谈 on Oopschen的日志</title>
+    <link>http://oopschen.github.io/tags/%E6%9D%82%E8%B0%88/</link>
+    <description>Recent content in 杂谈 on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 04 Jul 2018 11:22:32 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/tags/%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>再来你好</title>
+      <link>http://oopschen.github.io/posts/2018/hello-again/</link>
+      <pubDate>Wed, 04 Jul 2018 11:22:32 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2018/hello-again/</guid>
+      <description>一年一年又一年,时间过得很快.博客也许久没有更新了.今天正式完成从Jeklly到Hugo的转型.
+工作了这么多年,也是时候聚焦一些技术了,暂时会以web开发, jvm等相关内容作为还总点.
+加油2018!!看看.</description>
+    </item>
+    
+    <item>
+      <title>记录这段时间</title>
+      <link>http://oopschen.github.io/posts/2015/blog-continue/</link>
+      <pubDate>Sat, 31 Oct 2015 16:03:34 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2015/blog-continue/</guid>
+      <description>好久没写技术博客了,一旦工作时间就是不是自己的了.上一篇博客在2014年写的,从今天开始再次开始记录以后的技术生涯,希望还能多走几年.博客也换了新的皮肤.加油吧!!!</description>
+    </item>
+    
+  </channel>
+</rss>

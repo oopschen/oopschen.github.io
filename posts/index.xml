@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Oopschen的日志</title>
+    <link>http://oopschen.github.io/posts/</link>
+    <description>Recent content in Posts on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 04 Jul 2018 11:22:32 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>再来你好</title>
+      <link>http://oopschen.github.io/posts/2018/hello-again/</link>
+      <pubDate>Wed, 04 Jul 2018 11:22:32 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2018/hello-again/</guid>
+      <description>一年一年又一年,时间过得很快.博客也许久没有更新了.今天正式完成从Jeklly到Hugo的转型.
+工作了这么多年,也是时候聚焦一些技术了,暂时会以web开发, jvm等相关内容作为还总点.
+加油2018!!看看.</description>
+    </item>
+    
+    <item>
+      <title>CPU在linux下的调试</title>
+      <link>http://oopschen.github.io/posts/2015/linux-cpu-admin/</link>
+      <pubDate>Fri, 04 Dec 2015 21:21:15 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2015/linux-cpu-admin/</guid>
+      <description>Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.
+先介绍一个工具&amp;ndash;CPUPower, CPUPower是linux下展示和设置cpu相关属性的工具.
+实验机器 cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
+应用cpupower cpupower frequency-info  会看到如下的提示:
+ analyzing CPU 0: driver: acpi-cpufreq
+CPUs which run at the same hardware frequency: 0
+CPUs which need to have their frequency coordinated by software: 0
+maximum transition latency: 10.0 us.
+hardware limits: 1.20 GHz - 2.67 GHz
+available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.</description>
+    </item>
+    
+    <item>
+      <title>记录这段时间</title>
+      <link>http://oopschen.github.io/posts/2015/blog-continue/</link>
+      <pubDate>Sat, 31 Oct 2015 16:03:34 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2015/blog-continue/</guid>
+      <description>好久没写技术博客了,一旦工作时间就是不是自己的了.上一篇博客在2014年写的,从今天开始再次开始记录以后的技术生涯,希望还能多走几年.博客也换了新的皮肤.加油吧!!!</description>
+    </item>
+    
+    <item>
+      <title>slf4j底层binding</title>
+      <link>http://oopschen.github.io/posts/2014/dig-slf4j/</link>
+      <pubDate>Sat, 22 Nov 2014 15:29:32 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/dig-slf4j/</guid>
+      <description>又开始了Java工程师之路, 总体框架为springmvc+spring+hibernate.原先的老系统使用log4j记录日志.　介入开发后准备改用slf4j+logback做日志.
+SLF4J简介 slf4j从全称就可以知道它只是类似于JCL(java common logging)的框架,从主页的介绍来看它降低了工程切换日志的工作,但我个人喜欢的则是它打日志时候的简洁语法．
+logger.error(&amp;#34;This is a error message with name {}!&amp;#34;, &amp;#34;ray&amp;#34;);  slf4j引以为傲的是它有一个binding的机制-只要引用了固定的binding架包就能实现日志底层实现的切换, 那说的这么玄乎, 究竟它是怎么实现的呢?
+SLF4J Bind 机制 首先我们来看看LoggerFactory这个类的bind方法:
+1. 查找可能的静态Logger
+2. 如果有多个静态的Logger则打印日志
+3. 初始化bind
+&amp;hellip;.
+那么这个StaticLoggerBinder是什么?
+其实slf4j通过classloader的方式找到StaticLoggerBinder的类文件, 然后通过策略模式采用日志的实现-也就是说每个底层的日志实现都会实现同一个接口.因此每一个日志实现的架包中都会有这么一个StaticLoggerBinder来接入slf4j的框架, 而slf4j通过应用启动时的动态类加载来达到bind日志实现的目的.
+一点建议 Java的世界总是有很多框架, 在我们使用slf4j做为应用的日志系统的时候, 应用中其他框架并不一定也是用slf4j作为日志框架, 因此我们需要引用slf4j的桥接包-jcl-over-slf4j, jul-over-slf4j. 这些桥接包只是用最简单的方式实现了其他日志框架的基础类, 然后通过bind的方式接入slf4j的底层日志中.</description>
+    </item>
+    
+    <item>
+      <title>Mysql 复合索引记录</title>
+      <link>http://oopschen.github.io/posts/2014/mysql-multiple-column-index/</link>
+      <pubDate>Fri, 12 Sep 2014 17:51:56 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/mysql-multiple-column-index/</guid>
+      <description>Mysql不用多介绍,很好很强大,这篇文章主要记录innodb中复合索引的引用, 本文中的缩影指的都是二级索引.
+概述 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
+innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷贝一份主键!!!
+场景 先来看看如下场景
+create table testexplain ( f0 varchar(10) primary key, f1 varchar(10), f2 varchar(10), f3 varchar(10) ); 假使我们常用的查询sql如下
+1. select * from testexplain f0 = &amp;#39;xxx&amp;#39;; 2. select * from testexplain f1 = &amp;#39;xxx&amp;#39; and f2 = &amp;#39;xxxx&amp;#39;; 3. select * from testexplain f2 = &amp;#39;xxx&amp;#39; and f3 = &amp;#39;xxxx&amp;#39;; 4. select * from testexplain f1 = &amp;#39;xxx&amp;#39; or f2 = &amp;#39;xxxx&amp;#39;; 5.</description>
+    </item>
+    
+    <item>
+      <title>Chrome Unsafe Port 浅析</title>
+      <link>http://oopschen.github.io/posts/2014/chrome-unsafe-ports/</link>
+      <pubDate>Sun, 10 Aug 2014 09:30:39 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/chrome-unsafe-ports/</guid>
+      <description>最近一段时间在和docker愉快的玩耍, 但卡在一个非常奇怪的问题上面&amp;ndash;新建了一个container, 基于centos6的image上安装了nginx一个app, 把host的6001端口映射到container的80端口, 把host的6000端口映射到6000端口.
+问题 开起这个container后, 在chrome中访问本地6001端口, 可以看到nginx的默认欢迎页面. 而访问6000端口则不能连接&amp;ndash;是tcp无法建立连接的那种页面. 这就非常奇怪了.
+用命令查看
+docker port xxx 6000  输出结果是绑定了本地的6000端口没有任何异议.可是为什么无法访问呢?
+思路 如此只能用nc工具查看端口是否开起:
+nc -v localhost 6000  端口是有输出的, 这就意味着端口是开启的. 接下来只能看是不是nginx的配置问题了, 当然在部署docker的时候nginx.conf文件是经过nginx -t检验的. 这时候就得用curl命令来检验了.
+curl http://localhost:6000  由于nginx的配置了autoIndex on, 所以返回的页面中会有文件目录的内容. curl的结果是在预期内的, 也就是说docker的配置和nginx的配置是完全正确的.
+是什么引发了这个问题?
+方案 由表面证据可以看到, 区别在chrome和curl. 为什么这两个agent会有什么区别? 好吧, 身为一个web开发者, 必须立马打开chrome://net-internals/#events页面查看打开6000页面的时候发生了什么问题. 结果是看到了ERR_UNSAFE_PORT错误, 而这个错误不会在错误页面出现, 当然console里也看不到. 迅速google了一下, 尼玛这确实是chrome干的好事情, 在Chromium的源代码中确实内置这么一个功能&amp;ndash;屏蔽一些已知的端口.
+这是为了什么呢?
+反思 经过一系列的搜罗, 网上大致给出的解释是出于安全的考虑. 那到底会有怎么样的安全问题呢?(web开发者要有安全意识啊!!!)
+安全问题例子 假使我们有一个server listen在6000端口, 并接受request和response的模式, server也在防火墙后. 那么恶意攻击者可以怎么做才能伪造请求攻击server?(这里可以先思考几分钟, 看看有没有黑客的潜质!!!) |
+|
+|
+|</description>
+    </item>
+    
+    <item>
+      <title>Mysql使用index基本原则</title>
+      <link>http://oopschen.github.io/posts/2014/mysql-index/</link>
+      <pubDate>Wed, 23 Jul 2014 09:24:37 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/mysql-index/</guid>
+      <description>用了蛮久的mysql,竟然对如何优化index还没有掌握,今天闲下来看看这块东西,然后总结以下.这里所表述的mysql指的是innodb的engine.
+mysql index分类 Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.
+cluster index Mysql根据如下规则建立聚簇索引:
+ 如果有定义主键, 则使用主键建立索引
+ 如果没有定义主键, 选取第一个*UNIQUE*的栏建立索引 如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据
+  secondary index 二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.
+Myql如果选择使用二级索引, 那么它先根据二级索引查找主键, 由于主键和数据在同一个页上, 从而加快了数据的查找和比较.
+mysql如何使用index Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?
+尽可能的覆盖查询语句中的查询条件 由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.
+select * from db.tbl where c1 = 1 and c2 = 2;  和
+select * from db.tbl where c1 = 1;  所以语句
+create index inx_c1_c2 on db.tbl(c1, c2);  工具 理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句.</description>
+    </item>
+    
+    <item>
+      <title>尝试Tmux</title>
+      <link>http://oopschen.github.io/posts/2014/tmux_give_it_a_try/</link>
+      <pubDate>Sat, 19 Jul 2014 19:41:48 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/tmux_give_it_a_try/</guid>
+      <description> 如果不是无鼠标操作控就可以忽略这篇文章了.很高兴你也是个无鼠标操作控, 今天就来看看tmux的神奇魔力.
+现状 在介绍tmux之前,还是先来说说场景&amp;ndash;当我们需要开起多个ssh来观察不同服务器的状态的时候,很多个terminal将不得不被打开,如果你是window,那么你要很辛苦的拖动个个框保持满屏,或者也可以使用第三方的tab功能,而如果你是linux,我恐怕你也不得不这么做.当然如果你是利用类似xmonad等的titling的窗口管理器,这也是可以得到解决的.
+目前,本人也是利用xmonad和urxvt来达到这个效果, 使用久了也会觉得这样是如此烦,每次想要在terminal里面干点别的事情就不得不打开新的terminal.
+tmux&amp;ndash;爽 首先, 我们需要确定的事情是tmux不是terminal!!!它只是terminal的管理器,更准确的说是terminal复用器.
+有什么直接的好处呢?Tmux可以帮助我们解决在只打开一个terminal的时候,既可以管理多个ssh,还可以管理多个vi或者top.或许你会问,这个功能通过后台进程不是可以搞定么?回答是是的,但是tmux do better.
+tmux概念 在使用tmux之前,我们需要理解tmux中的四个概念client,session,window,pane.
+client client指的是我们的terminal,也就是能直接和session打交道的部分.
+session session则是进程的集合,也就是我们所说的多个ssh或者vi.
+window window是session的具体展现,可以理解为我们能看到的session.
+pane pane是把window切割成多个部分,也就是说我们可以在一个window中看到多个ssh.
+使用后感受 使用了tmux大概有3天, 总体感觉得心应手, 特别是session的概念, 让多个程序管理起来有序,清晰, 非常使用.
+下面罗列下常用的组合(所有组合都是默认的均未特别设置过):
+ ctrl+b + [, 进入scroll模式, 默认用emacs的按键来移动, 也可配置成vi的模式
+ ctrl+b + [ 进入scroll模式后科使用space进入复制选择模式, 然后用enter复制选中的文本
+ ctrl+b + :, 进入tmux的命令行, 比如可以重开session, killsession等
+ ctrl+b + %, 新建pane并按垂直分割, ctrl+b + %, 水平新建pane
+ ctrl+b + s, 查看所有session
+ ctrl+b + ?, 查看按键绑定  </description>
+    </item>
+    
+    <item>
+      <title>MQ的尝试</title>
+      <link>http://oopschen.github.io/posts/2014/mq-experiment/</link>
+      <pubDate>Thu, 15 May 2014 19:14:32 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/mq-experiment/</guid>
+      <description>long long ago, 就听说过Message Queue(mq), 一直没去尝试, 毕竟用到这种工具的都是分布式的场景了. 这次碰到一个很适合的场景决定适用一把mq.
+场景 这次的场景需要由一个总控端将特定的任务分配给执行段, 当执行端完成作业后, 将这个任务从总控端中剔除.这个分配的动作则是由执行端主动去总控端获取.
+所以我把这个场景设计为三个部分:
+1. 总控端, 负责生成任务并插入mq, 并监测mq的长度, 保证适度的长度
+2. 执行端, 负责从mq中获取任务并执行, 当任务失败或者程序崩溃的时候, 刚才获取的任务则重新回归总控端, 交给其他执行端执行, 保证任务一定被完整的执行.
+3. mq, 负责任务必须被一个执行端完整的执行
+选择MQ 从google搜索, 可以有很多mq, 比如RabbitMQ, ActiveMQ, MSMQ, ZeroMQ等等, 一时间还比较难选择.
+首先可以从google搜索结果的排名上排除几个, 剩下RabbitMQ和ActiveMQ.然后下载build文件的时候, RabbitMQ只要4M左右的大小而ActiveMQ则要40M, 对于没有耐性的我果断选择了RabbitMQ.
+再细看RabbitMQ的文档, 它是用erlang写的&amp;ndash;看过一篇文章, 这门语言是Ericsson为了通信行业写的, 所以对于他的可靠性和高效比较认可.最后看看他是不是支持业务场景&amp;ndash;RabbitMQ支持message的ack模式, 也就是说receiver可以先获取message, 然后再任务处理完后, 确认这个message被消耗.
+这下完美了, 可以开始动工了.
+安装和体验 对于第一次上手RabbitMQ, 过程还是比较顺利的.在Gentoo和Centos下只需要1分钟的时间就安装完毕了.
+再看配置文件, RabbitMQ的配置文件就是一个erlang的item, 格式如下
+[ {app, {key, value}}, .. ]  RabbitMQ基本不需要过多的配置, 采用默认的也可以, 非常方便.
+问题 在开发过程中, 遇到了一个比较蛋疼的问题. RabbitMQ对于链接有一个heartbeat机制, 也就是说, 当接收不到这个heartbeat的时候, 链接就会自动断开, message就重新被分配.</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记- Monad, IO和Functor</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-monad/</link>
+      <pubDate>Sun, 16 Mar 2014 09:24:08 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-monad/</guid>
+      <description>Monad这个概念是第一次在Haskell中看到, 也是haskell中比较难理解的部分之一, 但同样也是很重要的部分. 今天就来看看Monad到底是什么货, 同时也来看看Functor和IO是什么?
+Monad用法 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
+let a = Just 1 in a &amp;gt;&amp;gt;= \x -&amp;gt; Just (x+2) --output Just 2 这里我们先来回顾下lambda的用法:
+\x -&amp;gt; Just (x+2) 这个函数将输入的x加2后返回, 并且把这个值包装在Just中.
+对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&amp;gt;&amp;gt;=*可以将Just中的东西提取出来.
+Monad的源码 看过了上述实例, 我们看下Monad的源码:
+class Monad m where -- | Sequentially compose two actions, passing any value produced -- by the first as an argument to the second. (&amp;gt;&amp;gt;=) :: forall a b. m a -&amp;gt; (a -&amp;gt; m b) -&amp;gt; m b -- | Sequentially compose two actions, discarding any value produced -- by the first, like sequencing operators (such as the semicolon) -- in imperative languages.</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记--Typeclass</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-typeclass/</link>
+      <pubDate>Mon, 10 Feb 2014 20:08:23 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-typeclass/</guid>
+      <description>新的一年新的开始. 技术还是要连续, 继续我的haskell旅行. 今天要看看haskell中异常强大的TypeClass, type和class放在一起, 会有怎样的化学反应呢?
+首先来了解这么一个事实&amp;ndash;Haskell中语言中没有对所有类型定义*==*操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?
+在Haskell中, 所有操作符, 比如+, =, .等, 都是函数, 我想这也可能是他是最纯粹的函数语言的原因之一. 所以这些操作符都是由用户实现的, 而实现他们的正是标准库Prelude. 貌似扯远了, 再回到Typeclass. Haskell就是通过Typeclass从而实现了, 操作符对不同类型的支持.
+先来看段完整的例子:
+data People = Peo { peoId :: Int, peoAge :: Int } deriving (Show) class MyEq a where xy :: a -&amp;gt; a -&amp;gt; Bool instance MyEq People where xy x y = (peoId x) == (peoId y) main = print $ show $ (Peo 1 2) 这个例子的作用:</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记--Declarations and Bindings</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-declaration/</link>
+      <pubDate>Wed, 29 Jan 2014 20:32:43 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-declaration/</guid>
+      <description>即将到年三十了, 好学的年轻人还是决定在今天花一个小时提升下自己的技能. 今天来看看Haskell 2010语言规范中的Declarations和Bindings.
+Declarations 这部分在理解Haskell中很重要, 因为他诠释了haskell这门语言是如何定义事情的, 他的定义会告诉编译器把这些代码生成低级机器语言.
+module → module modid [exports] where body | body body → { impdecls ; topdecls } | { impdecls } | { topdecls } topdecls → topdecl1 ; … ; topdecln (n ≥ 1) topdecl → type simpletype = type | data [context =&amp;gt;] simpletype [= constrs] [deriving] | newtype [context =&amp;gt;] simpletype = newconstr [deriving] | class [scontext =&amp;gt;] tycls tyvar [where cdecls] | instance [scontext =&amp;gt;] qtycls inst [where idecls] | default (type1 , … , typen) (n ≥ 0) | foreign fdecl | decl decls → { decl1 ; … ; decln } (n ≥ 0) decl → gendecl | (funlhs | pat) rhs cdecls → { cdecl1 ; … ; cdecln } (n ≥ 0) cdecl → gendecl | (funlhs | var) rhs idecls → { idecl1 ; … ; idecln } (n ≥ 0) idecl → (funlhs | var) rhs | (empty) gendecl → vars :: [context =&amp;gt;] type (type signature) | fixity [integer] ops (fixity declaration) | (empty declaration) ops → op1 , … , opn (n ≥ 1) vars → var1 , … , varn (n ≥ 1) fixity → infixl | infixr | infix  从上面我们可以看到有*topdecls*和*decls*的区分, topdecls只能在module的top level中被声明, 而不能在其他的scope(比如where, let等)中被声明.</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记--Expression</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-expression/</link>
+      <pubDate>Mon, 27 Jan 2014 20:04:13 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-expression/</guid>
+      <description>休息了一天,今天本想再偷懒下的,还是不能太放纵自己,把这宝贵的一小时奉献给Haskell.今天来看看haskell expression的定义.
+Expression 全局的看下Haskell的expression的定义.
+exp → infixexp :: [context =&amp;gt;] type (expression type signature) | infixexp infixexp → lexp qop infixexp (infix operator application) | - infixexp (prefix negation) | lexp lexp → \ apat1 … apatn -&amp;gt; exp (lambda abstraction, n ≥ 1) | let decls in exp (let expression) | if exp [;] then exp [;] else exp (conditional) | case exp of { alts } (case expression) | do { stmts } (do expression) | fexp fexp → [fexp] aexp (function application) aexp → qvar (variable) | gcon (general constructor) | literal | ( exp ) (parenthesized expression) | ( exp1 , … , expk ) (tuple, k ≥ 2) | [ exp1 , … , expk ] (list, k ≥ 1) | [ exp1 [, exp2] .</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记三--语法</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-syntax/</link>
+      <pubDate>Sat, 25 Jan 2014 15:36:26 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-syntax/</guid>
+      <description>这篇blog要记录下笔者在看haskell的BNF的种种, 希望能全面的了解haskell的语法规则.这里的语法规则主要指的是Haskell 2010.
+Lexeme BNF program → { lexeme | whitespace } lexeme → qvarid | qconid | qvarsym | qconsym | literal | special | reservedop | reservedid whitespace → whitestuff {whitestuff} whitestuff → whitechar | comment | ncomment whitechar → newline | vertab | space | tab | uniWhite newline → return linefeed | return | linefeed | formfeed return → a carriage return linefeed → a line feed vertab → a vertical tab formfeed → a form feed space → a space tab → a horizontal tab uniWhite → any Unicode character defined as whitespace  上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义.</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记一--More on function</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-funcion-pattern-lambda/</link>
+      <pubDate>Fri, 24 Jan 2014 13:27:21 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-funcion-pattern-lambda/</guid>
+      <description>在haskell中我们可以对function做的更多, 这节一起来看看什么是function pattern和lambda function, 以及什么是多态类.
+Function Pattern 首先我们来看下我们在python的一段代码
+def sumList(l) : if 1 &amp;gt; len(l) : return 0 if 2 &amp;gt; len(l) : return l[0] return l[0] + l[1]  那么用function pattern写会如何呢?
+sumList :: Num a =&amp;gt; [a] -&amp;gt; a sumList (ele:oEle) = ele + sumList oEle sumList [x] = x sumList [] = 0 这段函数该如何解读?看起来我们像是对*sumList*定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候Funtion Pattern就开始发挥作用了.
+先来看第一段代码:
+sumList (ele:oEle) = ele + sumList oEle  这段代码定义了当sumList的参数多余一个元素的时候将第一个元素的值和后续元素递归调用后的值相加.
+再来看第二段代码:
+sumList [x] = x 当sumList的参数有且只有一个元素的时候返回该元素的值.</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记二--理解Haskell的思路</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-for-c-programmer/</link>
+      <pubDate>Thu, 23 Jan 2014 17:18:00 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-for-c-programmer/</guid>
+      <description>想要使用好一门语言, 必须先掌握他的核心思想. 对于熟悉C语言的程序员来说, 过程就是一切, 而对熟悉java语言的程序员来说对象就是一切, 那么Haskell又如何?先给大家打一支止痛针, 因为看得真的头痛.
+金科玉律  It is often easier to code the general definition for something than to write a function that generates a specific value
+ 也就是说定义事情的特性远比实现他做什么容易么?
+有趣的例子 我们先来看一段代码
+myList :: [Int] myList = 0 : 1 : [ a * b | (a, b) &amp;lt;- zip myList (tail myList)] 初看过去,这段代码究竟干了什么事情.是定义了一个函数?是定义了一个列表?还是定义了一个货?在解析这段代码之前先来补点基础知识.
+*:*符号在haskell中代码数组的连接符
+1 : [2] -- output [1, 2] *|*符号在haskell中代表输入,也就是说|右边的值当作左边表达式的输入
+*&amp;lt;-*表示把右边的值依次赋值给左边
+*zip*是haskell定义的一个函数
+zip [1,2] [3,4] -- ouput [(1,3), (2,4)] zip [1] [3,4] -- ouput [(1,3)] *tail*同样也是haskell定义的一个函数</description>
+    </item>
+    
+    <item>
+      <title>Haskell学习笔记一--Overview</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-tutorial-1/</link>
+      <pubDate>Wed, 22 Jan 2014 10:23:18 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-tutorial-1/</guid>
+      <description>为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.
+编译器 GHC是haskell的编译器,自带了一个GHCI&amp;ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
+程序结构  module层, 让代码能够被重用
+ declearation, 对数据类型,数据值的定义
+ expressions, 表达式
+ literal, 就是我们写的文本程序
+  语法 在阅读BNF规则的时候需要用到下面的规则:
+ [pattern]表示可选的内容 {pattern} 表示0活多个内容  (pattern) 表示group,和正则的括号一样 pat1 | pat2 表示可选的  pat  ⟨ pat ′⟩   在pat中且不在pat&#39;中内容 pat1 | pat2 表示可选的  haskell支持在源代码中写unicode字符.
+Reserved word case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _</description>
+    </item>
+    
+    <item>
+      <title>linux xmonad 小试</title>
+      <link>http://oopschen.github.io/posts/2014/xmonad-desktop/</link>
+      <pubDate>Tue, 21 Jan 2014 10:02:11 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/xmonad-desktop/</guid>
+      <description>一直在用xfce和docky构成的类mac os的桌面系统,最近看腻了,换个新鲜的玩玩。不搜不知道,一搜吓一跳,桌面系统已经有很多版本了,比如基于box概念的gnome,kde,xfce,基于tiling概念的xmonad,awesome等。今天我就来玩玩xmonad的桌面。
+特点 这个桌面主要吸引我的地方特点:
+ 他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小
+ 支持多显示器显示不同的workspace
+ 占用资源少,稳定,启动快
+  唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。
+快捷键介绍   *快捷键*  *说明*   mod-shift-return  打开terminal   mod-space  改变窗口的layout   mod-j,mod-k  在窗口间切换   mod-comma,mod-period  在一个pane中的窗口数   mod-h,mod-l  改变窗口的宽度   mod-shift-c  关闭窗口   mod-shift-q  退出整个桌面   mod-1,..,mod-9  在9个workspace之间切换   更多请查看这里
+配置文件 *~/.xmonad/xmonad.hs*是本地的配置文件,在编辑完后可以用
+xmonad --recompile  来确定自己的语法有木有错误。
+当编辑haskell文件的时候需要注意的是一个tab==8个空格。默认的Mod键是Alt.附上笔者默认的配置</description>
+    </item>
+    
+    <item>
+      <title>ripple币的一些想法</title>
+      <link>http://oopschen.github.io/posts/2013/come-to-see-ripple/</link>
+      <pubDate>Mon, 09 Dec 2013 16:13:59 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/come-to-see-ripple/</guid>
+      <description>自接触电脑以来,就听过虚拟货币,80后第一反应就能想到Q币,这种等价物可以买很多QQ的服务,但是不能提现。以前也有一些人通过收取Q币来服务他人,换句话说用Q币换取他人的资源。这样Q币就有了一些货币的意味。然后,Q币的发行确实无止境的,这也就意味着,只要腾讯愿意Q币可以无限贬值。
+Ripple币或者数是比特币是发行量固定（按照官方的说法是固定的,其实鬼知道）的货币。这样ripple币就具有一般货币的性质了,我们来看看我们ripple币交易的流程。
+首先我们来看看ripple的两个重要角色G和R：
+R&amp;ndash;ripple币的网络 所谓网络,我们可以理解为一个发行单位和印钞单位的合体,他的职责就是控制发行ripple的数量和个个网关之间通信的桥梁。
+G&amp;ndash;网关 网络上的网关的意义和通道的意思是一样的,这里也不例外。网关主要负责现实生活中的货币,比如人民币,美元,澳元等和ripple币之间汇率的转换。
+交易流程 假设C为买家,S为卖家,G为网关,R为ripple的网络。假设有这样一个场景：在美国的C通过ripple币购买了在中国的S的点卡价值1rmb, 1rmb=1ripple币, 1dollar=10ripple币。那么C通过网关G,充值了1美元,然后支付1个ripple币。而S收到1个ripple币,并把他提现成1人民币。
+赚钱行为 就目前我的了解,ripple币是会浮动的,所以一些投资者可以通过买入和卖出的差价从中获益。而还没发现有什么通过ripple进行的交易,属于虚拟经济。
+总结 这样的交易流程不仅脱离了现实生活中银行之间的现金流转,也让汇率的存在变的没有任何意义。假使ripple开始在各国流通,那么ripple公司完全可以通过操纵ripple币来摧毁一个国家的经济。这样的野心真是很可怕,阴谋论者可以说这是美帝欠钱不还的又一利器。
+另外大家想玩的话,可以给我的ripple钱包充电钱哈哈： rMffqNoGBzzdzWTqtdeGto74GypdToywML</description>
+    </item>
+    
+    <item>
+      <title>在linux下删除setitimer设置的timer</title>
+      <link>http://oopschen.github.io/posts/2013/how-to-delete-timer-set-by-setitimer/</link>
+      <pubDate>Fri, 25 Oct 2013 10:27:27 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/how-to-delete-timer-set-by-setitimer/</guid>
+      <description>最近的项目需要用一个timer设置超时检测,看了*timer_create*和*setitimer*的文档,选择使用比较简单的setitimer方式进行检测,当然这种方式的可移植性不太好,建议选择timer_create（基于posix标准）方式进行超时设置。后来碰到一个问题：setitimer并没有对应的删除timer的系统调用,而文档也是一句带过：
+ A timer which is set to zero (it_value is zero or the timer expires and it_interval is zero) stops.
+ 上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：
+实验设计  设定主程序监听alarm信号,打印日志
+ 开起timer
+ 设定主程序监听SIGUSR1事件,停止timer 利用{% highlight bash %}kill -SIGUSR1  {% endhighlight %}方式停止timer
+  预期：
+主程序停止打印日志
+1. 设置timer的值为0 整体代码如下：
+#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;signal.h&amp;gt; #include &amp;lt;sys/time.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; static struct timeval __intrvl; static struct timeval __timer_val; static struct itimerval __timer; void hdl(int sigNum) { printf(&amp;#34;sig num %d, %ld-%ld, %ld-%ld\n&amp;#34;, sigNum, __timer_val.</description>
+    </item>
+    
+    <item>
+      <title>微信破解研究总结</title>
+      <link>http://oopschen.github.io/posts/2013/weixin-break/</link>
+      <pubDate>Mon, 30 Sep 2013 19:59:29 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/weixin-break/</guid>
+      <description>微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。
+理论分析 首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：
+1. android版本
+2. iphone版本
+由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。
+实践 android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择APK进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是smali的机制,我们可以根据Dalvik的字节码总结出源代码&amp;ndash;基本能和java的源代码相对应。
+微信客户端的架构 微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c++代码进行封装,因此想要破解并不容易&amp;ndash;看了一天就没什么信心再去看c++的反编译代码了。*libnetwork.so*这个文件主要封装了微信的网络操作&amp;ndash;长连接和短链接的创建,dns的查询等等,*libMMProtocalJni.so*这个文件封装了微信的所有通信协议&amp;ndash;包括加密和压缩。 而java代码封装了UI和网络适配器,基本流程如下：
+java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作 这样的结构,确实增加了破译的难度,除非耐着性子看完800K+汇编代码。
+libMMProtocalJni 通过libMMProtocalJni的反汇编代码,我们可以看到关键字aes和cbc,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。
+另类的破解 与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&amp;ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。</description>
+    </item>
+    
+    <item>
+      <title>Nginx - CPU Cacheline 深思</title>
+      <link>http://oopschen.github.io/posts/2013/cpu-cacheline/</link>
+      <pubDate>Sun, 01 Sep 2013 19:38:24 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/cpu-cacheline/</guid>
+      <description>在nginx的内存管理,我们会看到*ngx_align_ptr*这样的代码,从命名上来看是对指针地址的对齐操作。为什么要这么做呢？不是增加负担么？带着这样的问题,我们来看看CPU cache这个很有深度的问题。这篇博客是对drepper的理解和消化,有英文阅读能力的可以直接参考原文,跳过此博客。（PS：人家2007年写的,惭愧惭愧)
+内存硬件操作 这里的内存只是对同步的DRAM进行表述,对于其他的内存类型不适用。
+内存的所有操作都是由内存控制器完成,而当下内存采用行列模式,管理硬件内存地址。也就是说,当内存控制器读取或写入数据的时候,会有3步操作:
+1. precharge, 对内存充电操作
+2. RAS, 对行的选择
+3. CAS, 对列的选择
+最后才能开始读取或写入这个单元的数据, 然而这几个操作相对cpu的运行速度是很慢很慢的。所以出于充分利用cpu的目的,硬件发展中在cpu中加入了L1,L2,L3的缓存。每级缓存的访问速度是递减的,而容量是递增的,他们的访问速度都是内存的10倍以上。这样CPU不用等待缓慢的内存数据,而直接从高速的缓存中取。也就是说缓存的命中率决定CPU的效率。同时,对内存的读取和写入也不视一个字节一个字节写入,而是一串字节,我们通常称为cache line。这样的设计是基于相邻的东西更有可能被使用的原则,这样也就提高了CPU的利用率。
+Cache line 首先我们来看看Cache line的结构：
+1. tag,用于区分不同内存地址的标签
+2. set,用于在tag中选择不同的集合
+3. offseet, 用于一个cache line中开始的位置
+如上面说内存每访问一个地址都会一并把cache line大小的数据从ram中读取到缓存中。那么,当cpu读取数据的时候首先会从缓存中取,而这个取的速度必须很快,不然就失去了缓存的意义。因此,缓存的大小都很小,这也是出于对速度的要求,因为对大量的缓存比对需要很多时间。
+这个时候人们总会用索引的方式,加快比对,这也就是上述结构的意义。CPU用set过滤出一小部分的地址,然后用offset和tag比对是否为请求的数据。
+通过cache line的实现,CPU实现了预提取数据的功能。当然如果那个原则被打破,这样的设计也是低效的。
+实践 理论虽如此,我们来看看实际代码表现如何？
+cache line大小 首先要解决的问题就是获取CPU cache line的大小。我们以linux为例：
+cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size  这个文件记录了CPU的cache line大小,单位是字节。这个文件的目录下还存在着一些其他文件
+ coherency_line_size
+level
+number_of_sets
+physical_line_partition
+shared_cpu_list
+shared_cpu_map
+size
+type
+ways_of_associativity
+ 这些文件分别说明了缓存的类型,等级,几路set和共享缓存的CPU等等信息
+代码论证 既然缓存只是提高了CPU获取速度的速度,那么我们可以设计如下的代码来检验这个理论。
+1. CPU按字节对内存进行访问
+2. 不同的代码分配到不同的CPU核上去,减少系统调度带来的干扰
+3. 对比组为缓存对齐的指针和随机的指针
+缓存对齐的代码 #define _GNU_SOURCE  #include &amp;lt;sched.</description>
+    </item>
+    
+    <item>
+      <title>Dig Nginx - Nginx 源代码初见</title>
+      <link>http://oopschen.github.io/posts/2013/nginx-overview/</link>
+      <pubDate>Fri, 02 Aug 2013 15:14:19 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/nginx-overview/</guid>
+      <description>最近有点时间,看了下nginx源代码,先对这部分内容做点小札记。
+观后感 在没有文档帮助的情况下,我大约花费4天的时间来摸清nginx是怎么工作的(c语言的经验在半年左右)。显然,nginx的源码对于我来说不是那么友好,主要体现在如下方面：
+1.函数的代码长度。在nginx的源代码里,阅读到了800+的一段函数,这情何以堪。
+2.宏名称大小写。因为个人习惯,宏都是大写的,而nginx中有许多宏都是小写。当然其中有些宏在不同的设置下确实是函数,但我以为还是大写比较容易识别。
+3.模块化的全局变量。所谓模块化就是,其实是在编译期间,对全局变量的赋值,包括变量,函数句柄等。而这些变量又是全局的,使得阅读代码的难度增加。
+当然,在其中也汲取到了不少东西：
+1. 利用cpu的cache line优化内存访问
+2. 局部内存池
+模块化 nginx的模块化可以说是伪模块化,它不是在运行时期可以添加或删除的模块,而是在编译时期,配置的模块化,当然这也是出于效率考虑。nginx的模块配置由自动生成的ngx_modules.c(源代码目录/objs/ngx_modules.c)决定,这个文件主要定义了全局变量*ngx_modules*这个数组。数组的元素是类型为*ngx_module_t*的全局变量。
+ngx_module_t类型包含如下几个元素：
+1. 模块名称
+2. 模块编号
+3. 模块上下文编号
+4. 模块生命周期里所需的函数指针
+5. 模块类型
+6. 模块命令,在文件配置文件解析时,用于设置变量的值
+7. 模块上下文,用于配置和保存worker时期的变量值
+nginx 初始化 以下是nginx初始化的内容,略过一些检查变量值的步骤： 1. 初始化cycle。cycle包含整个nginx的配置文件信息。其中包含很多的步骤,包括初始化模块,解析配置文件,处理listen的老端口等等。 2. 根据配置文件fork worker进程,每个worker进程都会有各自的epoll,这和我当时预期的不太一致
+3. 主进程负责响应用户的命令,包括重启,关闭,启动等等
+3. fork 出来的worker进程则开启poll句柄
+4. 将配置文件中的listen的端口加入到poll句柄中轮询
+5. 当监听的端口被访问的时候,就进入了一般的服务器解析的过程,当然在这个过程中,这个worker进程被独占。
+具体代码 说了这些概念性的总结话语,还是来看看代码比较实际,下面的代码追踪是基于linux的epoll配置进行的：
+core/nginx.c 所有一切的开端,这中包含了main函数。其中值得看的是两个函数：
+1. ngx_os_init, 根据不同的cpu初始化cpu cache line的大小 2. ngx_init_cycle, 初始化cycle 最后我们就到了ngx_master_process_cycle, 处理cycle的步骤
+ngx_init_cycle (core/ngx_cycle.c) 这其中的内容可以大致看过,等到后面的步骤可以细看哪些变量被初始化。
+ngx_master_process_cycle (os/unix/ngx_process_cycle.c)  ngx_start_worker_processes, 负责fork出worker进程 ngx_start_cache_manager_processes, 负责fork出cache进程   ngx_start_worker_processes (os/unix/ngx_process_cycle.</description>
+    </item>
+    
+    <item>
+      <title>Dig Webcore - 代码生成机制</title>
+      <link>http://oopschen.github.io/posts/2013/webkit-derivedsource/</link>
+      <pubDate>Mon, 01 Jul 2013 17:29:13 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/webkit-derivedsource/</guid>
+      <description>一直对webkit神秘的面纱抱有极大的好奇心,但是苦于一直没时间好好的对其进行研究。最近终于的空,开始对webkit进行探索并做一些摘记。
+在刚开始的时候,由于对google的偏爱,所以选择chromium进行探究,但探究了2天始终不太有头绪,感觉chromium的代码还是太复杂,因为它对渲染层的代码完全是对webkit core的扩展,而其大部分的代码都是界面和多线程架构的,最后决定还是对Webkit的代码直接进行研究。
+代码生成 在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？IDL, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。
+webkit的代码生成主要靠*make-generated-sources.sh*脚本,这个脚本根据WebCore下的子目录中的idl文件和后缀为in的配置文件生成相关的.h和.cpp文件。而生成的代码则在*DerivedSources/WebCore*下。
+GPERF GPERF是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。
+GPERF列表  CSSPropertyNames.{h,cpp}
+ CSSValueKeywords.{h,cpp}
+ ColorData.cpp 以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。   IDL IDL相关的代码生成脚本在*bindings/scripts*下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：
+预处理 IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：
+ Outputs the dependency. The format of a supplemental dependency file:
+DOMWindow.idl P.idl Q.idl R.idl Document.idl S.idl Event.idl &amp;hellip;
+The above indicates that DOMWindow.idl is supplemented by P.idl, Q.idl and R.idl, Document.idl is supplemented by S.idl, and Event.idl is supplemented by no IDLs. The IDL that supplements another IDL (e.</description>
+    </item>
+    
+    <item>
+      <title>C 中整型相等判断效率</title>
+      <link>http://oopschen.github.io/posts/2013/c-integer-efficiency/</link>
+      <pubDate>Fri, 21 Jun 2013 10:43:54 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/c-integer-efficiency/</guid>
+      <description>在类型明确的编程语言中,都存在整型类型,这也是计算机的基本类型之一,同时计算速度最快的类型。而在编码的过程中,对整型是否相等的计算也时常能碰到。然而,每个人的写法却不尽相同,本博客就对常见的两种写法进行效率比较。
+测试平台  OS: gentoo x86_64 in vmware 9 compiler: clang 3.2   测试代码 使用bit操作进行判断, 简称A int main() { int a = 1; if (!(1 ^ a)) { return 0; } return 1; } 使用==操作进行判断, 简称B int main() { int a = 1; if (1 == a) { return 0; } return 1; } 判断标准 由于个平台的差异,所以我们以指令书为效率的判断标准
+实验结果 下面的结果排除的相同的地方,只摘取了条件判断不同的地方
+A 的汇编结果 movl -8(%rsp), %eax xorl $1, %eax cmpl $0, %eax  B 的汇编结果 cmpl -8(%rsp), %eax  由上面的结果可以看出其实B的方案执行的效率更高一些。</description>
+    </item>
+    
+    <item>
+      <title>webkit下的KeyboardEvent模拟</title>
+      <link>http://oopschen.github.io/posts/2013/webkit-keyboardevent/</link>
+      <pubDate>Mon, 17 Jun 2013 10:14:13 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/webkit-keyboardevent/</guid>
+      <description>在javascript中模拟dom的事件是一件非常有趣的事情,他不仅可以将人工机器化,也让页面变得更加丰富。DOM时间参考资料可参见DOM2和DOM3。
+常用方式 我们在javascript中模拟dom事件一般用两种方法：
+调用事件函数 element.click();  创建事件对象 var evt = document.createEvent(&amp;#34;MouseEvent&amp;#34;); evt.initMouseEvent( &amp;#34;click&amp;#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt);  区别 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
+webkit 中KeyboardEvent 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
+// Event Constructor Syntax:  [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3:  void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); };  我们来主要看几个参数：</description>
+    </item>
+    
+    <item>
+      <title>Linux 时间</title>
+      <link>http://oopschen.github.io/posts/2013/computer-time/</link>
+      <pubDate>Tue, 11 Jun 2013 17:52:55 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/computer-time/</guid>
+      <description> 最近刚用Gentoo从零开始构建出了一个linux系统,使用ck内核。在此过程中碰到了一个时间问题,当我选用Asia/Shanghai的时候hwclock的时间比date的时间晚了近8个小时。然而,对照手表上的时间,hwclock的时间是正确的,而date的时间是错误的。这个问题废了我好多劲,今天终于有时间把这个问题整理下,记录下。
+时间 在了解问题前我们先了解下计算机里时间的概念。首先,在计算机里时间的记录是靠一个叫控制频率的硬件,每隔固定的时间给cpu发送中断,这样计算机才能知道到底过了多长时间。比如,我们控制频率的硬件的中断频率为100MHz,那么计算机能识别的最小的时间单位是0.01s（1/100MHz）,也就是说如果我们要求这台计算机每间隔0.001秒启动一个任务,那是办不到,因为cpu无法在0.001秒的时候中断。
+时间在计算机里分为两块：
+1. 硬件时间 2. 系统时间
+硬件时间 所谓硬件时间,就是当系统关闭的时候,能持久保存在主板上的时间数据。它不包含只包含年月日,时分秒,却不包含zoneinfo（比如Asia/Shanghai）。
+系统时间 系统时间是根据硬件时间和设定的zoneinfo计算出本地时间,也可以理解为本地的时间。
+正确的设定时间 在BIOS里面设置系统时间,这里设置的是硬件时间
+更新/etc/conf.d/hwclock文件中的clock=&amp;ldquo;UTC&amp;rdquo;的值,如果BIOS设置的是UTC时间,那这里设置UTC,否则设置local。这个文件根据linux发行版不同而不同,这里用Gentoo做例子。这个文件同时还能配置是否将硬件时间写入系统时间或者关机时将系统时间写入硬件时间。
+将/usr/share/zone中对应的时区信息文件拷贝到/etc/localtime
+cp /usr/share/zone/Asia/Shanghai /etc/localtime 将文件名写入/etc/timezone
+echo &amp;#34;Asia/Shanghai&amp;#34; &amp;gt; /etc/timezone</description>
+    </item>
+    
+    <item>
+      <title>我们为什么要选择DNS服务器</title>
+      <link>http://oopschen.github.io/posts/2013/why-we-choose-a-dns-over-default/</link>
+      <pubDate>Thu, 06 Jun 2013 08:46:56 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/why-we-choose-a-dns-over-default/</guid>
+      <description>DNS?所谓DNS,是将人类可理解的网络地址转化成计算机可理解的网络地址的协议。一般上网用户不会注意到DNS,因为当我们接入运营商(电信,联通,铁通,移动等)的时候,他们会默认给我们一个DNS服务器地址。电信的默认的DNS服务器还算过的去,但是其他的就不敢恭维了,所以我们需要更好的DNS服务器地址。
+为什么 我们为什么需要选择DNS服务器？开头我们介绍了DNS的功能,具体到实际,我们用以下例子解释DNS到底帮我们干了什么。
+1. 当我们在浏览器输入www.baidu.com的时候,浏览器首先会根据www.baidu.com这个域名去DNS服务器查询他的ip地址,然后和这个ip地址进行通信 2. 当我们打不开国内网页的时候,很大一部分可能是域名无法被解析,也就是找不到1中的ip地址,无法通信
+所以DNS服务器是多么的重要,当然如果DNS被攻陷,也就是说原本www.baidu.com对应的ip地址是115.239.210.26,而攻陷后它对应的ip地址是1.0.0.1,那么你所有看似对www.baidu.com的操作实际上都是在别人的服务器上进行。更甚者,当你进行账户操作的时候,你的私人信息包括密码,帐号等等都会被盗。
+推荐的DNS 由此看来,我们很有必要选择一个安全,可靠,快速的DNS服务器。以前,博主喜欢用Google的服务器
+ 8.8.8.8
+8.8.4.4
+ 然后,他毕竟不是本土企业,所有的域名解析都是以加快美国本土为目的,结果就是国内访问新浪都很慢。这样不是得不偿失么。
+幸好博主发现了114DNS
+ 114.114.114.114
+114.114.115.115
+ 用了半年,速度是刚刚的,而且上google被墙的次数也比较少。 而且114DNS还提供了许多人性化服务,比如他有专门放病毒网站的DNS服务器地址,有防色情的DNS服务器地址,用来保护孩子也是不错的选择。
+测试对比  测试平台： debian6 64bit 网络服务商： 电信 带宽： 6M   114 DNS访问 命令
+dig @114.114.114.114 www.baidu.com  结果
+ ; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.7.3 &amp;lt;&amp;lt;&amp;gt;&amp;gt; @114.114.114.114 www.baidu.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 30652
+;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 0</description>
+    </item>
+    
+    <item>
+      <title>Linux下的Ramdisk使用</title>
+      <link>http://oopschen.github.io/posts/2013/linux-ramdisk-usage/</link>
+      <pubDate>Tue, 04 Jun 2013 09:51:35 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/linux-ramdisk-usage/</guid>
+      <description>内存技术日益发展的今天,一台电脑随随便便都有8g以上的内存,然后win系统只占了1.5G,linux也就200M,所以大部分的内存资源都是浪费的。因为大部分的软件都考虑了内存不足的情况,会把一些不必要的数据存在硬盘上,而这样小的读写对硬盘的寿命都是有害的,而且容易造成碎片,同时速度也不快。那么我们为什么不把这些临时文件存在内存里呢？这时,linux内核自带的ramdisk就非常好用。
+使用 下面我们来看下如何在linux下使用ramdisk：
+mount -t tmpfs -o size=xxm,uid=xx,gid=xx tmpfs /xxx/xx 我们也可以将其配置在/etc/fstab下：
+ tmpfs /xxx/xxx tmpfs defaults,size=xxm,uid=xx,gid=xx 0 2
+ 如果想使用ramfs则把上面的tmpfs替换成ramfs
+ramfs和tmpfs区别    Ramfs Tmpfs 
+ 内存不是一下子获取,而是慢慢增长 y y 
+ 内存不足 死机 使用swap 
+ 内核版本支持 2.0 2.4 
+ 参数 无,只能是root用户使用 可以控制uid,gid,size,以及挂在的node绑定   所以建议大家使用tmpfs
+setcap 经在centos 6.4上测试,setcap无法在tmpfs的文件上执行,错误信息是Operation not support。查找相关资料后,redhat应该在11年的时候就修复了,不知道为啥centos上还是出问题,具体bug链接。同样ramfs也是使用,其他linux发行版未测试。
+综述 ramdisk并不是万能的解药,他只适合用于加速磁盘读写频繁的应用,而且断电后ramdisk上的数据全部丢失。所以可以用它来当eclipse或chrome的工作目录。</description>
+    </item>
+    
+    <item>
+      <title>如何获取某个国家的ip段分配,以及ip所对应的服务商</title>
+      <link>http://oopschen.github.io/posts/2013/how-to-get-all-ip-for-one-country/</link>
+      <pubDate>Fri, 31 May 2013 16:45:00 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/how-to-get-all-ip-for-one-country/</guid>
+      <description>互联网在最初的时候只是一个局域网,各个国家的局域网连接起来后就变成了当今的局域网。所谓ip,就是分配给每个上网设备的一个地址,像家庭地址一样。而这个工作不可能由一个组织具体到每个设备,这样既消耗资源,又不高效。因此,一个名为IANA,的组织负责统筹安排数字的分配（包含ip地址,端口地址,域名等等）,当然具体执行的时候,会分配到各个国家地方的办事处。而亚洲的办事处称为APNIC。说了这么多,好像没说重点,这篇博客主要记录如何获取某个国家的ip段,以及如何过滤出某些运营商的ip段。
+世界IP办事处 世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。 APNIC: 是亚太地区的总办事处,下属还有各个国家的。 AFRINIC: 是非洲的总办事处,下属还有各个国家的。 ARIN: 是美洲的总办事处,下属还有各个国家的。 LACNIC: 是拉丁美州的总办事处,下属还有各个国家的。 RIPE NCC: 是欧洲和部分中亚的总办事处,下属还有各个国家的。 具体有哪些国家可以点击链接去各个网站查看明细。
+获取某个国家的ip段 在这之前,我们先了解下什么是Country Code(CC), CC是国家代码的简称。我们通常可以在域名后看到,比如*www.google.com.hk*就代表google在香港的服务,而*wwww.google.com.sg*则是新加坡的服务,后面我们将用他来过滤ip段。更多的CC可以参考这里
+Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文件Lastes IP Allocation, 下面我们简单介绍下apnic的的格式：
+备注行 #在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等
+文件头行 样例：
+ 2|apnic|20130531|29927|19850701|20130530|+1000
+ 格式:
+ version|registry|serial|records|startdate|enddate|UTCoffset
+  version, 表示当前的版本,目前是2 registry, 办事处简称,可以是afrinic, apnic, arin,iana, lacnic, ripencc其中的一个 serial, 可以理解成文件的id records, 文件有多少条记录,不包括空行,文件头行,备注行以及概要行 startdate, 开始的日期,格式为yyyymmdd enddate, 结束日期, 格式如上 UTCoffset, UTC中的距离  概要行 样例：
+ apnic||asn||5214|summary
+ 格式：
+ registry||type||count|summary
+  registry, 同上 *,保留字段 type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号 count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数 summary, 就是字符串&amp;rdquo;summary&amp;rdquo;, 为了和记录行区别   记录行 样例：</description>
+    </item>
+    
+    <item>
+      <title>博客迁移到github</title>
+      <link>http://oopschen.github.io/posts/2013/hello-github-page-with-jekyll/</link>
+      <pubDate>Sun, 26 May 2013 18:00:00 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/hello-github-page-with-jekyll/</guid>
+      <description>作为一个80后准软件工程专业毕业的程序员,身处在软件行业成指数型发展的大环境下,人难免会有些轻浮。各种的框架,各种的技术博客,各种开源的代码以及各种好用的IDE都让我们开始迷失在茫茫的码海里。为了不继续迷失下去,我们必须知道从哪里来,才能知道到哪里去。因此,我的工作台也从win转向linux,从eclipse转向vim,变成语言也从Java扩展到c90,c89,python以及cortex指令集等。就这么不知不觉过了好几年,这确实带给我不少好处,了解了不少软件行业的历史,渐渐对以前的程序员所处的环境感同身受,才会发现现在的程序员真是太幸福了,同时也太嫩了。
+为什么要迁移到jekyll 扯着扯着跑题了,因为太喜欢vim的简单,快速,敏捷,以致于对鼠标开始感到陌生。2012年的时候有些想法想要找到一个免费的,用vim写博客的服务。但始终没能如愿。2013年偶然间看到github上出了个pages的服务,我不的惊呼这不是我在找的东西么。
+ 免费的博客服务 使用git保存博客 可以利用vim写博客 不用高配的服务器挂博客,因为没有数据库,只有html文件   jekyll jekyll是ruby写的静态化工具,它由以下几部分组成:
+1. liquid模板指令 2. ruby plugins实现定制
+jekyll具有博客的天生气质,他将文件分成配置文件,posts文件（不知道怎么翻译合适,意思是每篇博客）以及不需要处理的文件（图片,样式,脚本等）。jekyll通过配置文件将posts文件按照规则生成html文件,而在这个过程中,用户可以定制不同的插件来生成不同的html文件,从而实现整站静态化。但是,个人觉得用ruby实现真是一个败笔: 在使用一个星期后,当文档越多,jekyll处理的非常缓慢。文档的缺失也让这个工具不是那么好用。相比较wordpress而言,jekyll所拥有的主题也少的可能,不过这可以通过一些html模板来弥补。
+Liquid, 本是液体的意思,大概作者是希望他能想液体一样胶合设计者和代码。个人使用后,他并没有达到预期的想法。就单单赋值这块而言,它居然有两种写法。
+ {% assign var = 1 %} {% capture %}{{ page.title }}{% endcapture %}  assign的写法是为了赋值一个常量,而capture的写法是赋值变量,这让程序员情何以堪。而且,错误提示信息不够,很难判断到底哪里出错了。
+下面列举一些可参考的文档 jeyll的官方网站 liquid的文档
+Github Pages Github Pages是github推出的一个网页的服务。通常github上的代码有一个Readme来作为代码的简介,但是这样少了很多亮丽的元素&amp;ndash;比如说图片,html5支持。所以Pages的服务类似于对一个项目的宣传页,它允许用户在repository上建立一个gh-pages的分支作为该repository的宣传页。同时,它也支持这个repository单单作为一个网站使用。这里要注意的是想要做为单纯的网站,必须符合两个条件：
+1. repository的名称必须是username.github.io, username是github页上的username 2. 一个帐号只能建立一个网站
+同样,Github Pages有一个缺点,它不能实时发布,因为jekyll每次重新生成所有页面,所消耗的cpu是很大的,所以每次我们push博客到github repository,它都需要10分钟的时间来进行发布。这可能也是出于对服务器资源的保护,毕竟是免费的。
+这里要提醒大家,这个Github Pages上的所有内容都是可以通过github中的repository页面访问,所以请不要放一些私隐的东东。
+迁移过程 首先我们建立如下几个目录:
+1. _layouts, mvc模式中v的职责 2. _posts,博客内容,文件名称的格式必须是yyyy-mm-dd-blogtitle.format, format可以是md,html等,具体查看文档 3. _includes, 常量文件,_layouts,_posts和目录下的所有文件可以使用{%raw%}{% include filename %}{%endraw%}引用此文件
+_config.yml负责这些目录的可配化,具体参考文档</description>
+    </item>
+    
+    <item>
+      <title>优酷,土豆,乐视,搜狐tv,腾讯视频广告屏蔽chome插件</title>
+      <link>http://oopschen.github.io/posts/2013/youku-tudou-ad-block-chrome-ext/</link>
+      <pubDate>Wed, 27 Feb 2013 13:56:00 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/youku-tudou-ad-block-chrome-ext/</guid>
+      <description>你是否对优酷,土豆的45秒广告感到厌烦？
+你是不是觉得网上看视屏本来就应该free,并且无广告植入？
+好的这款chrome插件就会帮助你屏蔽掉所有优酷或土豆的视屏钱广告,让你看片顺利。
+如果你觉得还可以推荐给自己的亲朋好友呵呵。另,如果有任何bug发邮件给linux_ray@126.com或者在此页面评论。
+支持的视频网站  优酷
+ 土豆
+ 乐视
+ 风行
+ 腾讯视频
+ 爱奇艺(暂时时效,等待修复)
+ PPTV
+ 搜狐TV
+ CNTV
+  安装方法, 重要,请不要略过 由于和谐的政策没办法注册wallet,只能手动将安装包拖入浏览器内。
+打开chrome的扩展页面(选项-&amp;gt;扩展或者访问网址chrome://extensions/), 然后将文件拉入这个页面
+对于其他基于chrome二次开发的浏览器比如（枫树,360等）可以直接将下载的插件包拖入浏览器进行安装。
+重要提示：请先卸载类似屏蔽插件,以免影响效果
+右击另存为,下载
+特色 安装后会在各大支持屏蔽的网站打开时展现一个彩色导航条,方便大家在各大视频网站穿梭,如下图。
+当鼠标移上去时会出现导航条全景,当然还有捐赠地址和作者博客。
+推广 插件会每*24小时*打开作者的广告页,大家可以随意点击,也算是支持我的一种方式,当然弹出的广告是在后台,不会打扰你的视觉。
+如果真的觉得非常好用,请推荐亲朋好友使用,或者帮忙点击弹出页内的分享按钮,分享到社交网站。
+此插件个人维护,当然钱对我的作用也是很大的,希望大家捐赠我,谢谢。
+安全 本插件没有任何后门,致力于屏蔽广告,因为个人也在使用。
+因为是chrome插件,所以有些技术基础的大家可以直接解压看看源码,当然chrome插件页也能提示每个插件的权限,也能从另一方面证明插件的安全性。
+维护 只要本人还在看优酷和土豆视频,这款插件就会一直维护下去。
+有米的各位可以考虑一下捐赠本人,没有捐赠的话,我同样也会一直做下去。
+版本记录: 2014.05.02 3.5.12 修复优酷和乐视无法屏蔽
+2014.04.28 3.5.11 修复优酷偶尔无法屏蔽
+2014.04.11 3.5.10 修复优酷偶尔无法屏蔽
+2014.01.26 3.5.9 修复乐视无法屏蔽
+2013.12.26 3.5.8 爱奇艺无法完美屏蔽
+2013.11.06 3.5.7 修复乐视tv无法完美屏蔽,将广告时间减少到最低15秒
+2013.10.25 3.5.6 修复爱奇艺无法屏蔽
+2013.9.17 3.</description>
+    </item>
+    
+  </channel>
+</rss>

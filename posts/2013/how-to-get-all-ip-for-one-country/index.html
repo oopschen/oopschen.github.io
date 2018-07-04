@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>如何获取某个国家的ip段分配,以及ip所对应的服务商</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">如何获取某个国家的ip段分配,以及ip所对应的服务商</div><div class="section" id="content">Fri May 31, 2013 &#183; 248 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/ip%E6%AE%B5">ip段</a></span><span id="tag"><a href="http://oopschen.github.io/tags/ip%E6%8B%A5%E6%9C%89%E8%80%85">ip拥有者</a></span><span id="tag"><a href="http://oopschen.github.io/tags/apnic">apnic</a></span><span id="tag"><a href="http://oopschen.github.io/tags/%E5%9B%BD%E5%86%85ip%E5%9C%B0%E5%9D%80%E5%BA%93">国内ip地址库</a></span><span id="tag"><a href="http://oopschen.github.io/tags/iana">IANA</a></span></div><hr/>
+
+<p>互联网在最初的时候只是一个局域网,各个国家的局域网连接起来后就变成了当今的局域网。所谓ip,就是分配给每个上网设备的一个地址,像家庭地址一样。而这个工作不可能由一个组织具体到每个设备,这样既消耗资源,又不高效。因此,一个名为<a href="http://www.iana.org/" title="IANA Website">IANA</a>,的组织负责统筹安排数字的分配（包含ip地址,端口地址,域名等等）,当然具体执行的时候,会分配到各个国家地方的办事处。而亚洲的办事处称为<a href="http://www.apnic.net/" title="APNIC Website">APNIC</a>。说了这么多,好像没说重点,这篇博客主要记录如何获取某个国家的ip段,以及如何过滤出某些运营商的ip段。</p>
+
+<h4 id="世界ip办事处">世界IP办事处</h4>
+
+<p>世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。
+<a href="http://www.apnic.net/" title="APNIC Website">APNIC</a>: 是亚太地区的总办事处,下属还有各个国家的。
+<a href="http://afrinic.net/" title="AFRINIC Website">AFRINIC</a>: 是非洲的总办事处,下属还有各个国家的。
+<a href="http://arin.net/" title="ARIN Website">ARIN</a>: 是美洲的总办事处,下属还有各个国家的。
+<a href="http://lacnic.net/" title="LACNIC Website">LACNIC</a>: 是拉丁美州的总办事处,下属还有各个国家的。
+<a href="http://ripe.net/" title="RIPE NCC Website">RIPE NCC</a>: 是欧洲和部分中亚的总办事处,下属还有各个国家的。
+具体有哪些国家可以点击链接去各个网站查看明细。</p>
+
+<h4 id="获取某个国家的ip段">获取某个国家的ip段</h4>
+
+<p>在这之前,我们先了解下什么是<strong>Country Code(CC)</strong>, CC是国家代码的简称。我们通常可以在域名后看到,比如*www.google.com.hk*就代表google在香港的服务,而*wwww.google.com.sg*则是新加坡的服务,后面我们将用他来过滤ip段。<a href="http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm" title="ISO-3166 Country Code">更多的CC可以参考这里</a><br />
+Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文件<a href="http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest" title="APNIC Latest IP">Lastes IP Allocation</a>, 下面我们简单介绍下apnic的的<a href="http://www.apnic.net/publications/media-library/documents/resource-guidelines/rir-statistics-exchange-format#Format" title="APNIC IP ALLOC FORMAT">格式</a>：</p>
+
+<h6 id="备注行">备注行</h6>
+
+<p><strong>#</strong>在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等</p>
+
+<h5 id="文件头行">文件头行</h5>
+
+<p>样例：</p>
+
+<blockquote>
+<p>2|apnic|20130531|29927|19850701|20130530|+1000</p>
+</blockquote>
+
+<p>格式:</p>
+
+<blockquote>
+<p>version|registry|serial|records|startdate|enddate|UTCoffset</p>
+</blockquote>
+
+<ol>
+<li>version, 表示当前的版本,目前是2</li>
+<li>registry, 办事处简称,可以是afrinic, apnic, arin,iana, lacnic, ripencc其中的一个</li>
+<li>serial, 可以理解成文件的id</li>
+<li>records, 文件有多少条记录,不包括空行,文件头行,备注行以及概要行</li>
+<li>startdate, 开始的日期,格式为yyyymmdd</li>
+<li>enddate, 结束日期, 格式如上</li>
+<li>UTCoffset, UTC中的距离</li>
+</ol>
+
+<h5 id="概要行">概要行</h5>
+
+<p>样例：</p>
+
+<blockquote>
+<p>apnic|<em>|asn|</em>|5214|summary</p>
+</blockquote>
+
+<p>格式：</p>
+
+<blockquote>
+<p>registry|<em>|type|</em>|count|summary</p>
+</blockquote>
+
+<ol>
+<li>registry, 同上</li>
+<li>*,保留字段</li>
+<li>type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号</li>
+<li>count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数</li>
+<li>summary, 就是字符串&rdquo;summary&rdquo;, 为了和记录行区别
+<br /></li>
+</ol>
+
+<h5 id="记录行">记录行</h5>
+
+<p>样例：</p>
+
+<blockquote>
+<p>apnic|CN|ipv4|1.0.1.0|256|20110414|allocated</p>
+</blockquote>
+
+<p>格式：</p>
+
+<blockquote>
+<p>registry|cc|type|start|value|date|status[|extensions&hellip;]</p>
+</blockquote>
+
+<ol>
+<li>registry, 同上</li>
+<li>cc, 上面将的CC</li>
+<li>type, 同上</li>
+<li>start,开始值</li>
+<li>value,从start开始有几个数值</li>
+<li>date, 记录被确定的日期,格式和startdate相同</li>
+<li>status, 可以是allocated或者assign,至于这两者的区别就是allocated一定是在使用中的,而assign可以是预先保留,未使用</li>
+<li>extensions, 额外的信息,但是必须用<strong>|</strong>分割
+<br /></li>
+</ol>
+
+<p>到这里我们就应该知道如何解析这个文件从而获取国内的ip了, <strong>文章结尾附上脚本获取apnic的指定ip</strong></p>
+
+<h4 id="查询每个ip段的服务商">查询每个ip段的服务商</h4>
+
+<p>上面我们介绍了如何去获得指定ip段,但是这些ip段又会再分配给不同的运营商使用,比如电信,联通,移动以及各高校的固定ip。这些情形APNIC是不会知道的,也不关心,那么我们如何去解析呢？</p>
+
+<p>这个时候我们需要用到whois, whois主要是查询<a href="http://www.ietf.org/rfc/rfc3912.txt" title="RFC 3921">RFC3921</a>中的对象,whosi通过建立tcp链接,遵循request和response的设计,以文本的格式传递信息,当然只允许ASCII。但是我查了很久,没有一个标准的whois协议,可能是各个办事处自己定制的。啥历史原因就不得而知了。其实说的更加透彻的话,whois是建立在数据库上的应用,每次的whois查询都是对办事处数据库的访问。<br />
+下面是一个whois 1.0.1.0的例子:</p>
+
+<blockquote>
+<p>% [whois.apnic.net node-1]<br />
+% Whois data copyright terms    <a href="http://www.apnic.net/db/dbcopyright.html">http://www.apnic.net/db/dbcopyright.html</a></p>
+
+<p>inetnum:        1.0.1.0 - 1.0.1.255<br />
+netname:        CHINANET-FJ<br />
+descr:          CHINANET FUJIAN PROVINCE NETWORK<br />
+descr:          China Telecom<br />
+descr:          No.31,jingrong street<br />
+descr:          Beijing 100032<br />
+country:        CN<br />
+admin-c:        CA67-AP<br />
+tech-c:         CA67-AP<br />
+status:         ALLOCATED PORTABLE<br />
+notify:         fjnic@fjdcb.fz.fj.cn<br />
+remarks:        service provider<br />
+changed:        hm-changed@apnic.net 20110414<br />
+mnt-by:         APNIC-HM<br />
+mnt-lower:      MAINT-CHINANET-FJ<br />
+mnt-irt:        IRT-CHINANET-CN<br />
+source:         APNIC</p>
+
+<p>role:           CHINANETFJ IP ADMIN<br />
+address:        7,East Street,Fuzhou,Fujian,PRC<br />
+country:        CN<br />
+phone:          +86-591-83309761<br />
+fax-no:         +86-591-83371954<br />
+e-mail:         fjnic@fjdcb.fz.fj.cn<br />
+remarks:        send spam reports  and abuse reports<br />
+remarks:        to abuse@fjdcb.fz.fj.cn<br />
+remarks:        Please include detailed information and<br />
+remarks:        times in UTC<br />
+admin-c:        FH71-AP<br />
+tech-c:         FH71-AP<br />
+nic-hdl:        CA67-AP<br />
+remarks:        www.fjtelecom.com<br />
+notify:         fjnic@fjdcb.fz.fj.cn<br />
+mnt-by:         MAINT-CHINANET-FJ<br />
+changed:        fjnic@fjdcb.fz.fj.cn 20100108<br />
+source:         APNIC<br />
+changed:        hm-changed@apnic.net 20111114</p>
+</blockquote>
+
+<p>从上面我们不难看出是电信福建(CHINANET-FJ)的网络.</p>
+
+<h4 id="whois-进阶">WHOIS 进阶</h4>
+
+<p>从上面的例子可以看到我们查询出的结果包含了很多不必要的信息,比如什么角色在维护。<br />
+我们可以通过whois的参数来限制查询的范围。以下例子仅限于APNIC。
+我们来看一下例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">whois -h whois.apnic.net -T inetnum -r  <span style="color:#ae81ff">1</span>.0.1.0</code></pre></div>
+<p>上面的例子我们可以看到<em>-T</em>, <em>-h</em>, *-r*参数：<br />
+1. -T, 制定我们需要查询的对象的类型,如果想要其他类型可以查询<a href="http://www.apnic.net/apnic-info/whois_search/using-whois" title="APNIC WHOIS">这里的教程</a><br />
+2. -h, 指定查询的服务器,如果不指定,whois首先会去另一台配置的服务器查询后面跟着的查询条件是在哪台机子上,最后在从那台机子上查询信息<br />
+3. -r, 不进行关联查询,比如一个ip地址对应一个管理人员,不加-r参数的话,会连带管理人员的信息也查询出来</p>
+
+<h6 id="t">-t</h6>
+
+<p>帮助命令,whois请求whois server查询whois命令的格式。</p>
+
+<h4 id="apnic查询结果">APNIC查询结果</h4>
+
+<p>这里我用脚本查询了APNIC管理下的所有IP地址的运营商,供大家参考,<a href="/2013/apnic.ipv4.tar.xz" title="APNIC IPV4库">APNIC IPV4 IP库</a>
+(更新时间： 
+2013/07/26 14:29:00
+
+ )</p>
+
+<h6 id="压缩包目录格式">压缩包目录格式：</h6>
+
+<p>国家代码（iso3166 的两个字符码）/运营商英文</p>
+
+<h6 id="文件格式">文件格式</h6>
+
+<p>起始IP-结束IP<br />
+两头都包含</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

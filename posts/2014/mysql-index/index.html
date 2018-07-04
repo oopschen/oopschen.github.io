@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Mysql使用index基本原则</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Mysql使用index基本原则</div><div class="section" id="content">Wed Jul 23, 2014 &#183; 71 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/mysql">mysql</a></span><span id="tag"><a href="http://oopschen.github.io/tags/index">index</a></span><span id="tag"><a href="http://oopschen.github.io/tags/clusterindex">clusterindex</a></span><span id="tag"><a href="http://oopschen.github.io/tags/secondaryindex">secondaryindex</a></span></div><hr/>
+
+<p>用了蛮久的mysql,竟然对如何优化index还没有掌握,今天闲下来看看这块东西,然后总结以下.这里所表述的mysql指的是innodb的engine.</p>
+
+<h3 id="mysql-index分类">mysql index分类</h3>
+
+<p>Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.</p>
+
+<h4 id="cluster-index">cluster index</h4>
+
+<p>Mysql根据如下规则建立聚簇索引:</p>
+
+<ul>
+<li>如果有定义主键, 则使用主键建立索引<br /></li>
+<li>如果没有定义主键, 选取第一个*UNIQUE*的栏建立索引</li>
+<li>如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据<br /></li>
+</ul>
+
+<h4 id="secondary-index">secondary index</h4>
+
+<p>二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.<br />
+Myql如果选择使用二级索引, 那么它先根据二级索引查找主键, 由于主键和数据在同一个页上, 从而加快了数据的查找和比较.</p>
+
+<h3 id="mysql如何使用index">mysql如何使用index</h3>
+
+<p>Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?</p>
+
+<h4 id="尽可能的覆盖查询语句中的查询条件">尽可能的覆盖查询语句中的查询条件</h4>
+
+<p>由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> db.tbl <span style="color:#66d9ef">where</span> c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> c2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;  </code></pre></div>
+<p>和</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> db.tbl <span style="color:#66d9ef">where</span> c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;  </code></pre></div>
+<p>所以语句</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> inx_c1_c2 <span style="color:#66d9ef">on</span> db.tbl(c1, c2);  </code></pre></div>
+<h3 id="工具">工具</h3>
+
+<p>理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句.非select语句,比如update和delete, 我们可以把where语句后的条件放入select进行explain.</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

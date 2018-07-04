@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Webkit on Oopschen的日志</title>
+    <link>http://oopschen.github.io/tags/webkit/</link>
+    <description>Recent content in Webkit on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 01 Jul 2013 17:29:13 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/tags/webkit/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dig Webcore - 代码生成机制</title>
+      <link>http://oopschen.github.io/posts/2013/webkit-derivedsource/</link>
+      <pubDate>Mon, 01 Jul 2013 17:29:13 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/webkit-derivedsource/</guid>
+      <description>一直对webkit神秘的面纱抱有极大的好奇心,但是苦于一直没时间好好的对其进行研究。最近终于的空,开始对webkit进行探索并做一些摘记。
+在刚开始的时候,由于对google的偏爱,所以选择chromium进行探究,但探究了2天始终不太有头绪,感觉chromium的代码还是太复杂,因为它对渲染层的代码完全是对webkit core的扩展,而其大部分的代码都是界面和多线程架构的,最后决定还是对Webkit的代码直接进行研究。
+代码生成 在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？IDL, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。
+webkit的代码生成主要靠*make-generated-sources.sh*脚本,这个脚本根据WebCore下的子目录中的idl文件和后缀为in的配置文件生成相关的.h和.cpp文件。而生成的代码则在*DerivedSources/WebCore*下。
+GPERF GPERF是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。
+GPERF列表  CSSPropertyNames.{h,cpp}
+ CSSValueKeywords.{h,cpp}
+ ColorData.cpp 以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。   IDL IDL相关的代码生成脚本在*bindings/scripts*下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：
+预处理 IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：
+ Outputs the dependency. The format of a supplemental dependency file:
+DOMWindow.idl P.idl Q.idl R.idl Document.idl S.idl Event.idl &amp;hellip;
+The above indicates that DOMWindow.idl is supplemented by P.idl, Q.idl and R.idl, Document.idl is supplemented by S.idl, and Event.idl is supplemented by no IDLs. The IDL that supplements another IDL (e.</description>
+    </item>
+    
+    <item>
+      <title>webkit下的KeyboardEvent模拟</title>
+      <link>http://oopschen.github.io/posts/2013/webkit-keyboardevent/</link>
+      <pubDate>Mon, 17 Jun 2013 10:14:13 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/webkit-keyboardevent/</guid>
+      <description>在javascript中模拟dom的事件是一件非常有趣的事情,他不仅可以将人工机器化,也让页面变得更加丰富。DOM时间参考资料可参见DOM2和DOM3。
+常用方式 我们在javascript中模拟dom事件一般用两种方法：
+调用事件函数 element.click();  创建事件对象 var evt = document.createEvent(&amp;#34;MouseEvent&amp;#34;); evt.initMouseEvent( &amp;#34;click&amp;#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt);  区别 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
+webkit 中KeyboardEvent 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
+// Event Constructor Syntax:  [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3:  void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); };  我们来主要看几个参数：</description>
+    </item>
+    
+  </channel>
+</rss>

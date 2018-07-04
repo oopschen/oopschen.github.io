@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Mysql 复合索引记录</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Mysql 复合索引记录</div><div class="section" id="content">Fri Sep 12, 2014 &#183; 407 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/mysql">mysql</a></span><span id="tag"><a href="http://oopschen.github.io/tags/multiple-columnindex">multiple-columnindex</a></span></div><hr/>
+
+<p>Mysql不用多介绍,很好很强大,这篇文章主要记录innodb中复合索引的引用, 本文中的缩影指的都是二级索引.</p>
+
+<h3 id="概述">概述</h3>
+
+<p>索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.<br />
+innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷贝一份主键!!!</p>
+
+<h3 id="场景">场景</h3>
+
+<p>先来看看如下场景</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> testexplain (
+      f0 varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>,
+      f1 varchar(<span style="color:#ae81ff">10</span>),
+      f2 varchar(<span style="color:#ae81ff">10</span>),
+      f3 varchar(<span style="color:#ae81ff">10</span>) 
+    );</code></pre></div>
+<p>假使我们常用的查询sql如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#ae81ff">1</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f0 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
+    <span style="color:#ae81ff">2</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">and</span> f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
+    <span style="color:#ae81ff">3</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">and</span> f3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
+    <span style="color:#ae81ff">4</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">or</span> f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
+    <span style="color:#ae81ff">5</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
+    <span style="color:#ae81ff">6</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  </code></pre></div>
+<p>那么我们建立如下索引能满足要求</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> index_testexplain_f1_f2 <span style="color:#66d9ef">on</span> testexplain(f1,f2,f3);</code></pre></div>
+<h3 id="分析">分析</h3>
+
+<p>事实是否如此呢?我们需要mysql告诉我们.说到索引分析,我们必须要用到<strong>explain</strong>:</p>
+
+<h5 id="一">一</h5>
+
+<pre><code>+----+-------------+-------------+-------+---------------+---------+---------+-------+------+-------+  
+| id | select_type | table       | type  | possible_keys | key     | key_len | ref   | rows | Extra |  
++----+-------------+-------------+-------+---------------+---------+---------+-------+------+-------+  
+|  1 | SIMPLE      | testexplain | const | PRIMARY       | PRIMARY | 32      | const |    1 |       |  
++----+-------------+-------------+-------+---------------+---------+---------+-------+------+-------+
+</code></pre>
+
+<p>很明显走了主键索引, 和预期相同.</p>
+
+<h5 id="二">二</h5>
+
+<pre><code>+----+-------------+-------------+------+-------------------------+-------------------------+---------+-------------+------+-------------+  
+| id | select_type | table       | type | possible_keys           | key                     | key_len | ref         | rows | Extra       |  
++----+-------------+-------------+------+-------------------------+-------------------------+---------+-------------+------+-------------+  
+|  1 | SIMPLE      | testexplain | ref  | index_testexplain_f1_f2 | index_testexplain_f1_f2 | 66      | const,const |    1 | Using where |  
++----+-------------+-------------+------+-------------------------+-------------------------+---------+-------------+------+-------------+
+</code></pre>
+
+<p>同样也符合预期.</p>
+
+<h5 id="三">三</h5>
+
+<pre><code>+----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
+| id | select_type | table       | type  | possible_keys | key                        | key_len | ref  | rows   | Extra                    |  
++----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
+|  1 | SIMPLE      | testexplain | index | NULL          | index_testexplain_f1_f2_f3 | 99      | NULL | 481495 | Using where; Using index |  
++----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+
+</code></pre>
+
+<p>虽然mysql选择扫描了使用index, 但是依然遍历了481495行, 并没有起到加速的作用.因为mysql虽然没遍历全表但是遍历了全索引.</p>
+
+<h5 id="四">四</h5>
+
+<pre><code>+----+-------------+-------------+-------+----------------------------+----------------------------+---------+------+--------+--------------------------+  
+| id | select_type | table       | type  | possible_keys              | key                        | key_len | ref  | rows   | Extra                    |  
++----+-------------+-------------+-------+----------------------------+----------------------------+---------+------+--------+--------------------------+  
+|  1 | SIMPLE      | testexplain | index | index_testexplain_f1_f2_f3 | index_testexplain_f1_f2_f3 | 99      | NULL | 481495 | Using where; Using index |  
++----+-------------+-------------+-------+----------------------------+----------------------------+---------+------+--------+--------------------------+
+</code></pre>
+
+<p>mysql选择扫描了全索引.</p>
+
+<h5 id="五">五</h5>
+
+<pre><code>+----+-------------+-------------+------+-------------------------+-------------------------+---------+-------+------+-------------+  
+| id | select_type | table       | type | possible_keys           | key                     | key_len | ref   | rows | Extra       |  
++----+-------------+-------------+------+-------------------------+-------------------------+---------+-------+------+-------------+  
+|  1 | SIMPLE      | testexplain | ref  | index_testexplain_f1_f2 | index_testexplain_f1_f2 | 33      | const |    1 | Using where |  
++----+-------------+-------------+------+-------------------------+-------------------------+---------+-------+------+-------------+
+</code></pre>
+
+<p>mysql选择了索引.</p>
+
+<h5 id="六">六</h5>
+
+<pre><code>+----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
+| id | select_type | table       | type  | possible_keys | key                        | key_len | ref  | rows   | Extra                    |  
++----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
+|  1 | SIMPLE      | testexplain | index | NULL          | index_testexplain_f1_f2_f3 | 99      | NULL | 481495 | Using where; Using index |  
++----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+
+</code></pre>
+
+<p>mysql选择扫描了全索引.</p>
+
+<h3 id="总结">总结</h3>
+
+<p>由上面的测试结果我们可以看出原先的结论是不成立的, 也就是说要想使用复合索引必须按照一定的规则.查看<a href="http://dev.mysql.com/doc/refman/5.0/en/multiple-column-indexes.html" title="Multiple-Column index">mysql官方文档</a>: 想要利用符合索引, sql语句的where条件必须是符合从左最匹配索引原则.这样翻译确实太抽象.<br />
+假使我们有上面的表结构, 要想利用复合索引, where语句的条件必须是f1,f2,f3|f1,f2|f1|f1,f3的形式(从而满足索引的顺序f1,f2,f3), 并且使用and, 条件的顺序可以乱序.or的话代表是两个不同的查询条件, mysql会使用index merge去优化查询, 简单说明就是两个不同的查询过程, 然后做merge.</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

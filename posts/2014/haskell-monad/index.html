@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Haskell学习笔记- Monad, IO和Functor</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Haskell学习笔记- Monad, IO和Functor</div><div class="section" id="content">Sun Mar 16, 2014 &#183; 494 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/haskell">haskell</a></span><span id="tag"><a href="http://oopschen.github.io/tags/monad">monad</a></span><span id="tag"><a href="http://oopschen.github.io/tags/io">io</a></span><span id="tag"><a href="http://oopschen.github.io/tags/functor">functor</a></span></div><hr/>
+
+<p>Monad这个概念是第一次在Haskell中看到, 也是haskell中比较难理解的部分之一, 但同样也是很重要的部分. 今天就来看看Monad到底是什么货, 同时也来看看Functor和IO是什么?</p>
+
+<h1 id="monad用法">Monad用法</h1>
+
+<p>在给Monad一个正式的定义之前, 先来看看Monad的标准用法:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Just</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#a6e22e">\x</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (<span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>) <span style="color:#75715e">--output Just 2</span></code></pre></div>
+<p>这里我们先来回顾下lambda的用法:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#a6e22e">\x</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (<span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)</code></pre></div>
+<p>这个函数将输入的x加2后返回, 并且把这个值包装在Just中.</p>
+
+<p>对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&gt;&gt;=*可以将Just中的东西提取出来.<br />
+<!-- more --></p>
+
+<h1 id="monad的源码">Monad的源码</h1>
+
+<p>看过了上述实例, 我们看下Monad的源码:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span>  <span style="color:#66d9ef">Monad</span> <span style="color:#a6e22e">m</span>  <span style="color:#66d9ef">where</span>
+        <span style="color:#75715e">-- | Sequentially compose two actions, passing any value produced</span>
+        <span style="color:#75715e">-- by the first as an argument to the second.</span>
+        (<span style="color:#f92672">&gt;&gt;=</span>)       <span style="color:#f92672">::</span> <span style="color:#a6e22e">forall</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">.</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">b</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">b</span>
+        <span style="color:#75715e">-- | Sequentially compose two actions, discarding any value produced</span>
+        <span style="color:#75715e">-- by the first, like sequencing operators (such as the semicolon)</span>
+        <span style="color:#75715e">-- in imperative languages.</span>
+        (<span style="color:#f92672">&gt;&gt;</span>)        <span style="color:#f92672">::</span> <span style="color:#a6e22e">forall</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">.</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">b</span>
+            <span style="color:#75715e">-- Explicit for-alls so that we know what order to</span>
+            <span style="color:#75715e">-- give type arguments when desugaring</span>
+        <span style="color:#75715e">-- | Inject a value into the monadic type.</span>
+        <span style="color:#a6e22e">return</span>      <span style="color:#f92672">::</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">a</span>
+        <span style="color:#75715e">-- | Fail with a message.  This operation is not part of the</span>
+        <span style="color:#75715e">-- mathematical definition of a monad, but is invoked on pattern-match</span>
+        <span style="color:#75715e">-- failure in a @do@ expression.</span>
+        <span style="color:#a6e22e">fail</span>        <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">a</span>
+        <span style="color:#75715e">{-# INLINE (&gt;&gt;) #-}</span>
+        <span style="color:#a6e22e">m</span> <span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">k</span>      <span style="color:#f92672">=</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">k</span>
+        <span style="color:#a6e22e">fail</span> <span style="color:#a6e22e">s</span>      <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> <span style="color:#a6e22e">s</span></code></pre></div>
+<p>monad其实规范了几个行为:</p>
+
+<ul>
+<li>&gt;&gt;, 和1相类似, 只是将第一个参数的输出舍弃<br /></li>
+<li>return, 则是将某个值包含在类型m中<br /></li>
+<li>fail, 则是接收一个String的参数, 并返回原值<br /></li>
+<li>&gt;&gt;=, 从他的签名来看我们能明白他主要将第一个参数的值转化为第二个参数的输入, 并将第二个参数的输出作为整个表达式的输出<br />
+<br />
+<br /></li>
+</ul>
+
+<p>从上面我们也能看出Monad的概念不是语言级别的, 也就是说他并不是语法, 而是一种编程思路, 可以理解为和设计模式类似的东西, 但却稍微有些不同.<br />
+笔者认为Monad是对haskell语言的一种best practice,  让代码更加直观. 另外还有一个最重要的功能就是提高代码的复用率 &ndash; 避免我们讲函数的参数在不同函数之间传递.</p>
+
+<h1 id="monad实例">Monad实例</h1>
+
+<p>我们来看看最简单的Monad的实现: Maybe</p>
+
+<pre><code>-- Maybe的定义
+data Maybe a  =  Nothing | Just a
+  deriving (Eq, Ord)
+-- Maybe实现
+instance  Monad Maybe  where
+    (Just x) &gt;&gt;= k      = k x
+    Nothing  &gt;&gt;= _      = Nothing
+    (Just _) &gt;&gt;  k      = k
+    Nothing  &gt;&gt;  _      = Nothing
+    return              = Just
+    fail _              = Nothing
+</code></pre>
+
+<p>从Maybe的定义我们可以看到, Maybe类型可以携带一个a的任意类型, 并且它有两种值:</p>
+
+<ol>
+<li>Nothing, 这是一个type constructor, 可以理解为类型的构造函数, 类似于java中的class的constructor, 它不接收任何参数<br /></li>
+<li>Just a, 同样是类型构造函数, 他接收一个任意类型的a<br />
+<br /></li>
+</ol>
+
+<p>他实现了Monad的几个函数:<br />
+1. &gt;&gt;=, 将Just所包含的值作为第二个参数k的输入; 如果是Nothing的话, 则返回Nothing
+2. return, 用Just类型构造函数包裹<br />
+3. fail, 返回Nothing</p>
+
+<h1 id="monad的好处">Monad的好处</h1>
+
+<p>讲了这么多复杂的Monad的概念, 好像没什么可对比出来的好处, 那我们来看这种场景:</p>
+
+<pre><code>{-
+ - 输入一个整数
+ - 1. + 1
+ - 2. + 4
+ - 3. - 5 
+-}
+addNum :: Int -&gt; Int
+addNum x = do
+  let a = x + 1 in
+    let b = a + 4 in
+      b - 5
+</code></pre>
+
+<p>如果我们需求需要对x做更多的处理的话, 那么这个函数是多么可怕!</p>
+
+<p>如果使用Monad呢?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#a6e22e">addNumM</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+    <span style="color:#a6e22e">addNumM</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> 
+      <span style="color:#a6e22e">maybe</span> <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">\x</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">x</span>) (
+        <span style="color:#66d9ef">Just</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">&gt;&gt;=</span> (<span style="color:#a6e22e">\z</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">z</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+          <span style="color:#f92672">&gt;&gt;=</span>  (<span style="color:#a6e22e">\z</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">z</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>)
+          <span style="color:#f92672">&gt;&gt;=</span>  (<span style="color:#a6e22e">\z</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">z</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>)
+      )</code></pre></div>
+<p>如此, haskell就将整个流程串联起来, 让代码可读性大大增加.但是这个的前提是基于我们已经完全掌握了prelude中的函数, 也就是说学习haskell需要很高的学习成本, 但掌握之后会大大提高工作效率.</p>
+
+<h1 id="io">IO</h1>
+
+<p>IO其实和Monad关系不大, 笔者把他和Monad写在一起的原因主要是因为这两者都比较难理解, 而且IO是Monad的一个instance.<br />
+为什么会有IO?看名字, 好似只做输入输出有关的东西. 想要理解什么是IO, 我们先要理解什么是purity. Haskell所提倡的函数编程的purity, 它的本意是指对于一个函数, 给出相同的输入, 必然会得到相同的输出. 这是不是和小时候所学的数学代数类似? 只要代数的值恒定, 那么其结果必然恒定. (当然开发这个语言的坐着本来就是个数学家!).</p>
+
+<p>但是, 有一定编程经验的朋友肯定知道, 编程的时候可能会有全局变量, 可能会根据条件打印文字到console. 这必然违背了haskell的purity, 如果haskell放弃这些东西的话, 那这门语言必然只能局限在数学领域, 或者认为他并不是一门语言.</p>
+
+<p>考虑到以上问题, haskell给出了一个IO解决方案, 也就是说IO其实是有副作用的函数, 对于给定的输入, 不能得到恒定的输出. Haskell对IO有如下限制:</p>
+
+<ol>
+<li>IO的副作用只会在IO被另外一个IO调用的时候才会产生<br /></li>
+<li>main就是一个IO<br /></li>
+<li>IO被调用返回值是它所包含的类变量的值
+<br /></li>
+</ol>
+
+<h1 id="functor">Functor</h1>
+
+<p>Functor其实和Monad是类似的东西, 只不过支持的东西不一样, 来看看他的定义:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span>  <span style="color:#66d9ef">Functor</span> <span style="color:#a6e22e">f</span>  <span style="color:#66d9ef">where</span>
+        <span style="color:#a6e22e">fmap</span>        <span style="color:#f92672">::</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">b</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">f</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">f</span> <span style="color:#a6e22e">b</span>
+        <span style="color:#75715e">-- | Replace all locations in the input with the same value.</span>
+        <span style="color:#75715e">-- The default definition is @&#39;fmap&#39; . &#39;const&#39;@, but this may be</span>
+        <span style="color:#75715e">-- overridden with a more efficient version.</span>
+        (<span style="color:#f92672">&lt;$</span>)        <span style="color:#f92672">::</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">f</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">f</span> <span style="color:#a6e22e">a</span>
+        (<span style="color:#f92672">&lt;$</span>)        <span style="color:#f92672">=</span>  <span style="color:#a6e22e">fmap</span> <span style="color:#f92672">.</span> <span style="color:#a6e22e">const</span></code></pre></div>
+<p>类似python的map函数.</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

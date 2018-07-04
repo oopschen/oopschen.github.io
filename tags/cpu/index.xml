@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cpu on Oopschen的日志</title>
+    <link>http://oopschen.github.io/tags/cpu/</link>
+    <description>Recent content in Cpu on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 04 Dec 2015 21:21:15 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/tags/cpu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CPU在linux下的调试</title>
+      <link>http://oopschen.github.io/posts/2015/linux-cpu-admin/</link>
+      <pubDate>Fri, 04 Dec 2015 21:21:15 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2015/linux-cpu-admin/</guid>
+      <description>Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.
+先介绍一个工具&amp;ndash;CPUPower, CPUPower是linux下展示和设置cpu相关属性的工具.
+实验机器 cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
+应用cpupower cpupower frequency-info  会看到如下的提示:
+ analyzing CPU 0: driver: acpi-cpufreq
+CPUs which run at the same hardware frequency: 0
+CPUs which need to have their frequency coordinated by software: 0
+maximum transition latency: 10.0 us.
+hardware limits: 1.20 GHz - 2.67 GHz
+available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.</description>
+    </item>
+    
+    <item>
+      <title>Nginx - CPU Cacheline 深思</title>
+      <link>http://oopschen.github.io/posts/2013/cpu-cacheline/</link>
+      <pubDate>Sun, 01 Sep 2013 19:38:24 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/cpu-cacheline/</guid>
+      <description>在nginx的内存管理,我们会看到*ngx_align_ptr*这样的代码,从命名上来看是对指针地址的对齐操作。为什么要这么做呢？不是增加负担么？带着这样的问题,我们来看看CPU cache这个很有深度的问题。这篇博客是对drepper的理解和消化,有英文阅读能力的可以直接参考原文,跳过此博客。（PS：人家2007年写的,惭愧惭愧)
+内存硬件操作 这里的内存只是对同步的DRAM进行表述,对于其他的内存类型不适用。
+内存的所有操作都是由内存控制器完成,而当下内存采用行列模式,管理硬件内存地址。也就是说,当内存控制器读取或写入数据的时候,会有3步操作:
+1. precharge, 对内存充电操作
+2. RAS, 对行的选择
+3. CAS, 对列的选择
+最后才能开始读取或写入这个单元的数据, 然而这几个操作相对cpu的运行速度是很慢很慢的。所以出于充分利用cpu的目的,硬件发展中在cpu中加入了L1,L2,L3的缓存。每级缓存的访问速度是递减的,而容量是递增的,他们的访问速度都是内存的10倍以上。这样CPU不用等待缓慢的内存数据,而直接从高速的缓存中取。也就是说缓存的命中率决定CPU的效率。同时,对内存的读取和写入也不视一个字节一个字节写入,而是一串字节,我们通常称为cache line。这样的设计是基于相邻的东西更有可能被使用的原则,这样也就提高了CPU的利用率。
+Cache line 首先我们来看看Cache line的结构：
+1. tag,用于区分不同内存地址的标签
+2. set,用于在tag中选择不同的集合
+3. offseet, 用于一个cache line中开始的位置
+如上面说内存每访问一个地址都会一并把cache line大小的数据从ram中读取到缓存中。那么,当cpu读取数据的时候首先会从缓存中取,而这个取的速度必须很快,不然就失去了缓存的意义。因此,缓存的大小都很小,这也是出于对速度的要求,因为对大量的缓存比对需要很多时间。
+这个时候人们总会用索引的方式,加快比对,这也就是上述结构的意义。CPU用set过滤出一小部分的地址,然后用offset和tag比对是否为请求的数据。
+通过cache line的实现,CPU实现了预提取数据的功能。当然如果那个原则被打破,这样的设计也是低效的。
+实践 理论虽如此,我们来看看实际代码表现如何？
+cache line大小 首先要解决的问题就是获取CPU cache line的大小。我们以linux为例：
+cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size  这个文件记录了CPU的cache line大小,单位是字节。这个文件的目录下还存在着一些其他文件
+ coherency_line_size
+level
+number_of_sets
+physical_line_partition
+shared_cpu_list
+shared_cpu_map
+size
+type
+ways_of_associativity
+ 这些文件分别说明了缓存的类型,等级,几路set和共享缓存的CPU等等信息
+代码论证 既然缓存只是提高了CPU获取速度的速度,那么我们可以设计如下的代码来检验这个理论。
+1. CPU按字节对内存进行访问
+2. 不同的代码分配到不同的CPU核上去,减少系统调度带来的干扰
+3. 对比组为缓存对齐的指针和随机的指针
+缓存对齐的代码 #define _GNU_SOURCE  #include &amp;lt;sched.</description>
+    </item>
+    
+  </channel>
+</rss>

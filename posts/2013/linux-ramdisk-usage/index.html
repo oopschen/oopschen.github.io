@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Linux下的Ramdisk使用</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Linux下的Ramdisk使用</div><div class="section" id="content">Tue Jun 04, 2013 &#183; 41 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/linux">linux</a></span><span id="tag"><a href="http://oopschen.github.io/tags/ramdisk">ramdisk</a></span><span id="tag"><a href="http://oopschen.github.io/tags/tmpfs">tmpfs</a></span><span id="tag"><a href="http://oopschen.github.io/tags/ramfs">ramfs</a></span><span id="tag"><a href="http://oopschen.github.io/tags/setcap">setcap</a></span><span id="tag"><a href="http://oopschen.github.io/tags/capability">capability</a></span></div><hr/>
+
+<p>内存技术日益发展的今天,一台电脑随随便便都有8g以上的内存,然后win系统只占了1.5G,linux也就200M,所以大部分的内存资源都是浪费的。因为大部分的软件都考虑了内存不足的情况,会把一些不必要的数据存在硬盘上,而这样小的读写对硬盘的寿命都是有害的,而且容易造成碎片,同时速度也不快。那么我们为什么不把这些临时文件存在内存里呢？这时,linux内核自带的ramdisk就非常好用。</p>
+
+<h5 id="使用">使用</h5>
+
+<p>下面我们来看下如何在linux下使用ramdisk：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">    mount -t tmpfs -o size<span style="color:#f92672">=</span>xxm,uid<span style="color:#f92672">=</span>xx,gid<span style="color:#f92672">=</span>xx tmpfs /xxx/xx</code></pre></div>
+<p>我们也可以将其配置在<strong>/etc/fstab</strong>下：</p>
+
+<blockquote>
+<p>tmpfs /xxx/xxx tmpfs defaults,size=xxm,uid=xx,gid=xx 0 2</p>
+</blockquote>
+
+<p>如果想使用ramfs则把上面的tmpfs替换成ramfs</p>
+
+<h5 id="ramfs和tmpfs区别">ramfs和tmpfs区别</h5>
+
+<p><table>
+  <tr>
+    <td></td>
+    <td>Ramfs</td>
+    <td>Tmpfs</td>
+  </tr></p>
+
+<p><tr>
+    <td>内存不是一下子获取,而是慢慢增长</td>
+    <td>y</td>
+    <td>y</td>
+  </tr></p>
+
+<p><tr>
+    <td>内存不足</td>
+    <td>死机</td>
+    <td>使用swap</td>
+  </tr></p>
+
+<p><tr>
+    <td>内核版本支持</td>
+    <td>2.0</td>
+    <td>2.4</td>
+  </tr></p>
+
+<p><tr>
+    <td>参数</td>
+    <td>无,只能是root用户使用</td>
+    <td>可以控制uid,gid,size,以及挂在的node绑定</td>
+  </tr>
+</table>
+所以建议大家使用tmpfs</p>
+
+<h5 id="setcap">setcap</h5>
+
+<p>经在centos 6.4上测试,setcap无法在tmpfs的文件上执行,错误信息是<strong>Operation not support</strong>。查找相关资料后,redhat应该在11年的时候就修复了,不知道为啥centos上还是出问题,具体<a href="https://bugzilla.redhat.com/show_bug.cgi?id=648653" title="Setcap 无法使用在tmpfs文件上bug">bug链接</a>。同样ramfs也是使用,其他linux发行版未测试。</p>
+
+<h5 id="综述">综述</h5>
+
+<p>ramdisk并不是万能的解药,他只适合用于加速磁盘读写频繁的应用,而且断电后ramdisk上的数据全部丢失。所以可以用它来当eclipse或chrome的工作目录。</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

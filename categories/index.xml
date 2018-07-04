@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Oopschen的日志</title>
+    <link>http://oopschen.github.io/categories/</link>
+    <description>Recent content in Categories on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="http://oopschen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Os</title>
+      <link>http://oopschen.github.io/categories/os/</link>
+      <pubDate>Tue, 11 Jun 2013 17:52:55 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Showcase</title>
+      <link>http://oopschen.github.io/categories/showcase/</link>
+      <pubDate>Wed, 27 Feb 2013 13:56:00 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/showcase/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tech</title>
+      <link>http://oopschen.github.io/categories/tech/</link>
+      <pubDate>Fri, 04 Dec 2015 21:21:15 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>日志</title>
+      <link>http://oopschen.github.io/categories/%E6%97%A5%E5%BF%97/</link>
+      <pubDate>Wed, 04 Jul 2018 11:22:32 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/%E6%97%A5%E5%BF%97/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>杂谈</title>
+      <link>http://oopschen.github.io/categories/%E6%9D%82%E8%B0%88/</link>
+      <pubDate>Tue, 21 Jan 2014 10:02:11 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/%E6%9D%82%E8%B0%88/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

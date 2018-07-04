@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ripple on Oopschen的日志</title>
+    <link>http://oopschen.github.io/tags/ripple/</link>
+    <description>Recent content in Ripple on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 09 Dec 2013 16:13:59 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/tags/ripple/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ripple币的一些想法</title>
+      <link>http://oopschen.github.io/posts/2013/come-to-see-ripple/</link>
+      <pubDate>Mon, 09 Dec 2013 16:13:59 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/come-to-see-ripple/</guid>
+      <description>自接触电脑以来,就听过虚拟货币,80后第一反应就能想到Q币,这种等价物可以买很多QQ的服务,但是不能提现。以前也有一些人通过收取Q币来服务他人,换句话说用Q币换取他人的资源。这样Q币就有了一些货币的意味。然后,Q币的发行确实无止境的,这也就意味着,只要腾讯愿意Q币可以无限贬值。
+Ripple币或者数是比特币是发行量固定（按照官方的说法是固定的,其实鬼知道）的货币。这样ripple币就具有一般货币的性质了,我们来看看我们ripple币交易的流程。
+首先我们来看看ripple的两个重要角色G和R：
+R&amp;ndash;ripple币的网络 所谓网络,我们可以理解为一个发行单位和印钞单位的合体,他的职责就是控制发行ripple的数量和个个网关之间通信的桥梁。
+G&amp;ndash;网关 网络上的网关的意义和通道的意思是一样的,这里也不例外。网关主要负责现实生活中的货币,比如人民币,美元,澳元等和ripple币之间汇率的转换。
+交易流程 假设C为买家,S为卖家,G为网关,R为ripple的网络。假设有这样一个场景：在美国的C通过ripple币购买了在中国的S的点卡价值1rmb, 1rmb=1ripple币, 1dollar=10ripple币。那么C通过网关G,充值了1美元,然后支付1个ripple币。而S收到1个ripple币,并把他提现成1人民币。
+赚钱行为 就目前我的了解,ripple币是会浮动的,所以一些投资者可以通过买入和卖出的差价从中获益。而还没发现有什么通过ripple进行的交易,属于虚拟经济。
+总结 这样的交易流程不仅脱离了现实生活中银行之间的现金流转,也让汇率的存在变的没有任何意义。假使ripple开始在各国流通,那么ripple公司完全可以通过操纵ripple币来摧毁一个国家的经济。这样的野心真是很可怕,阴谋论者可以说这是美帝欠钱不还的又一利器。
+另外大家想玩的话,可以给我的ripple钱包充电钱哈哈： rMffqNoGBzzdzWTqtdeGto74GypdToywML</description>
+    </item>
+    
+  </channel>
+</rss>

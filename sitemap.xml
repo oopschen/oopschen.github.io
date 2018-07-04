@@ -1,39 +1,786 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url> <loc>http://oopschen.github.io/article/2013-02-27/youku-tudou-ad-block-chrome-ext.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-05-26/hello-github-page-with-jekyll.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-05-31/how-to-get-all-ip-for-one-country.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-06-04/linux-ramdisk-usage.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-06-06/why-we-choose-a-dns-over-default.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-06-11/computer-time.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-06-17/webkit-keyboardevent.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-06-21/c-integer-efficiency.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-07-01/webkit-derivedsource.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-08-01/nginx-overview.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-09-01/cpu-cacheline.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-09-30/weixin-break.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-10-25/how-to-delete-timer-set-by-setitimer.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2013-12-09/come-to-see-ripple.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-01-21/xmonad-desktop.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-01-22/haskell-tutorial-1.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-01-23/haskell-for-c-programmer.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-01-24/haskell-funcion-pattern-lambda.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-01-25/haskell-syntax.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-01-27/haskell-expression.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-01-29/haskell-declaration.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-02-10/haskell-typeclass.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-03-16/haskell-monad.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-05-15-mq-experiment.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-07-19-tmux_give_it_a_try.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-07-23-mysql-index.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-08-10-chrome-unsafe-ports.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-09-12-mysql-multiple-column-index.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2014-11-22-dig-slf4j.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/other/game/meichen/guessNumber.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/about.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/other/fuckad/plugin.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/archive.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2015-10-31-blog-continue.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/index.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>http://oopschen.github.io/article/2015-12-04-linux-cpu-admin.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2018/hello-again/</loc>
+    <lastmod>2018-07-04T11:22:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2015/linux-cpu-admin/</loc>
+    <lastmod>2015-12-04T21:21:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2015/blog-continue/</loc>
+    <lastmod>2015-10-31T16:03:34+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/dig-slf4j/</loc>
+    <lastmod>2014-11-22T15:29:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/mysql-multiple-column-index/</loc>
+    <lastmod>2014-09-14T09:51:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/chrome-unsafe-ports/</loc>
+    <lastmod>2014-08-10T09:30:39+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/mysql-index/</loc>
+    <lastmod>2014-07-23T09:24:37+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/tmux_give_it_a_try/</loc>
+    <lastmod>2014-07-19T19:41:48+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/mq-experiment/</loc>
+    <lastmod>2014-05-15T19:14:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-monad/</loc>
+    <lastmod>2014-03-16T09:24:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-typeclass/</loc>
+    <lastmod>2014-02-10T20:08:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-declaration/</loc>
+    <lastmod>2014-01-29T20:32:43+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-expression/</loc>
+    <lastmod>2014-01-27T20:04:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-syntax/</loc>
+    <lastmod>2014-01-25T15:36:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-funcion-pattern-lambda/</loc>
+    <lastmod>2014-01-24T13:27:21+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-for-c-programmer/</loc>
+    <lastmod>2014-01-23T17:18:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/haskell-tutorial-1/</loc>
+    <lastmod>2014-01-22T10:23:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2014/xmonad-desktop/</loc>
+    <lastmod>2014-01-21T10:02:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/come-to-see-ripple/</loc>
+    <lastmod>2013-12-09T16:13:59+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/how-to-delete-timer-set-by-setitimer/</loc>
+    <lastmod>2013-10-25T10:27:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/weixin-break/</loc>
+    <lastmod>2013-09-30T19:59:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/cpu-cacheline/</loc>
+    <lastmod>2013-09-01T19:38:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/nginx-overview/</loc>
+    <lastmod>2013-08-02T15:14:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/webkit-derivedsource/</loc>
+    <lastmod>2013-07-01T17:29:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/c-integer-efficiency/</loc>
+    <lastmod>2013-06-21T10:43:54+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/webkit-keyboardevent/</loc>
+    <lastmod>2013-06-17T10:14:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/computer-time/</loc>
+    <lastmod>2013-06-11T17:52:55+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/why-we-choose-a-dns-over-default/</loc>
+    <lastmod>2013-06-06T08:46:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/linux-ramdisk-usage/</loc>
+    <lastmod>2013-06-04T09:51:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/how-to-get-all-ip-for-one-country/</loc>
+    <lastmod>2013-07-26T14:29:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/hello-github-page-with-jekyll/</loc>
+    <lastmod>2013-07-25T10:44:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/2013/youku-tudou-ad-block-chrome-ext/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/360%E5%B9%BF%E5%91%8A%E5%B1%8F%E8%94%BD%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/56%E8%A7%86%E9%A2%91/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/activemq/</loc>
+    <lastmod>2014-05-15T19:14:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/apnic/</loc>
+    <lastmod>2013-07-26T14:29:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/bindings/</loc>
+    <lastmod>2014-01-29T20:32:43+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/c/</loc>
+    <lastmod>2013-06-21T10:43:54+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/cache/</loc>
+    <lastmod>2013-09-01T19:38:24+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/capability/</loc>
+    <lastmod>2013-06-04T09:51:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/chome%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/chrome/</loc>
+    <lastmod>2014-08-10T09:30:39+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/clusterindex/</loc>
+    <lastmod>2014-07-23T09:24:37+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/cntv/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/cpu/</loc>
+    <lastmod>2015-12-04T21:21:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/cpupower/</loc>
+    <lastmod>2015-12-04T21:21:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/date/</loc>
+    <lastmod>2013-06-11T17:52:55+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/declarations/</loc>
+    <lastmod>2014-01-29T20:32:43+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/dns/</loc>
+    <lastmod>2013-06-06T08:46:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/err_unsafe_port/</loc>
+    <lastmod>2014-08-10T09:30:39+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/expression/</loc>
+    <lastmod>2014-01-27T20:04:13+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/function/</loc>
+    <lastmod>2014-01-24T13:27:21+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/functor/</loc>
+    <lastmod>2014-03-16T09:24:08+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/gentoo/</loc>
+    <lastmod>2014-01-21T10:02:11+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/github/</loc>
+    <lastmod>2013-07-25T10:44:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/grammer/</loc>
+    <lastmod>2014-01-25T15:36:26+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/haskell/</loc>
+    <lastmod>2014-03-16T09:24:08+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/howtowork/</loc>
+    <lastmod>2014-01-23T17:18:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/hwclock/</loc>
+    <lastmod>2013-06-11T17:52:55+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/iana/</loc>
+    <lastmod>2013-07-26T14:29:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/idl/</loc>
+    <lastmod>2013-07-01T17:29:13+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/index/</loc>
+    <lastmod>2014-07-23T09:24:37+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/io/</loc>
+    <lastmod>2014-03-16T09:24:08+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/ip%E6%8B%A5%E6%9C%89%E8%80%85/</loc>
+    <lastmod>2013-07-26T14:29:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/ip%E6%AE%B5/</loc>
+    <lastmod>2013-07-26T14:29:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/jcl/</loc>
+    <lastmod>2014-11-22T15:29:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/jekyll/</loc>
+    <lastmod>2013-07-25T10:44:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/js%E6%A8%A1%E6%8B%9Fkeyboardevent/</loc>
+    <lastmod>2013-06-17T10:14:13+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/jui/</loc>
+    <lastmod>2014-11-22T15:29:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/linux/</loc>
+    <lastmod>2015-12-04T21:21:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/linuxdesktop/</loc>
+    <lastmod>2014-01-21T10:02:11+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/log4j/</loc>
+    <lastmod>2014-11-22T15:29:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/monad/</loc>
+    <lastmod>2014-03-16T09:24:08+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/multiple-columnindex/</loc>
+    <lastmod>2014-09-14T09:51:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/mysql/</loc>
+    <lastmod>2014-09-14T09:51:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/nginx/</loc>
+    <lastmod>2013-09-01T19:38:24+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/</loc>
+    <lastmod>2018-07-04T11:22:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/categories/os/</loc>
+    <lastmod>2013-06-11T17:52:55+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/performance/</loc>
+    <lastmod>2013-06-21T10:43:54+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/port/</loc>
+    <lastmod>2014-08-10T09:30:39+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/posts/</loc>
+    <lastmod>2018-07-04T11:22:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/pplive/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/pptv/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/rabbitmq/</loc>
+    <lastmod>2014-05-15T19:14:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/ramdisk/</loc>
+    <lastmod>2013-06-04T09:51:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/ramfs/</loc>
+    <lastmod>2013-06-04T09:51:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/ripple/</loc>
+    <lastmod>2013-12-09T16:13:59+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/ripple%E5%B8%81/</loc>
+    <lastmod>2013-12-09T16:13:59+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/secondaryindex/</loc>
+    <lastmod>2014-07-23T09:24:37+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/security/</loc>
+    <lastmod>2014-08-10T09:30:39+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/setcap/</loc>
+    <lastmod>2013-06-04T09:51:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/setitimer/</loc>
+    <lastmod>2013-10-25T10:27:27+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/categories/showcase/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/slf4j/</loc>
+    <lastmod>2014-11-22T15:29:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/syntax/</loc>
+    <lastmod>2014-01-25T15:36:26+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/categories/tech/</loc>
+    <lastmod>2015-12-04T21:21:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/terminals/</loc>
+    <lastmod>2014-07-19T19:41:48+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/tiling/</loc>
+    <lastmod>2014-01-21T10:02:11+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/timer/</loc>
+    <lastmod>2013-10-25T10:27:27+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/tmpfs/</loc>
+    <lastmod>2013-06-04T09:51:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/tmux/</loc>
+    <lastmod>2014-07-19T19:41:48+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/tutorial/</loc>
+    <lastmod>2014-01-24T13:27:21+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/typeclass/</loc>
+    <lastmod>2014-02-10T20:08:23+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/webcore/</loc>
+    <lastmod>2013-07-01T17:29:13+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/webkit/</loc>
+    <lastmod>2013-07-01T17:29:13+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/xmonad/</loc>
+    <lastmod>2014-01-21T10:02:11+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E4%B9%90%E8%A7%86/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E4%BC%98%E9%85%B7/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E5%8A%A0%E5%BF%AB%E4%B8%8A%E7%BD%91%E9%80%9F%E5%BA%A6/</loc>
+    <lastmod>2013-06-06T08:46:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E5%9B%BD%E5%86%85ip%E5%9C%B0%E5%9D%80%E5%BA%93/</loc>
+    <lastmod>2013-07-26T14:29:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E5%9C%9F%E8%B1%86/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2013-06-06T08:46:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E5%B9%BF%E5%91%8A%E5%B1%8F%E8%94%BD/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E5%BE%AE%E4%BF%A1/</loc>
+    <lastmod>2013-09-30T19:59:29+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%8D%8F%E8%AE%AE/</loc>
+    <lastmod>2013-09-30T19:59:29+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E6%90%9C%E7%8B%90tv/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/categories/%E6%97%A5%E5%BF%97/</loc>
+    <lastmod>2018-07-04T11:22:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E6%97%B6%E9%97%B4/</loc>
+    <lastmod>2013-06-11T17:52:55+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E6%9D%82%E8%B0%88/</loc>
+    <lastmod>2018-07-04T11:22:32+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/categories/%E6%9D%82%E8%B0%88/</loc>
+    <lastmod>2014-01-21T10:02:11+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E6%9E%AB%E5%8F%B6%E5%B9%BF%E5%91%8A%E5%B1%8F%E8%94%BD%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E6%BA%90%E4%BB%A3%E7%A0%81/</loc>
+    <lastmod>2013-08-02T15:14:19+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E7%88%B1%E5%A5%87%E8%89%BA/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E7%A0%B4%E8%A7%A3/</loc>
+    <lastmod>2013-09-30T19:59:29+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E7%A1%AC%E4%BB%B6%E6%97%B6%E9%97%B4/</loc>
+    <lastmod>2013-06-11T17:52:55+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4/</loc>
+    <lastmod>2013-06-11T17:52:55+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E7%BF%BB%E5%A2%99/</loc>
+    <lastmod>2013-06-06T08:46:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E8%85%BE%E8%AE%AF%E8%A7%86%E9%A2%91/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E8%A7%A3%E8%AF%BB/</loc>
+    <lastmod>2013-08-02T15:14:19+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E8%BF%81%E7%A7%BB%E5%88%B0jekyll/</loc>
+    <lastmod>2013-07-25T10:44:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2013-07-25T10:44:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E9%92%93%E9%B1%BC/</loc>
+    <lastmod>2013-06-06T08:46:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://oopschen.github.io/tags/%E9%A3%8E%E8%A1%8C/</loc>
+    <lastmod>2013-09-17T20:49:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
 </urlset>

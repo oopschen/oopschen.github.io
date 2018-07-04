@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ip段 on Oopschen的日志</title>
+    <link>http://oopschen.github.io/tags/ip%E6%AE%B5/</link>
+    <description>Recent content in Ip段 on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 31 May 2013 16:45:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/tags/ip%E6%AE%B5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何获取某个国家的ip段分配,以及ip所对应的服务商</title>
+      <link>http://oopschen.github.io/posts/2013/how-to-get-all-ip-for-one-country/</link>
+      <pubDate>Fri, 31 May 2013 16:45:00 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/how-to-get-all-ip-for-one-country/</guid>
+      <description>互联网在最初的时候只是一个局域网,各个国家的局域网连接起来后就变成了当今的局域网。所谓ip,就是分配给每个上网设备的一个地址,像家庭地址一样。而这个工作不可能由一个组织具体到每个设备,这样既消耗资源,又不高效。因此,一个名为IANA,的组织负责统筹安排数字的分配（包含ip地址,端口地址,域名等等）,当然具体执行的时候,会分配到各个国家地方的办事处。而亚洲的办事处称为APNIC。说了这么多,好像没说重点,这篇博客主要记录如何获取某个国家的ip段,以及如何过滤出某些运营商的ip段。
+世界IP办事处 世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。 APNIC: 是亚太地区的总办事处,下属还有各个国家的。 AFRINIC: 是非洲的总办事处,下属还有各个国家的。 ARIN: 是美洲的总办事处,下属还有各个国家的。 LACNIC: 是拉丁美州的总办事处,下属还有各个国家的。 RIPE NCC: 是欧洲和部分中亚的总办事处,下属还有各个国家的。 具体有哪些国家可以点击链接去各个网站查看明细。
+获取某个国家的ip段 在这之前,我们先了解下什么是Country Code(CC), CC是国家代码的简称。我们通常可以在域名后看到,比如*www.google.com.hk*就代表google在香港的服务,而*wwww.google.com.sg*则是新加坡的服务,后面我们将用他来过滤ip段。更多的CC可以参考这里
+Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文件Lastes IP Allocation, 下面我们简单介绍下apnic的的格式：
+备注行 #在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等
+文件头行 样例：
+ 2|apnic|20130531|29927|19850701|20130530|+1000
+ 格式:
+ version|registry|serial|records|startdate|enddate|UTCoffset
+  version, 表示当前的版本,目前是2 registry, 办事处简称,可以是afrinic, apnic, arin,iana, lacnic, ripencc其中的一个 serial, 可以理解成文件的id records, 文件有多少条记录,不包括空行,文件头行,备注行以及概要行 startdate, 开始的日期,格式为yyyymmdd enddate, 结束日期, 格式如上 UTCoffset, UTC中的距离  概要行 样例：
+ apnic||asn||5214|summary
+ 格式：
+ registry||type||count|summary
+  registry, 同上 *,保留字段 type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号 count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数 summary, 就是字符串&amp;rdquo;summary&amp;rdquo;, 为了和记录行区别   记录行 样例：</description>
+    </item>
+    
+  </channel>
+</rss>

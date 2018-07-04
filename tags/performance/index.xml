@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Performance on Oopschen的日志</title>
+    <link>http://oopschen.github.io/tags/performance/</link>
+    <description>Recent content in Performance on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 21 Jun 2013 10:43:54 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>C 中整型相等判断效率</title>
+      <link>http://oopschen.github.io/posts/2013/c-integer-efficiency/</link>
+      <pubDate>Fri, 21 Jun 2013 10:43:54 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2013/c-integer-efficiency/</guid>
+      <description>在类型明确的编程语言中,都存在整型类型,这也是计算机的基本类型之一,同时计算速度最快的类型。而在编码的过程中,对整型是否相等的计算也时常能碰到。然而,每个人的写法却不尽相同,本博客就对常见的两种写法进行效率比较。
+测试平台  OS: gentoo x86_64 in vmware 9 compiler: clang 3.2   测试代码 使用bit操作进行判断, 简称A int main() { int a = 1; if (!(1 ^ a)) { return 0; } return 1; } 使用==操作进行判断, 简称B int main() { int a = 1; if (1 == a) { return 0; } return 1; } 判断标准 由于个平台的差异,所以我们以指令书为效率的判断标准
+实验结果 下面的结果排除的相同的地方,只摘取了条件判断不同的地方
+A 的汇编结果 movl -8(%rsp), %eax xorl $1, %eax cmpl $0, %eax  B 的汇编结果 cmpl -8(%rsp), %eax  由上面的结果可以看出其实B的方案执行的效率更高一些。</description>
+    </item>
+    
+  </channel>
+</rss>

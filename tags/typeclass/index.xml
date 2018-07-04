@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Typeclass on Oopschen的日志</title>
+    <link>http://oopschen.github.io/tags/typeclass/</link>
+    <description>Recent content in Typeclass on Oopschen的日志</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 10 Feb 2014 20:08:23 +0000</lastBuildDate>
+    
+	<atom:link href="http://oopschen.github.io/tags/typeclass/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Haskell学习笔记--Typeclass</title>
+      <link>http://oopschen.github.io/posts/2014/haskell-typeclass/</link>
+      <pubDate>Mon, 10 Feb 2014 20:08:23 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/posts/2014/haskell-typeclass/</guid>
+      <description>新的一年新的开始. 技术还是要连续, 继续我的haskell旅行. 今天要看看haskell中异常强大的TypeClass, type和class放在一起, 会有怎样的化学反应呢?
+首先来了解这么一个事实&amp;ndash;Haskell中语言中没有对所有类型定义*==*操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?
+在Haskell中, 所有操作符, 比如+, =, .等, 都是函数, 我想这也可能是他是最纯粹的函数语言的原因之一. 所以这些操作符都是由用户实现的, 而实现他们的正是标准库Prelude. 貌似扯远了, 再回到Typeclass. Haskell就是通过Typeclass从而实现了, 操作符对不同类型的支持.
+先来看段完整的例子:
+data People = Peo { peoId :: Int, peoAge :: Int } deriving (Show) class MyEq a where xy :: a -&amp;gt; a -&amp;gt; Bool instance MyEq People where xy x y = (peoId x) == (peoId y) main = print $ show $ (Peo 1 2) 这个例子的作用:</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Haskell学习笔记--Declarations and Bindings</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Haskell学习笔记--Declarations and Bindings</div><div class="section" id="content">Wed Jan 29, 2014 &#183; 645 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/haskell">Haskell</a></span><span id="tag"><a href="http://oopschen.github.io/tags/declarations">declarations</a></span><span id="tag"><a href="http://oopschen.github.io/tags/bindings">bindings</a></span></div><hr/>
+
+<p>即将到年三十了, 好学的年轻人还是决定在今天花一个小时提升下自己的技能. 今天来看看Haskell 2010语言规范中的Declarations和Bindings.</p>
+
+<h1 id="declarations">Declarations</h1>
+
+<p>这部分在理解Haskell中很重要, 因为他诠释了haskell这门语言是如何定义事情的, 他的定义会告诉编译器把这些代码生成低级机器语言.</p>
+
+<pre><code>module  →   module modid [exports] where body
+          | body
+body    →   { impdecls ; topdecls }
+          | { impdecls }
+          | { topdecls }
+topdecls    →   topdecl1 ; … ; topdecln     (n ≥ 1)
+topdecl →   type simpletype = type
+          | data [context =&gt;] simpletype [= constrs] [deriving]
+          | newtype [context =&gt;] simpletype = newconstr [deriving]
+          | class [scontext =&gt;] tycls tyvar [where cdecls]
+          | instance [scontext =&gt;] qtycls inst [where idecls]
+          | default (type1 , … , typen)       (n ≥ 0)
+          | foreign fdecl
+          | decl
+decls   →   { decl1 ; … ; decln }       (n ≥ 0)
+decl    →   gendecl
+          | (funlhs | pat) rhs
+cdecls  →   { cdecl1 ; … ; cdecln }     (n ≥ 0)
+cdecl   →   gendecl
+          | (funlhs | var) rhs
+idecls  →   { idecl1 ; … ; idecln }     (n ≥ 0)
+idecl   →   (funlhs | var) rhs
+          |         (empty)
+gendecl →   vars :: [context =&gt;] type       (type signature)
+          | fixity [integer] ops        (fixity declaration)
+          |         (empty declaration)
+ops →   op1 , … , opn       (n ≥ 1)
+vars    →   var1 , … , varn     (n ≥ 1)
+fixity  →   infixl | infixr | infix
+</code></pre>
+
+<p>从上面我们可以看到有*topdecls*和*decls*的区分, topdecls只能在module的top level中被声明, 而不能在其他的scope(比如where, let等)中被声明. Haskell把Declarations分为三个组:</p>
+
+<ol>
+<li>用户定义的, 包含type, newtype, data<br /></li>
+<li>类型类和重载, 包含class, instance, default<br /></li>
+<li>层级的声明, 包含value binding, type signatures和fixity<br />
+<br /></li>
+</ol>
+
+<!-- more --> 
+
+<p>我们来看下class <strong>Num</strong>在Prelude中的定义:</p>
+
+<pre><code>class Num a  where          
+    (+)    :: a -&gt; a -&gt; a  
+    negate :: a -&gt; a
+</code></pre>
+
+<p>上面的代码不仅定义了他自己, 而且定义了他相关的操作的参数类型和返回类型. 当编译器遇到操作符<strong>+</strong>并且操作数为类型Num的时候, 他就会调用这里的<strong>(+)</strong>方法.</p>
+
+<p>再来看看*instance*的用法:</p>
+
+<pre><code>instance Num Int  where     
+    x + y       =  addInt x y  
+    negate x    =  negateInt x  
+</code></pre>
+
+<p>这段定义把Int定义为Num的实例, 让Int继承了Num的*(+)*和*negate*方法, 而where以后的定义是对两个方法的实现.</p>
+
+<h1 id="types">Types</h1>
+
+<pre><code>type    →   btype [-&gt; type]     (function type)
+btype   →   [btype] atype       (type application)
+atype   →   gtycon
+        |   tyvar
+        |   ( type1 , … , typek )       (tuple type, k ≥ 2)
+        |   [ type ]        (list type)
+        |   ( type )        (parenthesised constructor)
+gtycon  →   qtycon
+        |   ()      (unit type)
+        |   []      (list constructor)
+        |   (-&gt;)        (function constructor)
+        |   (,{,})      (tupling constructors)
+</code></pre>
+
+<p>haskell的type系统是强类型, 并且是可以<strong>多态的</strong>. 注意这里指的是类型是多态的, 因为在其他编程语言中, 多态只限定在实例上. 这里我们先搞清楚两个东西:</p>
+
+<ol>
+<li>type, 大写字母开头</li>
+<li>type variable, 小写字母开头<br />
+<br /></li>
+</ol>
+
+<p>所谓的type, 我们可以理解为对类型的定义, 比如以下代码</p>
+
+<pre><code>data CustomizedType = CustomizedTypeValueConstruct
+</code></pre>
+
+<p>这里我们定义了一个类型<em>CustomizedType</em>, 这个类型有一个构造函数CustomizedTypeValueConstruct, 表明这个类型没有任何field.那么我们如何使用这个类型呢?</p>
+
+<pre><code>va = CustomizedTypeValueConstruct 
+</code></pre>
+
+<p>如此我们就创建了一个type variable, 具有CustomizedType类型.</p>
+
+<p>我们再来看一个更加复杂的例子</p>
+
+<pre><code>data People = People {
+  name :: [Char],
+  age :: Int
+}
+me = People &quot;Ray&quot; 18
+anotherMe = People {
+  name = &quot;Ray&quot;,
+  age = 18
+}
+</code></pre>
+
+<p>上面我们定义了一个People类型, 他有一个叫做name和一个叫做age的fields. 咋看起来有点像c的struct.</p>
+
+<h1 id="多态类型">多态类型</h1>
+
+<p>看完上面的基础知识我们来回顾下面的代码:</p>
+
+<pre><code>f :: Num a -&gt; a -&gt; a
+</code></pre>
+
+<p>这其中a是type variable, Num就是type. 那多态如何提现?</p>
+
+<pre><code>f :: a -&gt; a
+</code></pre>
+
+<p>如果f被定义为这样, 那么f可以接收任意类型, 并且返回接收的类型的类型值. 这就是类型多态的好处, 有点像c++中的template类的概念, 却比他强大很多.</p>
+
+<h1 id="的定义">-&gt; 的定义</h1>
+
+<p>我们再来回顾下下面的代码:</p>
+
+<pre><code>f :: a -&gt; a -&gt; a
+</code></pre>
+
+<p>这段代码声明了f接受两个参数, 并返回同类型的参数. 那符号*-&gt;*会有多重意思么? 其实没有, haskell中-&gt;符号表示它左边的定义是函数的输入, 右侧的定义是函数的输出, 并不是我们所想的-&gt;是用来分割参数用的.</p>
+
+<p>上面的代码我们可以理解为</p>
+
+<pre><code>f :: a - &gt; (a -&gt; a)
+f 1 1 -- == (f 1) 1  
+</code></pre>
+
+<p>也就是说当我们调用的时候, haskell会先调用*f 1*返回一个函数, 这个函数的类型是<em>a -&gt; a</em>, 然后再用1调用这个函数. 从而形成了类似一个函数接受多个参数的现象, 这也是haskell中比较怪异的一点, 他所有的函数只接受一个参数, 而多个参数调用的假象是利用上出原理造成的.</p>
+
+<h1 id="space-leak">space leak</h1>
+
+<p>前几篇blog中我们提到过haskell的lazy解析, 就是说当haskell碰到1 + 1 这个表达式的时候, 他只记录下这个表达式, 当引用到这个表达式的值的时候, 我们才会真正计算这个表达式的值&ndash;2. space leak是指haskell中因为过多的记录表达式, 而导致系统内存耗尽. 看如下的例子</p>
+
+<pre><code>sum [1..100000000]
+</code></pre>
+
+<p>在ghci中执行这个表达式, 足以让我的4g内存耗尽, 其实他做的事情很简单, 就是把1到100000000的数相加. 那为什么会耗尽内存呢?</p>
+
+<p>先来看下sum的源代码:</p>
+
+<pre><code>sum l = sum' l 0
+    where
+    sum' []     a = a
+    sum' (x:xs) a = sum' xs (a+x)
+</code></pre>
+
+<p>从上米那我们不难看出, 当我们相加的数值越多, 生成的表达式*sum&rsquo; xs (a + x)*就越多, 也就消耗越多的内存, 最终导致内存耗尽.那如何避免呢?</p>
+
+<h1 id="seq">seq</h1>
+
+<pre><code>seq :: a -&gt; b -&gt; b
+</code></pre>
+
+<p>他的功能就是将第一个表达式的值马上解析, 忽略lazy模式, 这样可以减少表达式的累积.</p>
+
+<p>我们可以把函数改写成</p>
+
+<pre><code>sum l = sum' 0 l
+    where
+    sum' a [] = a
+    sum' a (x:xs) = let   
+          val = a + x  
+          in  
+          seq val (sum' val xs)
+</code></pre>
+
+<p>因为val表达式的值不会累积, 所以内存消耗是个常量.</p>
+
+<p>其实关于这样的设计, 也说不上好坏, 只能说有很多坑, 对于不了解haskell编译器实现的人来说,  这些简直就是噩梦.</p>
+
+<h1 id="函数">(.) 函数</h1>
+
+<p>再介绍一个比较有趣的函数&ndash;<em>.</em></p>
+
+<pre><code>(.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</code></pre>
+
+<p>这个定义看起来似乎很复杂, 那我们拆解来看:</p>
+
+<ol>
+<li>接收*b -&gt; c*类型的参数, 返回 (a -&gt; b) -&gt; a -&gt; c 类型的值<br /></li>
+<li>接收*a -&gt; b*类型的参数, 返回a-&gt;c类型的值<br /></li>
+<li>接收*a*类型的参数, 返回c类型的值<br />
+<br /></li>
+</ol>
+
+<p>我们来看个例子:</p>
+
+<pre><code>length . words &quot;hello world&quot; -- output 2
+</code></pre>
+
+<p>以下是length和words函数的定义:</p>
+
+<pre><code>length :: [a] -&gt; Int
+words :: String -&gt; [String]
+</code></pre>
+
+<p>我们拿出纸笔来模拟haskell执行的过程:</p>
+
+<ol>
+<li>b -&gt; c, 就是length函数, b为[a]&ndash;一个类型为a的数组, c为Int类型<br /></li>
+<li>a -&gt; b, 则是words函数, a为String类型, b为类型为String的数组, 也就是说1中的a类型为String<br />
+<br /></li>
+</ol>
+
+<p>所以这个表达式的返回值是2.通过这个例子我们不难发现其实*(.)*函数就是我们熟悉的管道, 让一个函数的返回值作为另一个函数的输入.</p>
+
+<h1 id="部分函数">部分函数</h1>
+
+<p>这里我们来看一段更有意思的代码</p>
+
+<pre><code>map (3 + ) [1,2] -- output [4, 5]
+</code></pre>
+
+<p>map顾名思义就是将每个list中的值当作函数的参数调用, 并返回一个list. 这段代码最离奇的是*(3 + )*这部分, 似乎是一个不完整的表达式, 难道就不会报错么?</p>
+
+<p>其实这个表达式在haskell中称为partial function, 我只能把他翻译成部分函数了, 它就是一个函数, 它右边的参数被认为*+*的右侧操作符.</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

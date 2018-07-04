@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>C 中整型相等判断效率</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">C 中整型相等判断效率</div><div class="section" id="content">Fri Jun 21, 2013 &#183; 86 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/c">c</a></span><span id="tag"><a href="http://oopschen.github.io/tags/performance">performance</a></span></div><hr/>
+
+<p>在类型明确的编程语言中,都存在整型类型,这也是计算机的基本类型之一,同时计算速度最快的类型。而在编码的过程中,对整型是否相等的计算也时常能碰到。然而,每个人的写法却不尽相同,本博客就对常见的两种写法进行效率比较。</p>
+
+<h4 id="测试平台">测试平台</h4>
+
+<ol>
+<li>OS: gentoo x86_64 in vmware 9</li>
+<li>compiler: clang 3.2
+<br /></li>
+</ol>
+
+<h4 id="测试代码">测试代码</h4>
+
+<h5 id="使用bit操作进行判断-简称a">使用bit操作进行判断, 简称A</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+      <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">^</span> a)) {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+      }
+      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+    }</code></pre></div>
+<h5 id="使用-操作进行判断-简称b">使用==操作进行判断, 简称B</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+      <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+      <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> a) {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+      }
+      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+    }</code></pre></div>
+<h4 id="判断标准">判断标准</h4>
+
+<p>由于个平台的差异,所以我们以指令书为效率的判断标准</p>
+
+<h4 id="实验结果">实验结果</h4>
+
+<p>下面的结果排除的相同的地方,只摘取了条件判断不同的地方</p>
+
+<h5 id="a-的汇编结果">A 的汇编结果</h5>
+
+<pre><code>movl    -8(%rsp), %eax
+xorl    $1, %eax
+cmpl    $0, %eax
+</code></pre>
+
+<h5 id="b-的汇编结果">B 的汇编结果</h5>
+
+<pre><code>cmpl    -8(%rsp), %eax
+</code></pre>
+
+<p>由上面的结果可以看出其实B的方案执行的效率更高一些。</p>
+
+<p>然而结果真的是这么？下面我们在编译的选项上加入优化。<br />
+执行如下命令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">    clang -O2 xxx.c -S</code></pre></div>
+<h5 id="实验结果-1">实验结果</h5>
+
+<p>两个文件的编译结果完全相同,而条件判断部分的汇编结果为：</p>
+
+<pre><code>xorl    %eax, %eax
+</code></pre>
+
+<h4 id="结论">结论</h4>
+
+<p>一般来说位操作肯定比==操作快,但是编译器在不加优化的情况下,生成了一个临时变量,所以多执行了2个指令,这是因为默认情况下,编译器偏向使用更容易debug和更快编译的方式编译代码。</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>

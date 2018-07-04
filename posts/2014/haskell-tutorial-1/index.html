@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <meta name="description" content="石头的博客.">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="http://oopschen.github.io">
+    
+    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="http://oopschen.github.io">
+    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
+    
+    <title>Haskell学习笔记一--Overview</title>
+    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
+    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-49453400-1');
+    </script>
+    
+
+</head>
+
+</html>
+<body><div class="wrap"><div class="section" id="title">Haskell学习笔记一--Overview</div><div class="section" id="content">Wed Jan 22, 2014 &#183; 146 words
+
+<div><span id="tag"><a href="http://oopschen.github.io/tags/haskell">haskell</a></span><span id="tag"><a href="http://oopschen.github.io/tags/tutorial">tutorial</a></span></div><hr/>
+
+<p>为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.</p>
+
+<h1 id="编译器">编译器</h1>
+
+<p>GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.</p>
+
+<h1 id="程序结构">程序结构</h1>
+
+<ol>
+<li>module层, 让代码能够被重用<br /></li>
+<li>declearation, 对数据类型,数据值的定义<br /></li>
+<li>expressions, 表达式<br /></li>
+<li>literal, 就是我们写的文本程序<br />
+
+<br /></li>
+</ol>
+
+<h1 id="语法">语法</h1>
+
+<p>在阅读BNF规则的时候需要用到下面的规则:</p>
+
+<table>
+<tr><td>[pattern]</td><td>表示可选的内容</td></tr>
+<tr><td>{pattern}</td><td> 表示0活多个内容 </td></tr> 
+<tr><td>(pattern)</td><td> 表示group,和正则的括号一样</td></tr>  
+<tr><td>pat1 | pat2 </td><td>表示可选的</td></tr>
+<tr><td>  
+  <div class="td11">  
+    <span class="cmmi-10">pat</span>  
+    <sub>  
+      <span class="cmsy-7">⟨</span>  
+      <span class="cmmi-7">pat</span>  
+      <span class="cmsy-7">′⟩</span>  
+    </sub>    
+  </div></td>  
+  <td>在pat中且不在pat'中内容</td></tr>
+<tr><td>pat1 | pat2 </td><td>表示可选的</td></tr>
+</table>
+    
+
+<p>haskell支持在源代码中写unicode字符.</p>
+
+<h1 id="reserved-word">Reserved word</h1>
+
+<p>case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _</p>
+
+<h1 id="identifier">Identifier</h1>
+
+<p>除了其他语言中常规的字符,还可以使用单引号当作变量名字.</p>
+
+<h1 id="newline">newline</h1>
+
+<p>这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符</p>
+
+<h1 id="缩进">缩进</h1>
+
+<p>采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层.</p>
+
+<h1 id="prelude">Prelude</h1>
+
+<p>这个文件包含了通用函数的定义</p>
+
+<h1 id="和其他程序的区别">和其他程序的区别</h1>
+
+<pre><code>a := 1  
+print a -- output 1  
+a := 2  
+print a -- output 2
+</code></pre>
+
+<p>这种语法在haskell里是不存在的, haskell的*=*的意义是定义这个变量为多少值,而不是给个他赋值.下面两种写法的效果是一样的.<br />
+    a := 1<br />
+    print a &ndash; output 1</p>
+
+<pre><code>print a -- output 1
+a := 1  
+</code></pre>
+
+<p>Haskell金科玉律: 定义一个返回结果的函数,然后给他输入参数</p>
+
+<h1 id="简单函数">简单函数</h1>
+
+<p>下面我们来写第一个函数,接受一个整形把它加一返回</p>
+
+<pre><code>firstFunc :: Int -&gt; Int  
+firstFunc num = num + 1
+</code></pre>
+
+<h1 id="引用">引用</h1>
+
+<pre><code>import Data.Map as M
+</code></pre>
+
+<p>和python的语法差不多</p>
+</div><div class="section bottom-menu"><hr/><p>
+<a href="/posts">back</a>
+ &#183;
+
+
+
+<a href="/posts">博客日志</a>
+
+
+&#183; <a href="/about">我是谁?</a>
+
+&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
