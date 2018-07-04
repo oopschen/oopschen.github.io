@@ -6,7 +6,7 @@ tags:
 date: '2014-02-10 20:08:23'
 udate: '2014-02-10 20:08:23'
 draft: false
-alias:
+aliases:
     - /article/2014-02-10/haskell-typeclass.html
 categories:
     - TECH 

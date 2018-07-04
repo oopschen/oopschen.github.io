@@ -7,7 +7,7 @@ tags:
     - jcl
 date: '2014-11-22 15:29:32'
 draft: false
-alias:
+aliases:
     - article/2014-11-22-dig-slf4j.html
 categories:
     - TECH 

@@ -5,7 +5,7 @@ tags:
     - howtowork
 date: '2014-01-23 17:18:00'
 draft: false
-alias:
+aliases:
     - /article/2014-01-23/haskell-for-c-programmer.html
 categories:
     - TECH 

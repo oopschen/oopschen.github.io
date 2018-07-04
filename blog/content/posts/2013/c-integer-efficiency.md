@@ -5,7 +5,7 @@ tags:
     - performance 
 date: '2013-06-21 10:43:54'
 draft: false
-alias:
+aliases:
     - article/2013-06-21/c-integer-efficiency.html
 categories:
     - TECH 

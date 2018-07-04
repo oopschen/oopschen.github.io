@@ -6,7 +6,7 @@ tags:
     - function
 date: '2014-01-24 13:27:21'
 draft: false
-alias:
+aliases:
     - /article/2014-01-24/haskell-funcion-pattern-lambda.html
 categories:
     - TECH 

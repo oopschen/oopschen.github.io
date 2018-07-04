@@ -7,7 +7,7 @@ tags:
     - functor
 date: '2014-03-16 09:24:08'
 draft: false
-alias:
+aliases:
     - /article/2014-03-16/haskell-monad.html
 categories:
     - TECH 

@@ -6,7 +6,7 @@ tags:
 date: '2014-09-12 17:51:56'
 lastmod: '2014-09-14 09:51:56'
 draft: false
-alias:
+aliases:
     - article/2014-09-12-mysql-multiple-column-index.html
 categories:
     - TECH 

@@ -6,7 +6,7 @@ tags:
     - 微信协议
 date: '2013-09-30 19:59:29'
 draft: false
-alias:
+aliases:
     - article/2013-09-30/weixin-break.html
 categories:
     - TECH 

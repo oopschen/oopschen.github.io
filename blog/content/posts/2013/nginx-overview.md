@@ -6,7 +6,7 @@ tags:
     - 解读
 date: '2013-08-02 15:14:19'
 draft: false
-alias:
+aliases:
     - article/2013-08-01/nginx-overview.html
 categories:
     - TECH

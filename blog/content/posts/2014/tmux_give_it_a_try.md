@@ -6,7 +6,7 @@ tags:
     - terminals
 date: '2014-07-19 19:41:48'
 draft: false
-alias:
+aliases:
     - article/2014-07-19-tmux_give_it_a_try.html
 categories:
     - TECH 

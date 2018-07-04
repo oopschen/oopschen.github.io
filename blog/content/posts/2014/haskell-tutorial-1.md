@@ -6,7 +6,7 @@ tags:
 date: '2014-01-22 10:23:18'
 udate: '2014-01-22 10:23:18'
 draft: false
-alias:
+aliases:
     - /article/2014-01-22/haskell-tutorial-1.html
 categories:
     - TECH 

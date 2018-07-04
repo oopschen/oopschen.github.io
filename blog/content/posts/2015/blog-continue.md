@@ -4,7 +4,7 @@ tags:
   - 杂谈
 date: '2015-10-31 16:03:34'
 draft: false
-alias:
+aliases:
     - /article/2015-10-31-blog-continue.html
 categories:
     - TECH 

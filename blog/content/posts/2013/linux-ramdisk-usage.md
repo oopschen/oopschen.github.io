@@ -9,7 +9,7 @@ tags:
     - capability
 date: '2013-06-04 09:51:35'
 draft: false
-alias:
+aliases:
     - article/2013-06-04/linux-ramdisk-usage.html
 categories:
     - TECH

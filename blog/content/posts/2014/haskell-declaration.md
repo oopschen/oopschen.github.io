@@ -6,7 +6,7 @@ tags:
     - bindings
 date: '2014-01-29 20:32:43'
 draft: false
-alias:
+aliases:
     - /article/2014-01-29/haskell-declaration.html
 categories:
     - TECH 

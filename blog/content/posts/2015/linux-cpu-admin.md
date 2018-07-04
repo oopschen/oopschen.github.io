@@ -6,7 +6,7 @@ tags:
     - cpupower
 date: '2015-12-04 21:21:15'
 draft: false
-alias:
+aliases:
     - /article/2015-12-04-linux-cpu-admin.html
 categories:
     - TECH 

@@ -7,7 +7,7 @@ tags:
     - security
 date: '2014-08-10 09:30:39'
 draft: false
-alias:
+aliases:
     - article/2014-08-10-chrome-unsafe-ports.html
 categories:
     - TECH 

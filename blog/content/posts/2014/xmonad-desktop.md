@@ -7,7 +7,7 @@ tags:
     - tiling
 date: 2014-01-21 10:02:11
 draft: false
-alias:
+aliases:
     - article/2014-01-21/xmonad-desktop.html
 categories:
     - 杂谈

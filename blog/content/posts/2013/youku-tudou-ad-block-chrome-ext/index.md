@@ -19,7 +19,7 @@ tags:
 date: 2013-02-27 13:56:00
 lastmod: 2013-09-17 20:49:00
 draft: false
-alias:
+aliases:
     - article/2013-02-27/youku-tudou-ad-block-chrome-ext.html
 categories:
     - SHOWCASE

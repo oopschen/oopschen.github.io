@@ -5,7 +5,7 @@ tags:
     - ripple币
 date: '2013-12-09 16:13:59'
 draft: false
-alias:
+aliases:
     - article/2013-12-09/come-to-see-ripple.html
 categories:
     - 杂谈

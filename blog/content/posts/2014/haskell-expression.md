@@ -5,7 +5,7 @@ tags:
     - expression
 date: '2014-01-27 20:04:13'
 draft: false
-alias:
+aliases:
     - /article/2014-01-27/haskell-expression.html
 categories:
     - TECH 

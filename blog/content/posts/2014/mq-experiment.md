@@ -5,7 +5,7 @@ tags:
     - activemq
 date: '2014-05-15 19:14:32'
 draft: false
-alias:
+aliases:
     - article/2014-05-15-mq-experiment.html
 categories:
     - TECH 

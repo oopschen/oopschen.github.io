@@ -7,7 +7,7 @@ tags:
     - secondaryindex
 date: '2014-07-23 09:24:37'
 draft: false
-alias:
+aliases:
     - article/2014-07-23-mysql-index.html
 categories:
     - TECH 

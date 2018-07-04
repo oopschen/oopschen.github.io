@@ -8,7 +8,7 @@ tags:
 date: '2014-01-25 15:36:26'
 udate: '2014-01-25 15:36:26'
 draft: false
-alias:
+aliases:
     - /article/2014-01-25/haskell-syntax.html
 categories:
     - TECH 

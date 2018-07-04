@@ -6,7 +6,7 @@ tags:
     - idl
 date: '2013-07-01 17:29:13'
 category: 技术
-alias:
+aliases:
     - article/2013-07-01/webkit-derivedsource.html
 categories:
     - TECH

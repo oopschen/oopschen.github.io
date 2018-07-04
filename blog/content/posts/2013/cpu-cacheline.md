@@ -6,7 +6,7 @@ tags:
     - cpu
 date: '2013-09-01 19:38:24'
 draft: false
-alias:
+aliases:
     - article/2013-09-01/cpu-cacheline.html
 categories:
     - TECH 

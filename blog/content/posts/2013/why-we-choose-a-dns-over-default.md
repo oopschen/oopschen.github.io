@@ -8,7 +8,7 @@ tags:
     - 翻墙
 date: '2013-06-06 08:46:56'
 draft: false
-alias:
+aliases:
     - article/2013-06-06/why-we-choose-a-dns-over-default.html
 categories:
     - TECH 

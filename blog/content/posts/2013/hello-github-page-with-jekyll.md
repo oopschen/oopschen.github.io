@@ -9,7 +9,7 @@ tags:
 date: '2013-05-26 18:00:00'
 lastmod: '2013-07-25 10:44:00'
 draft: false
-alias:
+aliases:
     - article/2013-05-26/hello-github-page-with-jekyll.html
 categories:
     - 杂谈
