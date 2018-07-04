@@ -1,0 +1,37 @@
+---
+title: slf4j底层binding 
+tags:
+    - slf4j
+    - log4j
+    - jui
+    - jcl
+date: '2014-11-22 15:29:32'
+draft: false
+alias:
+    - article/2014-11-22-dig-slf4j.html
+categories:
+    - TECH 
+---
+[slf4jurl]: http://www.slf4j.org/ "Simple Logging Facade For Java"
+又开始了Java工程师之路, 总体框架为springmvc+spring+hibernate.原先的老系统使用log4j记录日志.　介入开发后准备改用slf4j+logback做日志.  
+  
+### SLF4J简介  
+[slf4j][slf4jurl]从全称就可以知道它只是类似于JCL(java common logging)的框架,从主页的介绍来看它降低了工程切换日志的工作,但我个人喜欢的则是它打日志时候的简洁语法．  
+```Java
+    logger.error("This is a error message with name {}!", "ray");  
+```  
+      
+slf4j引以为傲的是它有一个binding的机制-只要引用了固定的binding架包就能实现日志底层实现的切换, 那说的这么玄乎, 究竟它是怎么实现的呢?  
+  
+### SLF4J Bind 机制  
+首先我们来看看LoggerFactory这个类的[bind](https://github.com/qos-ch/slf4j/blob/master/slf4j-api/src/main/java/org/slf4j/LoggerFactory.java#L131 "Bind")方法:  
+1. 查找可能的静态Logger  
+2. 如果有多个静态的Logger则打印日志  
+3. 初始化bind  
+....  
+  
+那么这个StaticLoggerBinder是什么?  
+其实slf4j通过classloader的方式找到StaticLoggerBinder的类文件, 然后通过策略模式采用日志的实现-也就是说每个底层的日志实现都会实现同一个接口.因此每一个日志实现的架包中都会有这么一个StaticLoggerBinder来接入slf4j的框架, 而slf4j通过应用启动时的动态类加载来达到bind日志实现的目的.  
+  
+### 一点建议  
+Java的世界总是有很多框架, 在我们使用slf4j做为应用的日志系统的时候, 应用中其他框架并不一定也是用slf4j作为日志框架, 因此我们需要引用slf4j的桥接包-jcl-over-slf4j, jul-over-slf4j. 这些桥接包只是用最简单的方式实现了其他日志框架的基础类, 然后通过bind的方式接入slf4j的底层日志中.  
