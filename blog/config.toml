@@ -32,3 +32,5 @@ googleAnalytics         = "UA-49453400-1"             # Tracking code, eg. "UA-1
     link = "/about"
     text = "我是谁?"
 
+[params.content]
+    donateurl = "https://me.alipay.com/sangeshitou"

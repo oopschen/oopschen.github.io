@@ -1,0 +1,5 @@
+{{ if (.Get 0) }}
+{{ with .Get 0 }}{{ dateFormat . $.Page.Lastmod }}{{ end  }}
+{{ else  }}
+{{ dateFormat "2006/01/02 15:04:05" .Page.Lastmod }}
+{{ end  }}
