@@ -1,0 +1,60 @@
+---
+title: Profile
+isMenu: true
+---
+
+### Mr. C Profile
+```c
+    #include <stdio.h>
+    #include <stdint.h>
+    #include <stdlib.h>
+
+    #define CHINA_PROVINCE_ZHEJIANG 0x1
+    #define SEX_MALE 0x1
+
+    struct Mr_c {
+      uint8_t sex;
+      uint8_t born_province;
+      uint16_t born_year;
+      uint16_t ever_worked_companies_len;
+      uint16_t program_langs_len;
+      uint8_t ** ever_worked_companies;
+      uint8_t ** program_langs;
+    };
+
+    /**
+     * It is up to you to implement.
+     */
+    static uint8_t hire(struct Mr_c * employee);
+
+    int main() {
+      struct Mr_c me;
+      me.sex = SEX_MALE;
+      me.born_province = CHINA_PROVINCE_ZHEJIANG;
+      me.born_year = 1988;
+
+      me.ever_worked_companies_len = 2;
+      if (!(me.ever_worked_companies = 
+            calloc(me.ever_worked_companies_len, sizeof(*(me.ever_worked_companies))))) {
+        perror("Out of Memory!");
+        return 1;
+      }
+      me.ever_worked_companies[0] = "www.alisoft.com";
+      me.ever_worked_companies[1] = "www.baidu.com";
+
+      me.program_langs_len = 10;
+      if (!(me.program_langs = calloc(me.program_langs_len, sizeof(*(me.program_langs))))) {
+        free(me.ever_worked_companies);
+        perror("Out of Memory!");
+        return 1;
+      }
+      me.program_langs[0] = "C";
+      me.program_langs[1] = "Java6";
+      me.program_langs[2] = "Python2.x";
+      me.program_langs[3] = "Javascript";
+      me.program_langs[4] = "Haskell";
+      me.program_langs[5] = "Coffee";
+
+      return hire(&me);
+    }
+```
