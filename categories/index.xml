@@ -6,9 +6,19 @@
     <description>Recent content in Categories on Oopschen的日志</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
+    <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
     
 	<atom:link href="http://oopschen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Depper</title>
+      <link>http://oopschen.github.io/categories/depper/</link>
+      <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/depper/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Os</title>
@@ -31,7 +41,7 @@
     <item>
       <title>Tech</title>
       <link>http://oopschen.github.io/categories/tech/</link>
-      <pubDate>Fri, 04 Dec 2015 21:21:15 +0000</pubDate>
+      <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
       <guid>http://oopschen.github.io/categories/tech/</guid>
       <description></description>

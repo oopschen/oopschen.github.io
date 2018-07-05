@@ -6,6 +6,7 @@
     <description>Recent content in Haskell on Oopschen的日志</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
+    <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
     <lastBuildDate>Sun, 16 Mar 2014 09:24:08 +0000</lastBuildDate>
     
 	<atom:link href="http://oopschen.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
@@ -103,23 +104,6 @@ myList :: [Int] myList = 0 : 1 : [ a * b | (a, b) &amp;lt;- zip myList (tail myL
 *&amp;lt;-*表示把右边的值依次赋值给左边
 *zip*是haskell定义的一个函数
 zip [1,2] [3,4] -- ouput [(1,3), (2,4)] zip [1] [3,4] -- ouput [(1,3)] *tail*同样也是haskell定义的一个函数</description>
-    </item>
-    
-    <item>
-      <title>Haskell学习笔记一--Overview</title>
-      <link>http://oopschen.github.io/posts/2014/haskell-tutorial-1/</link>
-      <pubDate>Wed, 22 Jan 2014 10:23:18 +0000</pubDate>
-      
-      <guid>http://oopschen.github.io/posts/2014/haskell-tutorial-1/</guid>
-      <description>为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.
-编译器 GHC是haskell的编译器,自带了一个GHCI&amp;ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
-程序结构  module层, 让代码能够被重用
- declearation, 对数据类型,数据值的定义
- expressions, 表达式
- literal, 就是我们写的文本程序
-  语法 在阅读BNF规则的时候需要用到下面的规则:
- [pattern]表示可选的内容 {pattern} 表示0活多个内容  (pattern) 表示group,和正则的括号一样 pat1 | pat2 表示可选的  pat  ⟨ pat ′⟩   在pat中且不在pat&#39;中内容 pat1 | pat2 表示可选的  haskell支持在源代码中写unicode字符.
-Reserved word case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _</description>
     </item>
     
   </channel>
