@@ -1,10 +1,12 @@
 baseurl                 = "http://oopschen.github.io"               # Your domain name. Must end with "/"
 languageCode            = "zh-CN"
+copyright = "版权归Ray所有, 授权在MIT协议下."
 title                   = "Oopschen的日志"
 theme                   = "sam"
 pygmentsStyle           = "monokai"                     # https://help.farbox.com/pygments.html
 pygmentsCodefences      = true
 googleAnalytics         = "UA-49453400-1"             # Tracking code, eg. "UA-111111111-1"
+rssLimit                = 7
 
 [params]
     dateform            = "Mon Jan 02, 2006"
@@ -34,3 +36,7 @@ googleAnalytics         = "UA-49453400-1"             # Tracking code, eg. "UA-1
 
 [params.content]
     donateurl = "https://me.alipay.com/sangeshitou"
+
+[author]
+  name = "Ray"
+
