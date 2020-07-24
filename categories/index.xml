@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Oopschen的日志</title>
@@ -7,12 +7,13 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
+    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate>
     
 	<atom:link href="http://oopschen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Depper</title>
+      <title>DEPPER</title>
       <link>http://oopschen.github.io/categories/depper/</link>
       <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
@@ -21,25 +22,7 @@
     </item>
     
     <item>
-      <title>Os</title>
-      <link>http://oopschen.github.io/categories/os/</link>
-      <pubDate>Tue, 11 Jun 2013 17:52:55 +0000</pubDate>
-      
-      <guid>http://oopschen.github.io/categories/os/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Showcase</title>
-      <link>http://oopschen.github.io/categories/showcase/</link>
-      <pubDate>Wed, 27 Feb 2013 13:56:00 +0000</pubDate>
-      
-      <guid>http://oopschen.github.io/categories/showcase/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tech</title>
+      <title>TECH</title>
       <link>http://oopschen.github.io/categories/tech/</link>
       <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
@@ -62,6 +45,24 @@
       <pubDate>Tue, 21 Jan 2014 10:02:11 +0000</pubDate>
       
       <guid>http://oopschen.github.io/categories/%E6%9D%82%E8%B0%88/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OS</title>
+      <link>http://oopschen.github.io/categories/os/</link>
+      <pubDate>Tue, 11 Jun 2013 17:52:55 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SHOWCASE</title>
+      <link>http://oopschen.github.io/categories/showcase/</link>
+      <pubDate>Wed, 27 Feb 2013 13:56:00 +0000</pubDate>
+      
+      <guid>http://oopschen.github.io/categories/showcase/</guid>
       <description></description>
     </item>
     

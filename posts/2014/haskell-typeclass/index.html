@@ -1,155 +1,240 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta name="description" content="石头的博客.">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content="http://oopschen.github.io">
-    
-    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
-    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
-    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="http://oopschen.github.io">
-    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
-    
-    <title>Haskell学习笔记--Typeclass</title>
-    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
-    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
-        gtag('config', 'UA-49453400-1');
-    </script>
+<meta name="description" content="石头的博客.">
+<title>
+    Haskell学习笔记&ndash;Typeclass - Oopschen的日志
+</title>
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Haskell学习笔记--Typeclass"/>
+<meta name="twitter:description" content="新的一年新的开始. 技术还是要连续, 继续我的haskell旅行. 今天要看看haskell中异常强大的TypeClass, type和class放在一起, 会有怎样的化学反应呢?
+首先来了解这么一个事实&ndash;Haskell中语言中没有对所有类型定义==操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?
+在Haskell中, 所有操作符, 比如&#43;, =, .等, 都是函数, 我想这也可能是他是最纯粹的函数语言的原因之一. 所以这些操作符都是由用户实现的, 而实现他们的正是标准库Prelude. 貌似扯远了, 再回到Typeclass. Haskell就是通过Typeclass从而实现了, 操作符对不同类型的支持.
+先来看段完整的例子:
+data People = Peo { peoId :: Int, peoAge :: Int } deriving (Show) class MyEq a where xy :: a -&gt; a -&gt; Bool instance MyEq People where xy x y = (peoId x) == (peoId y) main = print $ show $ (Peo 1 2) 这个例子的作用:"/>
+
+<meta property="og:title" content="Haskell学习笔记--Typeclass" />
+<meta property="og:description" content="新的一年新的开始. 技术还是要连续, 继续我的haskell旅行. 今天要看看haskell中异常强大的TypeClass, type和class放在一起, 会有怎样的化学反应呢?
+首先来了解这么一个事实&ndash;Haskell中语言中没有对所有类型定义==操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?
+在Haskell中, 所有操作符, 比如&#43;, =, .等, 都是函数, 我想这也可能是他是最纯粹的函数语言的原因之一. 所以这些操作符都是由用户实现的, 而实现他们的正是标准库Prelude. 貌似扯远了, 再回到Typeclass. Haskell就是通过Typeclass从而实现了, 操作符对不同类型的支持.
+先来看段完整的例子:
+data People = Peo { peoId :: Int, peoAge :: Int } deriving (Show) class MyEq a where xy :: a -&gt; a -&gt; Bool instance MyEq People where xy x y = (peoId x) == (peoId y) main = print $ show $ (Peo 1 2) 这个例子的作用:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-typeclass/" />
+<meta property="article:published_time" content="2014-02-10T20:08:23+00:00" />
+<meta property="article:modified_time" content="2014-02-10T20:08:23+00:00" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49453400-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
 
+    
+    
+    
+    <title>
+        
+        Haskell学习笔记&ndash;Typeclass
+        
+    </title>
 </head>
 
-</html>
-<body><div class="wrap"><div class="section" id="title">Haskell学习笔记--Typeclass</div><div class="section" id="content">Mon Feb 10, 2014 &#183; 369 words
-
-<div><span id="tag"><a href="http://oopschen.github.io/tags/haskell">Haskell</a></span><span id="tag"><a href="http://oopschen.github.io/tags/typeclass">typeclass</a></span></div><hr/>
-
-<p>新的一年新的开始. 技术还是要连续, 继续我的haskell旅行. 今天要看看haskell中异常强大的<strong>TypeClass</strong>, type和class放在一起, 会有怎样的化学反应呢?</p>
-
-<p>首先来了解这么一个事实&ndash;Haskell中语言中没有对所有类型定义*==*操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?</p>
-
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>Haskell学习笔记&ndash;Typeclass</h1>
+    </header>
+    
+    <main class="wrap">
+        
+<div class="flex-container">
+    <aside role="complementary">
+        Mon Feb 10, 2014 &#183; 369 words
+        <div class="tag-container">
+            
+            
+            <span class="tag">
+                <a href="/tags/haskell/">
+                    Haskell
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/typeclass/">
+                    typeclass
+                </a>
+            </span>
+            
+            
+        </div>
+    </aside>
+    <hr />
+    <article role="article">
+        <p>新的一年新的开始. 技术还是要连续, 继续我的haskell旅行. 今天要看看haskell中异常强大的<strong>TypeClass</strong>, type和class放在一起, 会有怎样的化学反应呢?</p>
+<p>首先来了解这么一个事实&ndash;Haskell中语言中没有对所有类型定义<em>==</em>操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?</p>
 <p>在Haskell中, 所有操作符, 比如+, =, .等, 都是函数, 我想这也可能是他是最纯粹的函数语言的原因之一. 所以这些操作符都是由用户实现的, 而实现他们的正是标准库<strong>Prelude</strong>. 貌似扯远了, 再回到Typeclass. Haskell就是通过Typeclass从而实现了, 操作符对不同类型的支持.</p>
-
-<!-- more --> 
-
+<!-- raw HTML omitted -->
 <p>先来看段完整的例子:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">People</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Peo</span> {
-      <span style="color:#a6e22e">peoId</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
-      <span style="color:#a6e22e">peoAge</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+      peoId <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
+      peoAge <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
     } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
-    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#f92672">::</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
+    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> a <span style="color:#66d9ef">where</span>
+      xy <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
     <span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#66d9ef">People</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#a6e22e">x</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">peoId</span> <span style="color:#a6e22e">x</span>) <span style="color:#f92672">==</span> (<span style="color:#a6e22e">peoId</span> <span style="color:#a6e22e">y</span>)
-    <span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">print</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">show</span> <span style="color:#f92672">$</span> (<span style="color:#66d9ef">Peo</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>)</code></pre></div>
-<p>这个例子的作用:</p>
-
+      xy x y <span style="color:#f92672">=</span> (peoId x) <span style="color:#f92672">==</span> (peoId y)
+    main <span style="color:#f92672">=</span> print <span style="color:#f92672">$</span> show <span style="color:#f92672">$</span> (<span style="color:#66d9ef">Peo</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>)
+</code></pre></div><p>这个例子的作用:</p>
 <ol>
-<li>定义一个名叫People的type<br /></li>
-<li>定义了class MyEq, 有一个操作 xy, 接收两个type为MyEq的参数, 并进行比较, 返回一个Bool值<br /></li>
-<li>把People定义为MyEq的实例, 并实现xy方法<br />
-<br /></li>
+<li>定义一个名叫People的type</li>
+<li>定义了class MyEq, 有一个操作 xy, 接收两个type为MyEq的参数, 并进行比较, 返回一个Bool值</li>
+<li>把People定义为MyEq的实例, 并实现xy方法</li>
 </ol>
-
 <h1 id="分解">分解</h1>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">People</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Peo</span> {
-      <span style="color:#a6e22e">peoId</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
-      <span style="color:#a6e22e">peoAge</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
-    } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)</code></pre></div>
-<p>这段代码已经在以前的blog讲过, 这里主要提下关键字deriving, 它的功能是把People类型继承了Show这个class, 后面再分析Show有哪些操作.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#f92672">::</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
+      peoId <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
+      peoAge <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+    } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
+</code></pre></div><p>这段代码已经在以前的blog讲过, 这里主要提下关键字deriving, 它的功能是把People类型继承了Show这个class, 后面再分析Show有哪些操作.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> a <span style="color:#66d9ef">where</span>
+      xy <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
     <span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#66d9ef">People</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#a6e22e">x</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">peoId</span> <span style="color:#a6e22e">x</span>) <span style="color:#f92672">==</span> (<span style="color:#a6e22e">peoId</span> <span style="color:#a6e22e">y</span>)</code></pre></div>
-<p>这段代码定义了拥有xy操作的class MyEq, 并让type People实现MyEq的定义. 在class MyEq a中a到底指什么呢? 其实a指的是instance后的类型, 比如People, 当xy函数被调用的时候, Haskell会根据参数推测出是否是People的类型, 如果不是则会出错. 如果有多个instance呢?Haskell也还是根据参数类型, 推测使用哪个instance的实现. 这里和Java中的接口和实现类比较相似, 但是却比java智能, 因为java中需要手动判断类型从而选择某个实现, 还要利用factory的模式让代码更优雅, 而Haskell中则在语言级别就支持这种特性.</p>
-
+      xy x y <span style="color:#f92672">=</span> (peoId x) <span style="color:#f92672">==</span> (peoId y)
+</code></pre></div><p>这段代码定义了拥有xy操作的class MyEq, 并让type People实现MyEq的定义. 在class MyEq a中a到底指什么呢? 其实a指的是instance后的类型, 比如People, 当xy函数被调用的时候, Haskell会根据参数推测出是否是People的类型, 如果不是则会出错. 如果有多个instance呢?Haskell也还是根据参数类型, 推测使用哪个instance的实现. 这里和Java中的接口和实现类比较相似, 但是却比java智能, 因为java中需要手动判断类型从而选择某个实现, 还要利用factory的模式让代码更优雅, 而Haskell中则在语言级别就支持这种特性.</p>
 <p>至此, 我们来整理下思路, 其实Haskell它有独立的type定义和type class的定义, 并用某种方式把操作符, type和class联系起来. 这也正说明了Haskell type系统的强大. 同时也印证了编程界的一句老话&ndash;程序就是数据和逻辑的集合. Haskell中的type是数据的集合而class则是逻辑的集合, instance则是用来将两者联系起来的方式. 所以data是定义数据的样子, 而class只定义有哪些操作.</p>
-
 <h1 id="haskell不简单的class">Haskell不简单的class</h1>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">People</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Peo</span> {
-      <span style="color:#a6e22e">peoId</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
-      <span style="color:#a6e22e">peoAge</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+      peoId <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
+      peoAge <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
     } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
     <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Human</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Hm</span> {
-      <span style="color:#a6e22e">hId</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
-      <span style="color:#a6e22e">hAge</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
-      <span style="color:#a6e22e">name</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+      hId <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
+      hAge <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>,
+      name <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
     } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
-    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#f92672">::</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
+    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> a <span style="color:#66d9ef">where</span>
+      xy <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
     <span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#66d9ef">People</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#a6e22e">x</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span>  (<span style="color:#a6e22e">peoId</span> <span style="color:#a6e22e">x</span>) <span style="color:#f92672">==</span> (<span style="color:#a6e22e">peoId</span> <span style="color:#a6e22e">y</span>)
+      xy x y <span style="color:#f92672">=</span>  (peoId x) <span style="color:#f92672">==</span> (peoId y)
     <span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#66d9ef">Human</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#a6e22e">x</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span>  (<span style="color:#a6e22e">hId</span> <span style="color:#a6e22e">x</span>) <span style="color:#f92672">==</span> (<span style="color:#a6e22e">hId</span> <span style="color:#a6e22e">y</span>)
-    <span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span> 
-      <span style="color:#a6e22e">print</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">show</span> <span style="color:#f92672">$</span> (<span style="color:#66d9ef">Peo</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>)
-      <span style="color:#a6e22e">print</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">show</span> <span style="color:#f92672">$</span> (<span style="color:#66d9ef">Hm</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#34;ray&#34;</span>)</code></pre></div>
-<p>上面这个例子实现了MyEq这个定义对多种instance实用, 因为Haskell会根据不通参数类型, 调用不同的xy实现. 另外, 我们还可以给class 默认实现, 比如:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">where</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#f92672">::</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
-      <span style="color:#a6e22e">xy</span> <span style="color:#a6e22e">x</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">y</span></code></pre></div>
-<h1 id="常见的的class">常见的的class</h1>
-
+      xy x y <span style="color:#f92672">=</span>  (hId x) <span style="color:#f92672">==</span> (hId y)
+    main <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span> 
+      print <span style="color:#f92672">$</span> show <span style="color:#f92672">$</span> (<span style="color:#66d9ef">Peo</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>)
+      print <span style="color:#f92672">$</span> show <span style="color:#f92672">$</span> (<span style="color:#66d9ef">Hm</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#34;ray&#34;</span>)
+</code></pre></div><p>上面这个例子实现了MyEq这个定义对多种instance实用, 因为Haskell会根据不通参数类型, 调用不同的xy实现. 另外, 我们还可以给class 默认实现, 比如:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">MyEq</span> a <span style="color:#66d9ef">where</span>
+      xy <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
+      xy x y <span style="color:#f92672">=</span> x <span style="color:#f92672">==</span> y
+</code></pre></div><h1 id="常见的的class">常见的的class</h1>
 <p>Show能把大部分数据类型转化成文本.</p>
-
 <pre><code>show 1 -- output &quot;1&quot;
 show True  -- output &quot;True&quot;
 show &quot;1&quot; -- output &quot;\&quot;1\&quot;&quot;
 </code></pre>
-
 <p>Read则是Show的逆向函数.</p>
-
 <pre><code>(read &quot;1&quot;) :: Int --output 1
 (read &quot;1&quot;) :: Double --output 2
 </code></pre>
-
 <h1 id="data-type和newtype">data, type和newtype</h1>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">type</span> <span style="color:#66d9ef">MyInt</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int</span>
     <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">MyType</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">M</span> <span style="color:#66d9ef">MyInt</span> <span style="color:#66d9ef">deriving</span>(<span style="color:#66d9ef">Eq</span>)
     <span style="color:#66d9ef">newtype</span> <span style="color:#66d9ef">NewMyType</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">N</span> <span style="color:#66d9ef">Int</span> <span style="color:#66d9ef">deriving</span>(<span style="color:#66d9ef">Eq</span>)
-    <span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span> 
-      <span style="color:#a6e22e">print</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">show</span> <span style="color:#f92672">$</span> (<span style="color:#66d9ef">M</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">M</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e">-- output &#34;True&#34;</span>
-      <span style="color:#a6e22e">print</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">show</span> <span style="color:#f92672">$</span> (<span style="color:#66d9ef">M</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">N</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e">-- compile error</span></code></pre></div>
-<p>type是对原来类型的别名, 可以理解为c中的define; data是对数据的定义, 和c中的struct类似; newtype则是对类型的重新定义, 可以理解为重新生成一份新的type, 并且newtype只接受一个参数.</p>
-
+    main <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span> 
+      print <span style="color:#f92672">$</span> show <span style="color:#f92672">$</span> (<span style="color:#66d9ef">M</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">M</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e">-- output &#34;True&#34;</span>
+      print <span style="color:#f92672">$</span> show <span style="color:#f92672">$</span> (<span style="color:#66d9ef">M</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">N</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e">-- compile error</span>
+</code></pre></div><p>type是对原来类型的别名, 可以理解为c中的define; data是对数据的定义, 和c中的struct类似; newtype则是对类型的重新定义, 可以理解为重新生成一份新的type, 并且newtype只接受一个参数.</p>
 <h1 id="总结">总结</h1>
-
 <p>Haskell的编程思想和OOP不太一样, OOP把数据和操作都放在一起, 而Haskell则是将数据和操作分开, 数据可以由data, type和newtype定义, 操作则是由class和instance定义. 另外, Haskell有着极其强大的type系统, 或者我们可以将其理解为Haskell中的type是一种特别的变量, 它的type可以继承, 实例化, 比起其他语言固定的type系统要强大很多.</p>
+<p>到此开头的问题也能迎刃而解了, Haskell语言中没有默认的<em>==</em>实现, 它利用typeclass系统实现对不同的type的支持.</p>
 
-<p>到此开头的问题也能迎刃而解了, Haskell语言中没有默认的*==*实现, 它利用typeclass系统实现对不同的type的支持.</p>
-</div><div class="section bottom-menu"><hr/><p>
-<a href="/posts">back</a>
- &#183;
-
+    </article>
+</div>
 
 
-<a href="/posts">博客日志</a>
+        
+<nav role="navigation" class="flex-container bottom-menu">
+    
+<hr />
+<p>
 
 
-&#183; <a href="/about">我是谁?</a>
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
 
-&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
+    
+        
+            <a href="/posts">博客日志</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">我是谁?</a>
+        
+    
+    &#183; 
+    <a href="/">
+        主页
+    </a>
+
+</p>
+</nav>
+
+    </main>
+    
+    <footer class="flex-container footer">石头, OOPS!!!
+
+
+  <script data-ad-client="ca-pub-9689498343252538" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+</footer>
+    
+    
+</body>
+
+</html>

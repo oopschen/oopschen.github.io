@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Function on Oopschen的日志</title>
+    <title>function on Oopschen的日志</title>
     <link>http://oopschen.github.io/tags/function/</link>
-    <description>Recent content in Function on Oopschen的日志</description>
+    <description>Recent content in function on Oopschen的日志</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
@@ -20,10 +20,10 @@
       <guid>http://oopschen.github.io/posts/2014/haskell-funcion-pattern-lambda/</guid>
       <description>在haskell中我们可以对function做的更多, 这节一起来看看什么是function pattern和lambda function, 以及什么是多态类.
 Function Pattern 首先我们来看下我们在python的一段代码
-def sumList(l) : if 1 &amp;gt; len(l) : return 0 if 2 &amp;gt; len(l) : return l[0] return l[0] + l[1]  那么用function pattern写会如何呢?
-sumList :: Num a =&amp;gt; [a] -&amp;gt; a sumList (ele:oEle) = ele + sumList oEle sumList [x] = x sumList [] = 0 这段函数该如何解读?看起来我们像是对*sumList*定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候Funtion Pattern就开始发挥作用了.
+def sumList(l) : if 1 &amp;gt; len(l) : return 0 if 2 &amp;gt; len(l) : return l[0] return l[0] + l[1] 那么用function pattern写会如何呢?
+sumList :: Num a =&amp;gt; [a] -&amp;gt; a sumList (ele:oEle) = ele + sumList oEle sumList [x] = x sumList [] = 0 这段函数该如何解读?看起来我们像是对sumList定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候Funtion Pattern就开始发挥作用了.
 先来看第一段代码:
-sumList (ele:oEle) = ele + sumList oEle  这段代码定义了当sumList的参数多余一个元素的时候将第一个元素的值和后续元素递归调用后的值相加.
+sumList (ele:oEle) = ele + sumList oEle 这段代码定义了当sumList的参数多余一个元素的时候将第一个元素的值和后续元素递归调用后的值相加.
 再来看第二段代码:
 sumList [x] = x 当sumList的参数有且只有一个元素的时候返回该元素的值.</description>
     </item>

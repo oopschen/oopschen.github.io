@@ -1,156 +1,216 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta name="description" content="石头的博客.">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content="http://oopschen.github.io">
-    
-    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
-    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
-    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="http://oopschen.github.io">
-    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
-    
-    <title>Haskell学习笔记一--Overview</title>
-    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
-    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
-        gtag('config', 'UA-49453400-1');
-    </script>
+<meta name="description" content="石头的博客.">
+<title>
+    Haskell学习笔记一&ndash;Overview - Oopschen的日志
+</title>
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Haskell学习笔记一--Overview"/>
+<meta name="twitter:description" content="为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.
+编译器 GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
+程序结构  module层, 让代码能够被重用 declearation, 对数据类型,数据值的定义 expressions, 表达式 literal, 就是我们写的文本程序  语法 在阅读BNF规则的时候需要用到下面的规则:
+haskell支持在源代码中写unicode字符.
+Reserved word case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _
+Identifier 除了其他语言中常规的字符,还可以使用单引号当作变量名字.
+newline 这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符
+缩进 采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层."/>
+
+<meta property="og:title" content="Haskell学习笔记一--Overview" />
+<meta property="og:description" content="为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.
+编译器 GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
+程序结构  module层, 让代码能够被重用 declearation, 对数据类型,数据值的定义 expressions, 表达式 literal, 就是我们写的文本程序  语法 在阅读BNF规则的时候需要用到下面的规则:
+haskell支持在源代码中写unicode字符.
+Reserved word case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _
+Identifier 除了其他语言中常规的字符,还可以使用单引号当作变量名字.
+newline 这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符
+缩进 采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-tutorial-1/" />
+<meta property="article:published_time" content="2014-01-22T10:23:18+00:00" />
+<meta property="article:modified_time" content="2014-01-22T10:23:18+00:00" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49453400-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
 
+    
+    
+    
+    <title>
+        
+        Haskell学习笔记一&ndash;Overview
+        
+    </title>
 </head>
 
-</html>
-<body><div class="wrap"><div class="section" id="title">Haskell学习笔记一--Overview</div><div class="section" id="content">Wed Jan 22, 2014 &#183; 146 words
-
-<div><span id="tag"><a href="http://oopschen.github.io/tags/haskell">haskell</a></span><span id="tag"><a href="http://oopschen.github.io/tags/tutorial">tutorial</a></span></div><hr/>
-
-<p>为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.</p>
-
-<h1 id="编译器">编译器</h1>
-
-<p>GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.</p>
-
-<h1 id="程序结构">程序结构</h1>
-
-<ol>
-<li>module层, 让代码能够被重用<br /></li>
-<li>declearation, 对数据类型,数据值的定义<br /></li>
-<li>expressions, 表达式<br /></li>
-<li>literal, 就是我们写的文本程序<br />
-
-<br /></li>
-</ol>
-
-<h1 id="语法">语法</h1>
-
-<p>在阅读BNF规则的时候需要用到下面的规则:</p>
-
-<table>
-<tr><td>[pattern]</td><td>表示可选的内容</td></tr>
-<tr><td>{pattern}</td><td> 表示0活多个内容 </td></tr> 
-<tr><td>(pattern)</td><td> 表示group,和正则的括号一样</td></tr>  
-<tr><td>pat1 | pat2 </td><td>表示可选的</td></tr>
-<tr><td>  
-  <div class="td11">  
-    <span class="cmmi-10">pat</span>  
-    <sub>  
-      <span class="cmsy-7">⟨</span>  
-      <span class="cmmi-7">pat</span>  
-      <span class="cmsy-7">′⟩</span>  
-    </sub>    
-  </div></td>  
-  <td>在pat中且不在pat'中内容</td></tr>
-<tr><td>pat1 | pat2 </td><td>表示可选的</td></tr>
-</table>
+<body>
     
-
+    
+    <header class="wrap flex-container">
+        <h1>Haskell学习笔记一&ndash;Overview</h1>
+    </header>
+    
+    <main class="wrap">
+        
+<div class="flex-container">
+    <aside role="complementary">
+        Wed Jan 22, 2014 &#183; 128 words
+        <div class="tag-container">
+            
+            
+            <span class="tag">
+                <a href="/tags/haskell/">
+                    haskell
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/tutorial/">
+                    tutorial
+                </a>
+            </span>
+            
+            
+        </div>
+    </aside>
+    <hr />
+    <article role="article">
+        <p>为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.</p>
+<h1 id="编译器">编译器</h1>
+<p>GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.</p>
+<h1 id="程序结构">程序结构</h1>
+<ol>
+<li>module层, 让代码能够被重用</li>
+<li>declearation, 对数据类型,数据值的定义</li>
+<li>expressions, 表达式</li>
+<li>literal, 就是我们写的文本程序</li>
+</ol>
+<h1 id="语法">语法</h1>
+<p>在阅读BNF规则的时候需要用到下面的规则:</p>
+<!-- raw HTML omitted -->
 <p>haskell支持在源代码中写unicode字符.</p>
-
 <h1 id="reserved-word">Reserved word</h1>
-
 <p>case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _</p>
-
 <h1 id="identifier">Identifier</h1>
-
 <p>除了其他语言中常规的字符,还可以使用单引号当作变量名字.</p>
-
 <h1 id="newline">newline</h1>
-
 <p>这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符</p>
-
 <h1 id="缩进">缩进</h1>
-
 <p>采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层.</p>
-
 <h1 id="prelude">Prelude</h1>
-
 <p>这个文件包含了通用函数的定义</p>
-
 <h1 id="和其他程序的区别">和其他程序的区别</h1>
-
 <pre><code>a := 1  
 print a -- output 1  
 a := 2  
 print a -- output 2
 </code></pre>
-
-<p>这种语法在haskell里是不存在的, haskell的*=*的意义是定义这个变量为多少值,而不是给个他赋值.下面两种写法的效果是一样的.<br />
-    a := 1<br />
-    print a &ndash; output 1</p>
-
+<p>这种语法在haskell里是不存在的, haskell的<em>=</em>的意义是定义这个变量为多少值,而不是给个他赋值.下面两种写法的效果是一样的.<br>
+a := 1<br>
+print a &ndash; output 1</p>
 <pre><code>print a -- output 1
 a := 1  
 </code></pre>
-
 <p>Haskell金科玉律: 定义一个返回结果的函数,然后给他输入参数</p>
-
 <h1 id="简单函数">简单函数</h1>
-
 <p>下面我们来写第一个函数,接受一个整形把它加一返回</p>
-
 <pre><code>firstFunc :: Int -&gt; Int  
 firstFunc num = num + 1
 </code></pre>
-
 <h1 id="引用">引用</h1>
-
 <pre><code>import Data.Map as M
 </code></pre>
-
 <p>和python的语法差不多</p>
-</div><div class="section bottom-menu"><hr/><p>
-<a href="/posts">back</a>
- &#183;
+
+    </article>
+</div>
 
 
+        
+<nav role="navigation" class="flex-container bottom-menu">
+    
+<hr />
+<p>
 
-<a href="/posts">博客日志</a>
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/posts">博客日志</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">我是谁?</a>
+        
+    
+    &#183; 
+    <a href="/">
+        主页
+    </a>
+
+</p>
+</nav>
+
+    </main>
+    
+    <footer class="flex-container footer">石头, OOPS!!!
 
 
-&#183; <a href="/about">我是谁?</a>
+  <script data-ad-client="ca-pub-9689498343252538" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
+</footer>
+    
+    
+</body>
+
+</html>

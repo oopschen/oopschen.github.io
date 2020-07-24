@@ -1,97 +1,172 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta name="description" content="石头的博客.">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content="http://oopschen.github.io">
-    
-    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
-    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
-    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="http://oopschen.github.io">
-    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
-    
-    <title>Linux下锁的应用</title>
-    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
-    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
-        gtag('config', 'UA-49453400-1');
-    </script>
+<meta name="description" content="石头的博客.">
+<title>
+    Linux下锁的应用 - Oopschen的日志
+</title>
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux下锁的应用"/>
+<meta name="twitter:description" content="概述 前不久工作需要实现一个文件转递的应用系统,功能如下:
+ 数据采集方通过ftp上传文件(大小在200KB) 转递程序监听ftp的上传文件夹,实时转递文件到大数据平台 应用部署在Centos7 64bit  第一版实现 采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送
+推送文件到大数据平台.
+问题 在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,
+ftp服务器写入到硬盘的速度变慢,当转递程序扫描文件夹的时候, 文件虽然已经生成,但文件内容却没有完全写入
+完毕, 从而造成读取到文件但解析失败的情况.
+探究 那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?
+在Linux系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.
+Advisory record lock 一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.
+Mandatory lock 一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.
+那我们有没有办法用这些机制去保证呢?
+vsftpd 如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.
+硬着头皮去看下源码, 幸好vsftpd作者考虑到了这点, 在写入文件的时候已经加如了锁的处理.
+具体戳这里
+Java Advisory record lock 由于转递程序是Java写的, 那怎么使用fcntl呢?难道使用jni吗?会不会太复杂? 首先, 我们了解下Java里面文件锁如何添加:
+File outFile = new File(&#34;/tmp/filelock.tmp&#34;); FileOutputStream outputStream = new FileOutputStream(outFile); FileChannel channel = outputStream.getChannel(); FileLock lock = channel."/>
+
+<meta property="og:title" content="Linux下锁的应用" />
+<meta property="og:description" content="概述 前不久工作需要实现一个文件转递的应用系统,功能如下:
+ 数据采集方通过ftp上传文件(大小在200KB) 转递程序监听ftp的上传文件夹,实时转递文件到大数据平台 应用部署在Centos7 64bit  第一版实现 采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送
+推送文件到大数据平台.
+问题 在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,
+ftp服务器写入到硬盘的速度变慢,当转递程序扫描文件夹的时候, 文件虽然已经生成,但文件内容却没有完全写入
+完毕, 从而造成读取到文件但解析失败的情况.
+探究 那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?
+在Linux系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.
+Advisory record lock 一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.
+Mandatory lock 一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.
+那我们有没有办法用这些机制去保证呢?
+vsftpd 如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.
+硬着头皮去看下源码, 幸好vsftpd作者考虑到了这点, 在写入文件的时候已经加如了锁的处理.
+具体戳这里
+Java Advisory record lock 由于转递程序是Java写的, 那怎么使用fcntl呢?难道使用jni吗?会不会太复杂? 首先, 我们了解下Java里面文件锁如何添加:
+File outFile = new File(&#34;/tmp/filelock.tmp&#34;); FileOutputStream outputStream = new FileOutputStream(outFile); FileChannel channel = outputStream.getChannel(); FileLock lock = channel." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2018/linux_fcntl_lock_usage/" />
+<meta property="article:published_time" content="2018-07-05T11:24:33+00:00" />
+<meta property="article:modified_time" content="2018-07-05T11:24:33+00:00" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49453400-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
 
+    
+    
+    
+    <title>
+        
+        Linux下锁的应用
+        
+    </title>
 </head>
 
-</html>
-<body><div class="wrap"><div class="section" id="title">Linux下锁的应用</div><div class="section" id="content">Thu Jul 05, 2018 &#183; 193 words
-
-<div><span id="tag"><a href="http://oopschen.github.io/tags/linux">linux</a></span><span id="tag"><a href="http://oopschen.github.io/tags/lock">lock</a></span><span id="tag"><a href="http://oopschen.github.io/tags/ftp">ftp</a></span></div><hr/>
-
-<h1 id="概述">概述</h1>
-
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>Linux下锁的应用</h1>
+    </header>
+    
+    <main class="wrap">
+        
+<div class="flex-container">
+    <aside role="complementary">
+        Thu Jul 05, 2018 &#183; 193 words
+        <div class="tag-container">
+            
+            
+            <span class="tag">
+                <a href="/tags/linux/">
+                    linux
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/lock/">
+                    lock
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/ftp/">
+                    ftp
+                </a>
+            </span>
+            
+            
+        </div>
+    </aside>
+    <hr />
+    <article role="article">
+        <h1 id="概述">概述</h1>
 <p>前不久工作需要实现一个文件转递的应用系统,功能如下:</p>
-
 <ul>
 <li>数据采集方通过ftp上传文件(大小在200KB)</li>
 <li>转递程序监听ftp的上传文件夹,实时转递文件到大数据平台</li>
 <li>应用部署在Centos7 64bit</li>
 </ul>
-
 <h1 id="第一版实现">第一版实现</h1>
-
-<p>采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送<br />
+<p>采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送<br>
 推送文件到大数据平台.</p>
-
 <h2 id="问题">问题</h2>
-
-<p>在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,<br />
-ftp服务器写入到硬盘的速度变慢,当转递程序扫描文件夹的时候, 文件虽然已经生成,但文件内容却没有完全写入<br />
+<p>在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,<br>
+ftp服务器写入到硬盘的速度变慢,当转递程序扫描文件夹的时候, 文件虽然已经生成,但文件内容却没有完全写入<br>
 完毕, 从而造成读取到文件但解析失败的情况.</p>
-
 <h1 id="探究">探究</h1>
-
-<p>那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?<br />
-在*Linux*系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.</p>
-
+<p>那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?<br>
+在<em>Linux</em>系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.</p>
 <h3 id="advisory-record-lock">Advisory record lock</h3>
-
 <p>一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.</p>
-
 <h3 id="mandatory-lock">Mandatory lock</h3>
-
 <p>一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.</p>
-
 <p>那我们有没有办法用这些机制去保证呢?</p>
-
 <h2 id="vsftpd">vsftpd</h2>
-
-<p>如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.<br />
-硬着头皮去看下源码, 幸好vsftpd作者考虑到了这点, 在写入文件的时候已经加如了锁的处理.<br />
+<p>如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.<br>
+硬着头皮去看下源码, 幸好vsftpd作者考虑到了这点, 在写入文件的时候已经加如了锁的处理.<br>
 <a href="https://github.com/dagwieers/vsftpd/blob/3.0.2/sysutil.c#L1515-L1534" title="vsftpd加锁">具体戳这里</a></p>
-
 <h2 id="java-advisory-record-lock">Java Advisory record lock</h2>
-
 <p>由于转递程序是Java写的, 那怎么使用fcntl呢?难道使用jni吗?会不会太复杂?
 首先, 我们了解下Java里面文件锁如何添加:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">File outFile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/tmp/filelock.tmp&#34;</span><span style="color:#f92672">);</span>
@@ -101,16 +176,14 @@ FileLock lock <span style="color:#f92672">=</span> channel<span style="color:#f9
 System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;lock success&#34;</span><span style="color:#f92672">);</span>
 lock<span style="color:#f92672">.</span><span style="color:#a6e22e">release</span><span style="color:#f92672">();</span>
 channel<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-outFile<span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">();</span></code></pre></div>
-<p>能不能linux下的锁共用呢?也只能先去看下源码了.<br />
-在openjdk8的源码里,先找到*FileOutputStream*的getChannel方法的<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/io/FileOutputStream.java" title="FileOutputStream源代码">代码</a>(L376-L381)
-然后查看*FileChannelImpl*的lock()方法的<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/nio/ch/FileChannelImpl.java#l1005" title="FileChannelImpl源代码">代码</a>(L1005),发现最终使用了FileDispatcher作为
-锁管理.查看*FileDispatcher*的<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/nio/ch/FileDispatcher.java#l43" title="FileDispatcher源代码">代码</a>(L43),使用了native的方法.最后我们找到文件
+outFile<span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">();</span>
+</code></pre></div><p>能不能linux下的锁共用呢?也只能先去看下源码了.<br>
+在openjdk8的源码里,先找到<em>FileOutputStream</em>的getChannel方法的<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/io/FileOutputStream.java" title="FileOutputStream源代码">代码</a>(L376-L381)
+然后查看<em>FileChannelImpl</em>的lock()方法的<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/nio/ch/FileChannelImpl.java#l1005" title="FileChannelImpl源代码">代码</a>(L1005),发现最终使用了FileDispatcher作为
+锁管理.查看<em>FileDispatcher</em>的<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/nio/ch/FileDispatcher.java#l43" title="FileDispatcher源代码">代码</a>(L43),使用了native的方法.最后我们找到文件
 <em>FileDispatcherImpl.c</em><a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/solaris/native/sun/nio/ch/FileDispatcherImpl.c#l174" title="FileDispatcherImpl Native源码">代码</a>(L174-L210).到此确定了java底层的实现也是使用
 Advisory record lock.</p>
-
 <h2 id="demo">Demo</h2>
-
 <p>虽然源码如此,我们还是需要写个c程序确认下</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
@@ -154,23 +227,61 @@ Advisory record lock.</p>
 
   }
   close(fd);
-}</code></pre></div>
-<p>经过测试确实可以和java的锁达到资源隔离的目的.至此,改造完成.</p>
-
+}
+</code></pre></div><p>经过测试确实可以和java的锁达到资源隔离的目的.至此,改造完成.</p>
 <h1 id="升华">升华</h1>
-
 <p>静下来思考,锁其实非常消耗资源,能避免则避免.那这个程序能否用异步的方式去实现呢?
 这里提供一种思路:利用ftp服务器的hook机制,转递端改造成服务器的模式,每次上传完成由ftp服务器主动推送
 通知转递程序进行文件转递流程.这样既可以减少轮寻的次数,又能缩短文件转递的延迟,何乐而不为呢?</p>
-</div><div class="section bottom-menu"><hr/><p>
-<a href="/posts">back</a>
- &#183;
+
+    </article>
+</div>
 
 
+        
+<nav role="navigation" class="flex-container bottom-menu">
+    
+<hr />
+<p>
 
-<a href="/posts">博客日志</a>
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/posts">博客日志</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">我是谁?</a>
+        
+    
+    &#183; 
+    <a href="/">
+        主页
+    </a>
+
+</p>
+</nav>
+
+    </main>
+    
+    <footer class="flex-container footer">石头, OOPS!!!
 
 
-&#183; <a href="/about">我是谁?</a>
+  <script data-ad-client="ca-pub-9689498343252538" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
+</footer>
+    
+    
+</body>
+
+</html>

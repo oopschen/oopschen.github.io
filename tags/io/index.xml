@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Io on Oopschen的日志</title>
+    <title>io on Oopschen的日志</title>
     <link>http://oopschen.github.io/tags/io/</link>
-    <description>Recent content in Io on Oopschen的日志</description>
+    <description>Recent content in io on Oopschen的日志</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
@@ -22,7 +22,7 @@
 Monad用法 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
 let a = Just 1 in a &amp;gt;&amp;gt;= \x -&amp;gt; Just (x+2) --output Just 2 这里我们先来回顾下lambda的用法:
 \x -&amp;gt; Just (x+2) 这个函数将输入的x加2后返回, 并且把这个值包装在Just中.
-对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&amp;gt;&amp;gt;=*可以将Just中的东西提取出来.
+对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到&amp;raquo;=可以将Just中的东西提取出来.
 Monad的源码 看过了上述实例, 我们看下Monad的源码:
 class Monad m where -- | Sequentially compose two actions, passing any value produced -- by the first as an argument to the second. (&amp;gt;&amp;gt;=) :: forall a b. m a -&amp;gt; (a -&amp;gt; m b) -&amp;gt; m b -- | Sequentially compose two actions, discarding any value produced -- by the first, like sequencing operators (such as the semicolon) -- in imperative languages.</description>
     </item>

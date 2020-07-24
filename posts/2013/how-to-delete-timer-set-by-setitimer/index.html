@@ -1,76 +1,142 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta name="description" content="石头的博客.">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content="http://oopschen.github.io">
-    
-    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
-    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
-    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="http://oopschen.github.io">
-    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
-    
-    <title>在linux下删除setitimer设置的timer</title>
-    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
-    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
-        gtag('config', 'UA-49453400-1');
-    </script>
+<meta name="description" content="石头的博客.">
+<title>
+    在linux下删除setitimer设置的timer - Oopschen的日志
+</title>
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在linux下删除setitimer设置的timer"/>
+<meta name="twitter:description" content="最近的项目需要用一个timer设置超时检测,看了timer_create和setitimer的文档,选择使用比较简单的setitimer方式进行检测,当然这种方式的可移植性不太好,建议选择timer_create（基于posix标准）方式进行超时设置。后来碰到一个问题：setitimer并没有对应的删除timer的系统调用,而文档也是一句带过：
+ A timer which is set to zero (it_value is zero or the timer expires and it_interval is zero) stops.
+ 上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：
+实验设计  设定主程序监听alarm信号,打印日志 开起timer 设定主程序监听SIGUSR1事件,停止timer 利用{% highlight bash %}kill -SIGUSR1 {% endhighlight %}方式停止timer  预期：
+主程序停止打印日志
+1. 设置timer的值为0 整体代码如下：
+#include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; #include &lt;signal.h&gt; #include &lt;sys/time.h&gt; #include &lt;unistd.h&gt; static struct timeval __intrvl; static struct timeval __timer_val; static struct itimerval __timer; void hdl(int sigNum) { printf(&#34;sig num %d, %ld-%ld, %ld-%ld\n&#34;, sigNum, __timer_val."/>
+
+<meta property="og:title" content="在linux下删除setitimer设置的timer" />
+<meta property="og:description" content="最近的项目需要用一个timer设置超时检测,看了timer_create和setitimer的文档,选择使用比较简单的setitimer方式进行检测,当然这种方式的可移植性不太好,建议选择timer_create（基于posix标准）方式进行超时设置。后来碰到一个问题：setitimer并没有对应的删除timer的系统调用,而文档也是一句带过：
+ A timer which is set to zero (it_value is zero or the timer expires and it_interval is zero) stops.
+ 上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：
+实验设计  设定主程序监听alarm信号,打印日志 开起timer 设定主程序监听SIGUSR1事件,停止timer 利用{% highlight bash %}kill -SIGUSR1 {% endhighlight %}方式停止timer  预期：
+主程序停止打印日志
+1. 设置timer的值为0 整体代码如下：
+#include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; #include &lt;signal.h&gt; #include &lt;sys/time.h&gt; #include &lt;unistd.h&gt; static struct timeval __intrvl; static struct timeval __timer_val; static struct itimerval __timer; void hdl(int sigNum) { printf(&#34;sig num %d, %ld-%ld, %ld-%ld\n&#34;, sigNum, __timer_val." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2013/how-to-delete-timer-set-by-setitimer/" />
+<meta property="article:published_time" content="2013-10-25T10:27:27+00:00" />
+<meta property="article:modified_time" content="2013-10-25T10:27:27+00:00" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49453400-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
 
+    
+    
+    
+    <title>
+        
+        在linux下删除setitimer设置的timer
+        
+    </title>
 </head>
 
-</html>
-<body><div class="wrap"><div class="section" id="title">在linux下删除setitimer设置的timer</div><div class="section" id="content">Fri Oct 25, 2013 &#183; 208 words
-
-<div><span id="tag"><a href="http://oopschen.github.io/tags/setitimer">setitimer</a></span><span id="tag"><a href="http://oopschen.github.io/tags/linux">linux</a></span><span id="tag"><a href="http://oopschen.github.io/tags/timer">timer</a></span></div><hr/>
-
-<p>最近的项目需要用一个timer设置超时检测,看了*timer_create*和*setitimer*的文档,选择使用比较简单的setitimer方式进行检测,当然这种方式的可移植性不太好,建议选择timer_create（基于posix标准）方式进行超时设置。后来碰到一个问题：setitimer并没有对应的删除timer的系统调用,而文档也是一句带过：</p>
-
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>在linux下删除setitimer设置的timer</h1>
+    </header>
+    
+    <main class="wrap">
+        
+<div class="flex-container">
+    <aside role="complementary">
+        Fri Oct 25, 2013 &#183; 208 words
+        <div class="tag-container">
+            
+            
+            <span class="tag">
+                <a href="/tags/setitimer/">
+                    setitimer
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/linux/">
+                    linux
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/timer/">
+                    timer
+                </a>
+            </span>
+            
+            
+        </div>
+    </aside>
+    <hr />
+    <article role="article">
+        <p>最近的项目需要用一个timer设置超时检测,看了<em>timer_create</em>和<em>setitimer</em>的文档,选择使用比较简单的setitimer方式进行检测,当然这种方式的可移植性不太好,建议选择timer_create（基于posix标准）方式进行超时设置。后来碰到一个问题：setitimer并没有对应的删除timer的系统调用,而文档也是一句带过：</p>
 <blockquote>
 <p>A timer which is set to zero (it_value is zero or the timer expires and  it_interval is zero) stops.</p>
 </blockquote>
-
 <p>上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：</p>
-
 <h4 id="实验设计">实验设计</h4>
-
 <ol>
-<li>设定主程序监听alarm信号,打印日志<br /></li>
-<li>开起timer<br /></li>
+<li>设定主程序监听alarm信号,打印日志</li>
+<li>开起timer</li>
 <li>设定主程序监听SIGUSR1事件,停止timer</li>
-<li>利用{% highlight bash %}kill -SIGUSR1 <pid> {% endhighlight %}方式停止timer<br />
-<br /></li>
+<li>利用{% highlight bash %}kill -SIGUSR1 <!-- raw HTML omitted --> {% endhighlight %}方式停止timer</li>
 </ol>
-
-<p>预期：<br />
+<p>预期：<br>
 主程序停止打印日志</p>
-
 <h4 id="1-设置timer的值为0">1. 设置timer的值为0</h4>
-
 <p>整体代码如下：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
@@ -125,34 +191,73 @@
         sleep(<span style="color:#ae81ff">5</span>);
       }
       <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-    }</code></pre></div>
-<h4 id="2-重新设置timer为0的计时器-但timer为新内存地址">2. 重新设置timer为0的计时器,但timer为新内存地址</h4>
+    }
+</code></pre></div><h4 id="2-重新设置timer为0的计时器但timer为新内存地址">2. 重新设置timer为0的计时器,但timer为新内存地址</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hdl1</span>(<span style="color:#66d9ef">int</span> sigNum) {
       <span style="color:#66d9ef">struct</span> itimerval __timer1;
       memset(<span style="color:#f92672">&amp;</span>__timer1, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(__timer1));
       <span style="color:#66d9ef">if</span> (setitimer(ITIMER_REAL, <span style="color:#f92672">&amp;</span>__timer1, NULL)) {
         perror(<span style="color:#e6db74">&#34;set timer&#34;</span>);
       }
-    }</code></pre></div>
-<h4 id="3-重新设置timer为0的计时器-timer为原来内存地址">3.重新设置timer为0的计时器,timer为原来内存地址</h4>
+    }
+</code></pre></div><h4 id="3重新设置timer为0的计时器timer为原来内存地址">3.重新设置timer为0的计时器,timer为原来内存地址</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hdl1</span>(<span style="color:#66d9ef">int</span> sigNum) {
       memset(<span style="color:#f92672">&amp;</span>__timer, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(__timer));
       <span style="color:#66d9ef">if</span> (setitimer(ITIMER_REAL, <span style="color:#f92672">&amp;</span>__timer, NULL)) {
         perror(<span style="color:#e6db74">&#34;set timer&#34;</span>);
       }
-    }</code></pre></div>
-<h4 id="实验结果">实验结果</h4>
-
+    }
+</code></pre></div><h4 id="实验结果">实验结果</h4>
 <p>1方式无法停止timer,而2,3 方式均可停止timer。这样的实验结果很容易让人联想到是不是这种方式只能有一个timer,而本人进行了2个timer的设置,确实只有一个timer生效,也就是说这种方式的设置timer只能设置一个,而<strong>timer_create</strong>的方式则可以设置多个timer。</p>
-</div><div class="section bottom-menu"><hr/><p>
-<a href="/posts">back</a>
- &#183;
+
+    </article>
+</div>
 
 
+        
+<nav role="navigation" class="flex-container bottom-menu">
+    
+<hr />
+<p>
 
-<a href="/posts">博客日志</a>
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/posts">博客日志</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">我是谁?</a>
+        
+    
+    &#183; 
+    <a href="/">
+        主页
+    </a>
+
+</p>
+</nav>
+
+    </main>
+    
+    <footer class="flex-container footer">石头, OOPS!!!
 
 
-&#183; <a href="/about">我是谁?</a>
+  <script data-ad-client="ca-pub-9689498343252538" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
+</footer>
+    
+    
+</body>
+
+</html>

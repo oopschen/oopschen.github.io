@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Oopschen的日志</title>
@@ -7,71 +7,71 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Wed, 27 Feb 2013 13:56:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate>
     
 	<atom:link href="http://oopschen.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>360广告屏蔽插件</title>
-      <link>http://oopschen.github.io/tags/360%E5%B9%BF%E5%91%8A%E5%B1%8F%E8%94%BD%E6%8F%92%E4%BB%B6/</link>
-      <pubDate>Wed, 27 Feb 2013 13:56:00 +0000</pubDate>
+      <title>ftp</title>
+      <link>http://oopschen.github.io/tags/ftp/</link>
+      <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
-      <guid>http://oopschen.github.io/tags/360%E5%B9%BF%E5%91%8A%E5%B1%8F%E8%94%BD%E6%8F%92%E4%BB%B6/</guid>
+      <guid>http://oopschen.github.io/tags/ftp/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>56视频</title>
-      <link>http://oopschen.github.io/tags/56%E8%A7%86%E9%A2%91/</link>
-      <pubDate>Wed, 27 Feb 2013 13:56:00 +0000</pubDate>
+      <title>linux</title>
+      <link>http://oopschen.github.io/tags/linux/</link>
+      <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
-      <guid>http://oopschen.github.io/tags/56%E8%A7%86%E9%A2%91/</guid>
+      <guid>http://oopschen.github.io/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Activemq</title>
-      <link>http://oopschen.github.io/tags/activemq/</link>
-      <pubDate>Thu, 15 May 2014 19:14:32 +0000</pubDate>
+      <title>lock</title>
+      <link>http://oopschen.github.io/tags/lock/</link>
+      <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
-      <guid>http://oopschen.github.io/tags/activemq/</guid>
+      <guid>http://oopschen.github.io/tags/lock/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Apnic</title>
-      <link>http://oopschen.github.io/tags/apnic/</link>
-      <pubDate>Fri, 31 May 2013 16:45:00 +0000</pubDate>
+      <title>杂谈</title>
+      <link>http://oopschen.github.io/tags/%E6%9D%82%E8%B0%88/</link>
+      <pubDate>Wed, 04 Jul 2018 11:22:32 +0000</pubDate>
       
-      <guid>http://oopschen.github.io/tags/apnic/</guid>
+      <guid>http://oopschen.github.io/tags/%E6%9D%82%E8%B0%88/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Bindings</title>
-      <link>http://oopschen.github.io/tags/bindings/</link>
-      <pubDate>Wed, 29 Jan 2014 20:32:43 +0000</pubDate>
+      <title>cpu</title>
+      <link>http://oopschen.github.io/tags/cpu/</link>
+      <pubDate>Fri, 04 Dec 2015 21:21:15 +0000</pubDate>
       
-      <guid>http://oopschen.github.io/tags/bindings/</guid>
+      <guid>http://oopschen.github.io/tags/cpu/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>C</title>
-      <link>http://oopschen.github.io/tags/c/</link>
-      <pubDate>Fri, 21 Jun 2013 10:43:54 +0000</pubDate>
+      <title>cpupower</title>
+      <link>http://oopschen.github.io/tags/cpupower/</link>
+      <pubDate>Fri, 04 Dec 2015 21:21:15 +0000</pubDate>
       
-      <guid>http://oopschen.github.io/tags/c/</guid>
+      <guid>http://oopschen.github.io/tags/cpupower/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Cache</title>
-      <link>http://oopschen.github.io/tags/cache/</link>
-      <pubDate>Sun, 01 Sep 2013 19:38:24 +0000</pubDate>
+      <title>jcl</title>
+      <link>http://oopschen.github.io/tags/jcl/</link>
+      <pubDate>Sat, 22 Nov 2014 15:29:32 +0000</pubDate>
       
-      <guid>http://oopschen.github.io/tags/cache/</guid>
+      <guid>http://oopschen.github.io/tags/jcl/</guid>
       <description></description>
     </item>
     

@@ -1,105 +1,205 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta name="description" content="石头的博客.">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content="http://oopschen.github.io">
-    
-    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
-    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
-    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="http://oopschen.github.io">
-    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
-    
-    <title>linux xmonad 小试</title>
-    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
-    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
-        gtag('config', 'UA-49453400-1');
-    </script>
+<meta name="description" content="石头的博客.">
+<title>
+    linux xmonad 小试 - Oopschen的日志
+</title>
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linux xmonad 小试"/>
+<meta name="twitter:description" content="一直在用xfce和docky构成的类mac os的桌面系统,最近看腻了,换个新鲜的玩玩。不搜不知道,一搜吓一跳,桌面系统已经有很多版本了,比如基于box概念的gnome,kde,xfce,基于tiling概念的xmonad,awesome等。今天我就来玩玩xmonad的桌面。
+特点 这个桌面主要吸引我的地方特点:
+ 他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小 支持多显示器显示不同的workspace 占用资源少,稳定,启动快  唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。
+快捷键介绍 更多请查看这里
+配置文件 ~/.xmonad/xmonad.hs是本地的配置文件,在编辑完后可以用
+xmonad --recompile 来确定自己的语法有木有错误。
+当编辑haskell文件的时候需要注意的是一个tab==8个空格。默认的Mod键是Alt.附上笔者默认的配置
+最终成品 "/>
+
+<meta property="og:title" content="linux xmonad 小试" />
+<meta property="og:description" content="一直在用xfce和docky构成的类mac os的桌面系统,最近看腻了,换个新鲜的玩玩。不搜不知道,一搜吓一跳,桌面系统已经有很多版本了,比如基于box概念的gnome,kde,xfce,基于tiling概念的xmonad,awesome等。今天我就来玩玩xmonad的桌面。
+特点 这个桌面主要吸引我的地方特点:
+ 他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小 支持多显示器显示不同的workspace 占用资源少,稳定,启动快  唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。
+快捷键介绍 更多请查看这里
+配置文件 ~/.xmonad/xmonad.hs是本地的配置文件,在编辑完后可以用
+xmonad --recompile 来确定自己的语法有木有错误。
+当编辑haskell文件的时候需要注意的是一个tab==8个空格。默认的Mod键是Alt.附上笔者默认的配置
+最终成品 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/xmonad-desktop/" />
+<meta property="article:published_time" content="2014-01-21T10:02:11+00:00" />
+<meta property="article:modified_time" content="2014-01-21T10:02:11+00:00" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49453400-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
 
+    
+    
+    
+    <title>
+        
+        linux xmonad 小试
+        
+    </title>
 </head>
 
-</html>
-<body><div class="wrap"><div class="section" id="title">linux xmonad 小试</div><div class="section" id="content">Tue Jan 21, 2014 &#183; 36 words
-
-<div><span id="tag"><a href="http://oopschen.github.io/tags/xmonad">xmonad</a></span><span id="tag"><a href="http://oopschen.github.io/tags/gentoo">gentoo</a></span><span id="tag"><a href="http://oopschen.github.io/tags/linuxdesktop">linuxdesktop</a></span><span id="tag"><a href="http://oopschen.github.io/tags/tiling">tiling</a></span></div><hr/>
-
-<p>一直在用xfce和docky构成的类mac os的桌面系统,最近看腻了,换个新鲜的玩玩。不搜不知道,一搜吓一跳,桌面系统已经有很多版本了,比如基于box概念的gnome,kde,xfce,基于tiling概念的xmonad,awesome等。今天我就来玩玩xmonad的桌面。</p>
-
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>linux xmonad 小试</h1>
+    </header>
+    
+    <main class="wrap">
+        
+<div class="flex-container">
+    <aside role="complementary">
+        Tue Jan 21, 2014 &#183; 17 words
+        <div class="tag-container">
+            
+            
+            <span class="tag">
+                <a href="/tags/xmonad/">
+                    xmonad
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/gentoo/">
+                    gentoo
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/linuxdesktop/">
+                    linuxdesktop
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/tiling/">
+                    tiling
+                </a>
+            </span>
+            
+            
+        </div>
+    </aside>
+    <hr />
+    <article role="article">
+        <p>一直在用xfce和docky构成的类mac os的桌面系统,最近看腻了,换个新鲜的玩玩。不搜不知道,一搜吓一跳,桌面系统已经有很多版本了,比如基于box概念的gnome,kde,xfce,基于tiling概念的xmonad,awesome等。今天我就来玩玩xmonad的桌面。</p>
 <h1 id="特点">特点</h1>
-
 <p>这个桌面主要吸引我的地方特点:</p>
-
 <ol>
-<li>他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小<br /></li>
-<li>支持多显示器显示不同的workspace<br /></li>
-<li>占用资源少,稳定,启动快<br />
-<br /></li>
+<li>他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小</li>
+<li>支持多显示器显示不同的workspace</li>
+<li>占用资源少,稳定,启动快</li>
 </ol>
-
 <p>唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。</p>
-
 <h1 id="快捷键介绍">快捷键介绍</h1>
-
-<table>
-<tr><td> *快捷键* </td><td> *说明* </td></tr>
-<tr><td> mod-shift-return </td><td> 打开terminal </td></tr>
-<tr><td> mod-space </td><td> 改变窗口的layout </td></tr>
-<tr><td> mod-j,mod-k </td><td> 在窗口间切换 </td></tr>
-<tr><td> mod-comma,mod-period </td><td> 在一个pane中的窗口数 </td></tr>
-<tr><td> mod-h,mod-l </td><td> 改变窗口的宽度 </td></tr>
-<tr><td> mod-shift-c </td><td> 关闭窗口 </td></tr>
-<tr><td> mod-shift-q </td><td> 退出整个桌面 </td></tr>
-<tr><td> mod-1,..,mod-9 </td><td> 在9个workspace之间切换 </td></tr>
-</table>
-  
-
+<!-- raw HTML omitted -->
 <p>更多请查看<a href="http://www.haskell.org/haskellwiki/File:Xmbindings.png" title="快捷键">这里</a></p>
-
 <h1 id="配置文件">配置文件</h1>
-
-<p>*~/.xmonad/xmonad.hs*是本地的配置文件,在编辑完后可以用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    xmonad <span style="color:#f92672">--</span>recompile  </code></pre></div>
-<p>来确定自己的语法有木有错误。</p>
-
+<p><em>~/.xmonad/xmonad.hs</em>是本地的配置文件,在编辑完后可以用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    xmonad <span style="color:#f92672">--</span>recompile  
+</code></pre></div><p>来确定自己的语法有木有错误。</p>
 <p>当编辑haskell文件的时候需要注意的是一个tab==8个空格。默认的Mod键是Alt.附上笔者<a href="https://github.com/oopschen/linuxmisc/blob/master/.xmonad/xmonad.hs" title="默认Xmonad配置">默认的配置</a></p>
-
 <h1 id="最终成品">最终成品</h1>
+<p><img src="%25=%20@getUrl(%22/file/desktop.png%22)%20%25" alt="桌面截图"></p>
 
-<p><img src="%= @getUrl(" alt="桌面截图" title="/file/desktop.png" /> %&gt;)</p>
-</div><div class="section bottom-menu"><hr/><p>
-<a href="/posts">back</a>
- &#183;
-
+    </article>
+</div>
 
 
-<a href="/posts">博客日志</a>
+        
+<nav role="navigation" class="flex-container bottom-menu">
+    
+<hr />
+<p>
 
 
-&#183; <a href="/about">我是谁?</a>
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
 
-&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
+    
+        
+            <a href="/posts">博客日志</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">我是谁?</a>
+        
+    
+    &#183; 
+    <a href="/">
+        主页
+    </a>
+
+</p>
+</nav>
+
+    </main>
+    
+    <footer class="flex-container footer">石头, OOPS!!!
+
+
+  <script data-ad-client="ca-pub-9689498343252538" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+</footer>
+    
+    
+</body>
+
+</html>

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Depper on Oopschen的日志</title>
+    <title>DEPPER on Oopschen的日志</title>
     <link>http://oopschen.github.io/categories/depper/</link>
-    <description>Recent content in Depper on Oopschen的日志</description>
+    <description>Recent content in DEPPER on Oopschen的日志</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
@@ -25,7 +25,7 @@
 ftp服务器写入到硬盘的速度变慢,当转递程序扫描文件夹的时候, 文件虽然已经生成,但文件内容却没有完全写入
 完毕, 从而造成读取到文件但解析失败的情况.
 探究 那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?
-在*Linux*系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.
+在Linux系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.
 Advisory record lock 一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.
 Mandatory lock 一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.
 那我们有没有办法用这些机制去保证呢?

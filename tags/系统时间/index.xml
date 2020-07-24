@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>系统时间 on Oopschen的日志</title>
@@ -18,17 +18,16 @@
       <pubDate>Tue, 11 Jun 2013 17:52:55 +0000</pubDate>
       
       <guid>http://oopschen.github.io/posts/2013/computer-time/</guid>
-      <description> 最近刚用Gentoo从零开始构建出了一个linux系统,使用ck内核。在此过程中碰到了一个时间问题,当我选用Asia/Shanghai的时候hwclock的时间比date的时间晚了近8个小时。然而,对照手表上的时间,hwclock的时间是正确的,而date的时间是错误的。这个问题废了我好多劲,今天终于有时间把这个问题整理下,记录下。
+      <description>最近刚用Gentoo从零开始构建出了一个linux系统,使用ck内核。在此过程中碰到了一个时间问题,当我选用Asia/Shanghai的时候hwclock的时间比date的时间晚了近8个小时。然而,对照手表上的时间,hwclock的时间是正确的,而date的时间是错误的。这个问题废了我好多劲,今天终于有时间把这个问题整理下,记录下。
 时间 在了解问题前我们先了解下计算机里时间的概念。首先,在计算机里时间的记录是靠一个叫控制频率的硬件,每隔固定的时间给cpu发送中断,这样计算机才能知道到底过了多长时间。比如,我们控制频率的硬件的中断频率为100MHz,那么计算机能识别的最小的时间单位是0.01s（1/100MHz）,也就是说如果我们要求这台计算机每间隔0.001秒启动一个任务,那是办不到,因为cpu无法在0.001秒的时候中断。
 时间在计算机里分为两块：
-1. 硬件时间 2. 系统时间
-硬件时间 所谓硬件时间,就是当系统关闭的时候,能持久保存在主板上的时间数据。它不包含只包含年月日,时分秒,却不包含zoneinfo（比如Asia/Shanghai）。
+ 硬件时间 系统时间  硬件时间 所谓硬件时间,就是当系统关闭的时候,能持久保存在主板上的时间数据。它不包含只包含年月日,时分秒,却不包含zoneinfo（比如Asia/Shanghai）。
 系统时间 系统时间是根据硬件时间和设定的zoneinfo计算出本地时间,也可以理解为本地的时间。
 正确的设定时间 在BIOS里面设置系统时间,这里设置的是硬件时间
-更新/etc/conf.d/hwclock文件中的clock=&amp;ldquo;UTC&amp;rdquo;的值,如果BIOS设置的是UTC时间,那这里设置UTC,否则设置local。这个文件根据linux发行版不同而不同,这里用Gentoo做例子。这个文件同时还能配置是否将硬件时间写入系统时间或者关机时将系统时间写入硬件时间。
+更新/etc/conf.d/hwclock文件中的**clock=&amp;quot;UTC&amp;rdquo;**的值,如果BIOS设置的是UTC时间,那这里设置UTC,否则设置local。这个文件根据linux发行版不同而不同,这里用Gentoo做例子。这个文件同时还能配置是否将硬件时间写入系统时间或者关机时将系统时间写入硬件时间。
 将/usr/share/zone中对应的时区信息文件拷贝到/etc/localtime
 cp /usr/share/zone/Asia/Shanghai /etc/localtime 将文件名写入/etc/timezone
-echo &amp;#34;Asia/Shanghai&amp;#34; &amp;gt; /etc/timezone</description>
+echo &amp;#34;Asia/Shanghai&amp;#34; &amp;gt; /etc/timezone </description>
     </item>
     
   </channel>

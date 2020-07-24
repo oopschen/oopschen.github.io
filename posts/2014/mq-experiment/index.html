@@ -1,97 +1,199 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta name="description" content="石头的博客.">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content="http://oopschen.github.io">
-    
-    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
-    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
-    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="http://oopschen.github.io">
-    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
-    
-    <title>MQ的尝试</title>
-    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
-    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
-        gtag('config', 'UA-49453400-1');
-    </script>
+<meta name="description" content="石头的博客.">
+<title>
+    MQ的尝试 - Oopschen的日志
+</title>
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MQ的尝试"/>
+<meta name="twitter:description" content="long long ago, 就听说过Message Queue(mq), 一直没去尝试, 毕竟用到这种工具的都是分布式的场景了. 这次碰到一个很适合的场景决定适用一把mq.
+场景 这次的场景需要由一个总控端将特定的任务分配给执行段, 当执行端完成作业后, 将这个任务从总控端中剔除.这个分配的动作则是由执行端主动去总控端获取.
+所以我把这个场景设计为三个部分:
+ 总控端, 负责生成任务并插入mq, 并监测mq的长度, 保证适度的长度 执行端, 负责从mq中获取任务并执行, 当任务失败或者程序崩溃的时候, 刚才获取的任务则重新回归总控端, 交给其他执行端执行, 保证任务一定被完整的执行. mq, 负责任务必须被一个执行端完整的执行  选择MQ 从google搜索, 可以有很多mq, 比如RabbitMQ, ActiveMQ, MSMQ, ZeroMQ等等, 一时间还比较难选择.
+首先可以从google搜索结果的排名上排除几个, 剩下RabbitMQ和ActiveMQ.然后下载build文件的时候, RabbitMQ只要4M左右的大小而ActiveMQ则要40M, 对于没有耐性的我果断选择了RabbitMQ.
+再细看RabbitMQ的文档, 它是用erlang写的&ndash;看过一篇文章, 这门语言是Ericsson为了通信行业写的, 所以对于他的可靠性和高效比较认可.最后看看他是不是支持业务场景&ndash;RabbitMQ支持message的ack模式, 也就是说receiver可以先获取message, 然后再任务处理完后, 确认这个message被消耗. 这下完美了, 可以开始动工了.
+安装和体验 对于第一次上手RabbitMQ, 过程还是比较顺利的.在Gentoo和Centos下只需要1分钟的时间就安装完毕了.
+再看配置文件, RabbitMQ的配置文件就是一个erlang的item, 格式如下
+[ {app, {key, value}}, .. ]  RabbitMQ基本不需要过多的配置, 采用默认的也可以, 非常方便.
+问题 在开发过程中, 遇到了一个比较蛋疼的问题. RabbitMQ对于链接有一个heartbeat机制, 也就是说, 当接收不到这个heartbeat的时候, 链接就会自动断开, message就重新被分配."/>
+
+<meta property="og:title" content="MQ的尝试" />
+<meta property="og:description" content="long long ago, 就听说过Message Queue(mq), 一直没去尝试, 毕竟用到这种工具的都是分布式的场景了. 这次碰到一个很适合的场景决定适用一把mq.
+场景 这次的场景需要由一个总控端将特定的任务分配给执行段, 当执行端完成作业后, 将这个任务从总控端中剔除.这个分配的动作则是由执行端主动去总控端获取.
+所以我把这个场景设计为三个部分:
+ 总控端, 负责生成任务并插入mq, 并监测mq的长度, 保证适度的长度 执行端, 负责从mq中获取任务并执行, 当任务失败或者程序崩溃的时候, 刚才获取的任务则重新回归总控端, 交给其他执行端执行, 保证任务一定被完整的执行. mq, 负责任务必须被一个执行端完整的执行  选择MQ 从google搜索, 可以有很多mq, 比如RabbitMQ, ActiveMQ, MSMQ, ZeroMQ等等, 一时间还比较难选择.
+首先可以从google搜索结果的排名上排除几个, 剩下RabbitMQ和ActiveMQ.然后下载build文件的时候, RabbitMQ只要4M左右的大小而ActiveMQ则要40M, 对于没有耐性的我果断选择了RabbitMQ.
+再细看RabbitMQ的文档, 它是用erlang写的&ndash;看过一篇文章, 这门语言是Ericsson为了通信行业写的, 所以对于他的可靠性和高效比较认可.最后看看他是不是支持业务场景&ndash;RabbitMQ支持message的ack模式, 也就是说receiver可以先获取message, 然后再任务处理完后, 确认这个message被消耗. 这下完美了, 可以开始动工了.
+安装和体验 对于第一次上手RabbitMQ, 过程还是比较顺利的.在Gentoo和Centos下只需要1分钟的时间就安装完毕了.
+再看配置文件, RabbitMQ的配置文件就是一个erlang的item, 格式如下
+[ {app, {key, value}}, .. ]  RabbitMQ基本不需要过多的配置, 采用默认的也可以, 非常方便.
+问题 在开发过程中, 遇到了一个比较蛋疼的问题. RabbitMQ对于链接有一个heartbeat机制, 也就是说, 当接收不到这个heartbeat的时候, 链接就会自动断开, message就重新被分配." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/mq-experiment/" />
+<meta property="article:published_time" content="2014-05-15T19:14:32+00:00" />
+<meta property="article:modified_time" content="2014-05-15T19:14:32+00:00" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49453400-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
 
+    
+    
+    
+    <title>
+        
+        MQ的尝试
+        
+    </title>
 </head>
 
-</html>
-<body><div class="wrap"><div class="section" id="title">MQ的尝试</div><div class="section" id="content">Thu May 15, 2014 &#183; 89 words
-
-<div><span id="tag"><a href="http://oopschen.github.io/tags/rabbitmq">rabbitMQ</a></span><span id="tag"><a href="http://oopschen.github.io/tags/activemq">activemq</a></span></div><hr/>
-
-<p>long long ago, 就听说过<strong>Message Queue</strong>(mq), 一直没去尝试, 毕竟用到这种工具的都是分布式的场景了. 这次碰到一个很适合的场景决定适用一把mq.</p>
-
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>MQ的尝试</h1>
+    </header>
+    
+    <main class="wrap">
+        
+<div class="flex-container">
+    <aside role="complementary">
+        Thu May 15, 2014 &#183; 86 words
+        <div class="tag-container">
+            
+            
+            <span class="tag">
+                <a href="/tags/rabbitmq/">
+                    rabbitMQ
+                </a>
+            </span>
+            
+            
+            
+            <span class="tag">
+                <a href="/tags/activemq/">
+                    activemq
+                </a>
+            </span>
+            
+            
+        </div>
+    </aside>
+    <hr />
+    <article role="article">
+        <p>long long ago, 就听说过<strong>Message Queue</strong>(mq), 一直没去尝试, 毕竟用到这种工具的都是分布式的场景了. 这次碰到一个很适合的场景决定适用一把mq.</p>
 <h3 id="场景">场景</h3>
-
-<p>这次的场景需要由一个总控端将特定的任务分配给执行段, 当执行端完成作业后, 将这个任务从总控端中剔除.这个分配的动作则是由执行端主动去总控端获取.<br />
-所以我把这个场景设计为三个部分:<br />
-1. 总控端, 负责生成任务并插入mq, 并监测mq的长度, 保证适度的长度<br />
-2. 执行端, 负责从mq中获取任务并执行, 当任务失败或者程序崩溃的时候, 刚才获取的任务则重新回归总控端, 交给其他执行端执行, 保证任务一定被完整的执行.<br />
-3. mq, 负责任务必须被一个执行端完整的执行</p>
-
+<p>这次的场景需要由一个总控端将特定的任务分配给执行段, 当执行端完成作业后, 将这个任务从总控端中剔除.这个分配的动作则是由执行端主动去总控端获取.<br>
+所以我把这个场景设计为三个部分:</p>
+<ol>
+<li>总控端, 负责生成任务并插入mq, 并监测mq的长度, 保证适度的长度</li>
+<li>执行端, 负责从mq中获取任务并执行, 当任务失败或者程序崩溃的时候, 刚才获取的任务则重新回归总控端, 交给其他执行端执行, 保证任务一定被完整的执行.</li>
+<li>mq, 负责任务必须被一个执行端完整的执行</li>
+</ol>
 <h4 id="选择mq">选择MQ</h4>
-
-<p>从google搜索, 可以有很多mq, 比如<a href="https://www.rabbitmq.com" title="RabbitMQ">RabbitMQ</a>, <a href="http://activemq.apache.org/" title="ActiveMQ">ActiveMQ</a>, <a href="http://msdn.microsoft.com/en-us/library/ms711472(v=vs.85).aspx" title="MSMQ">MSMQ</a>, <a href="http://zeromq.org/" title="ZeroMQ">ZeroMQ</a>等等, 一时间还比较难选择.<br />
-首先可以从google搜索结果的排名上排除几个, 剩下RabbitMQ和ActiveMQ.然后下载build文件的时候, RabbitMQ只要4M左右的大小而ActiveMQ则要40M, 对于没有耐性的我果断选择了RabbitMQ.<br />
-再细看RabbitMQ的文档, 它是用erlang写的&ndash;看过一篇文章, 这门语言是Ericsson为了通信行业写的, 所以对于他的可靠性和高效比较认可.最后看看他是不是支持业务场景&ndash;RabbitMQ支持message的ack模式, 也就是说receiver可以先获取message, 然后再任务处理完后, 确认这个message被消耗.<br />
+<p>从google搜索, 可以有很多mq, 比如<a href="https://www.rabbitmq.com" title="RabbitMQ">RabbitMQ</a>, <a href="http://activemq.apache.org/" title="ActiveMQ">ActiveMQ</a>, <a href="http://msdn.microsoft.com/en-us/library/ms711472(v=vs.85).aspx" title="MSMQ">MSMQ</a>, <a href="http://zeromq.org/" title="ZeroMQ">ZeroMQ</a>等等, 一时间还比较难选择.<br>
+首先可以从google搜索结果的排名上排除几个, 剩下RabbitMQ和ActiveMQ.然后下载build文件的时候, RabbitMQ只要4M左右的大小而ActiveMQ则要40M, 对于没有耐性的我果断选择了RabbitMQ.<br>
+再细看RabbitMQ的文档, 它是用erlang写的&ndash;看过一篇文章, 这门语言是Ericsson为了通信行业写的, 所以对于他的可靠性和高效比较认可.最后看看他是不是支持业务场景&ndash;RabbitMQ支持message的ack模式, 也就是说receiver可以先获取message, 然后再任务处理完后, 确认这个message被消耗. <br>
 这下完美了, 可以开始动工了.</p>
-
 <h4 id="安装和体验">安装和体验</h4>
-
-<p>对于第一次上手RabbitMQ, 过程还是比较顺利的.在Gentoo和Centos下只需要1分钟的时间就安装完毕了.<br />
+<p>对于第一次上手RabbitMQ, 过程还是比较顺利的.在Gentoo和Centos下只需要1分钟的时间就安装完毕了.<br>
 再看配置文件, RabbitMQ的配置文件就是一个erlang的item, 格式如下</p>
-
 <pre><code>[ {app, {key, value}}, .. ]  
 </code></pre>
-
 <p>RabbitMQ基本不需要过多的配置, 采用默认的也可以, 非常方便.</p>
-
 <h4 id="问题">问题</h4>
-
-<p>在开发过程中, 遇到了一个比较蛋疼的问题. RabbitMQ对于链接有一个heartbeat机制, 也就是说, 当接收不到这个heartbeat的时候, 链接就会自动断开, message就重新被分配. 由于任务处理的时候比较长, 所以经常碰到任务处理完后, 链接已经断开, 无法ack这个message.<br />
+<p>在开发过程中, 遇到了一个比较蛋疼的问题. RabbitMQ对于链接有一个heartbeat机制, 也就是说, 当接收不到这个heartbeat的时候, 链接就会自动断开, message就重新被分配. 由于任务处理的时候比较长, 所以经常碰到任务处理完后, 链接已经断开, 无法ack这个message.<br>
 而这个heartbeat可以在两个地方设置, 一个是server段的config文件, 一个是client段的参数.经过几次实验后, server段的配置优于client的参数, 也就是说当server配置为30s的时候, client即使配置成31s, 也会被重置为30s.</p>
-
 <h4 id="惊喜">惊喜</h4>
-
 <p>RabbitMQ还提供了很多plugin, 方便管理和获取更多的特性.这里就尝试了一个管理的plugin, 它自动生成一个webui的界面, 让mq的状态&ndash;队列长度, 队列连接数等等的信息一目了然.</p>
-</div><div class="section bottom-menu"><hr/><p>
-<a href="/posts">back</a>
- &#183;
+
+    </article>
+</div>
 
 
+        
+<nav role="navigation" class="flex-container bottom-menu">
+    
+<hr />
+<p>
 
-<a href="/posts">博客日志</a>
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/posts">博客日志</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">我是谁?</a>
+        
+    
+    &#183; 
+    <a href="/">
+        主页
+    </a>
+
+</p>
+</nav>
+
+    </main>
+    
+    <footer class="flex-container footer">石头, OOPS!!!
 
 
-&#183; <a href="/about">我是谁?</a>
+  <script data-ad-client="ca-pub-9689498343252538" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
+</footer>
+    
+    
+</body>
+
+</html>

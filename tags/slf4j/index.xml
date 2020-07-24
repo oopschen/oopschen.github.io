@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Slf4j on Oopschen的日志</title>
+    <title>slf4j on Oopschen的日志</title>
     <link>http://oopschen.github.io/tags/slf4j/</link>
-    <description>Recent content in Slf4j on Oopschen的日志</description>
+    <description>Recent content in slf4j on Oopschen的日志</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
@@ -20,13 +20,10 @@
       <guid>http://oopschen.github.io/posts/2014/dig-slf4j/</guid>
       <description>又开始了Java工程师之路, 总体框架为springmvc+spring+hibernate.原先的老系统使用log4j记录日志.　介入开发后准备改用slf4j+logback做日志.
 SLF4J简介 slf4j从全称就可以知道它只是类似于JCL(java common logging)的框架,从主页的介绍来看它降低了工程切换日志的工作,但我个人喜欢的则是它打日志时候的简洁语法．
-logger.error(&amp;#34;This is a error message with name {}!&amp;#34;, &amp;#34;ray&amp;#34;);  slf4j引以为傲的是它有一个binding的机制-只要引用了固定的binding架包就能实现日志底层实现的切换, 那说的这么玄乎, 究竟它是怎么实现的呢?
+logger.error(&amp;#34;This is a error message with name {}!&amp;#34;, &amp;#34;ray&amp;#34;); slf4j引以为傲的是它有一个binding的机制-只要引用了固定的binding架包就能实现日志底层实现的切换, 那说的这么玄乎, 究竟它是怎么实现的呢?
 SLF4J Bind 机制 首先我们来看看LoggerFactory这个类的bind方法:
-1. 查找可能的静态Logger
-2. 如果有多个静态的Logger则打印日志
-3. 初始化bind
-&amp;hellip;.
-那么这个StaticLoggerBinder是什么?
+ 查找可能的静态Logger 如果有多个静态的Logger则打印日志 初始化bind
+&amp;hellip;.  那么这个StaticLoggerBinder是什么?
 其实slf4j通过classloader的方式找到StaticLoggerBinder的类文件, 然后通过策略模式采用日志的实现-也就是说每个底层的日志实现都会实现同一个接口.因此每一个日志实现的架包中都会有这么一个StaticLoggerBinder来接入slf4j的框架, 而slf4j通过应用启动时的动态类加载来达到bind日志实现的目的.
 一点建议 Java的世界总是有很多框架, 在我们使用slf4j做为应用的日志系统的时候, 应用中其他框架并不一定也是用slf4j作为日志框架, 因此我们需要引用slf4j的桥接包-jcl-over-slf4j, jul-over-slf4j. 这些桥接包只是用最简单的方式实现了其他日志框架的基础类, 然后通过bind的方式接入slf4j的底层日志中.</description>
     </item>

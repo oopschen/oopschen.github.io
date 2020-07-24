@@ -1,90 +1,179 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta name="description" content="石头的博客.">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content="http://oopschen.github.io">
-    
-    <meta name="twitter:image" content="http://oopschen.github.io/tn.png">
-    <meta name="twitter:title" property="og:title" itemprop="title name" content="Oopschen的日志">
-    <meta name="twitter:description" property="og:description" itemprop="description" content="石头的博客.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="http://oopschen.github.io">
-    <meta name="og:image" itemprop="image primaryImageOfPage" content="http://oopschen.github.io/tn.png">
-    
-    <title>微信破解研究总结</title>
-    <link rel="shortcut icon" href="http://oopschen.github.io/sam.ico" id="favicon">
-    <link rel="stylesheet" href="http://oopschen.github.io/css/style.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49453400-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
-        gtag('config', 'UA-49453400-1');
-    </script>
+<meta name="description" content="石头的博客.">
+<title>
+    微信破解研究总结 - Oopschen的日志
+</title>
+
+
+<link rel="shortcut icon" href="/sam.ico">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="微信破解研究总结"/>
+<meta name="twitter:description" content="微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。
+理论分析 首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：
+ android版本 iphone版本  由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。
+实践 android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择APK进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是smali的机制,我们可以根据Dalvik的字节码总结出源代码&ndash;基本能和java的源代码相对应。
+微信客户端的架构 微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c&#43;&#43;代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c&#43;&#43;的反编译代码了。libnetwork.so这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,libMMProtocalJni.so这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。 而java代码封装了UI和网络适配器,基本流程如下：
+java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作 这样的结构,确实增加了破译的难度,除非耐着性子看完800K&#43;汇编代码。
+libMMProtocalJni 通过libMMProtocalJni的反汇编代码,我们可以看到关键字aes和cbc,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。
+另类的破解 与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。"/>
+
+<meta property="og:title" content="微信破解研究总结" />
+<meta property="og:description" content="微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。
+理论分析 首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：
+ android版本 iphone版本  由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。
+实践 android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择APK进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是smali的机制,我们可以根据Dalvik的字节码总结出源代码&ndash;基本能和java的源代码相对应。
+微信客户端的架构 微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c&#43;&#43;代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c&#43;&#43;的反编译代码了。libnetwork.so这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,libMMProtocalJni.so这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。 而java代码封装了UI和网络适配器,基本流程如下：
+java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作 这样的结构,确实增加了破译的难度,除非耐着性子看完800K&#43;汇编代码。
+libMMProtocalJni 通过libMMProtocalJni的反汇编代码,我们可以看到关键字aes和cbc,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。
+另类的破解 与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2013/weixin-break/" />
+<meta property="article:published_time" content="2013-09-30T19:59:29+00:00" />
+<meta property="article:modified_time" content="2013-09-30T19:59:29+00:00" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49453400-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
 
+    
+    
+    
+    <title>
+        
+        微信破解研究总结
+        
+    </title>
 </head>
 
-</html>
-<body><div class="wrap"><div class="section" id="title">微信破解研究总结</div><div class="section" id="content">Mon Sep 30, 2013 &#183; 20 words
-
-<div><span id="tag"><a href="http://oopschen.github.io/tags/%E5%BE%AE%E4%BF%A1">微信</a></span><span id="tag"><a href="http://oopschen.github.io/tags/%E7%A0%B4%E8%A7%A3">破解</a></span><span id="tag"><a href="http://oopschen.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%8D%8F%E8%AE%AE">微信协议</a></span></div><hr/>
-
-<p>微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。</p>
-
+<body>
+    
+    
+    <header class="wrap flex-container">
+        <h1>微信破解研究总结</h1>
+    </header>
+    
+    <main class="wrap">
+        
+<div class="flex-container">
+    <aside role="complementary">
+        Mon Sep 30, 2013 &#183; 18 words
+        <div class="tag-container">
+            
+            
+            
+            
+            
+            
+            
+        </div>
+    </aside>
+    <hr />
+    <article role="article">
+        <p>微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。</p>
 <h4 id="理论分析">理论分析</h4>
-
-<p>首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：<br />
-1. android版本<br />
-2. iphone版本</p>
-
+<p>首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：</p>
+<ol>
+<li>android版本</li>
+<li>iphone版本</li>
+</ol>
 <p>由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。</p>
-
 <h4 id="实践">实践</h4>
-
 <p>android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择<a href="https://code.google.com/p/android-apktool/" title="APK">APK</a>进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是<a href="https://code.google.com/p/smali/" title="Smali">smali</a>的机制,我们可以根据<a href="http://source.android.com/devices/tech/dalvik/dalvik-bytecode.html" title="Dalvik Bytecode Format">Dalvik的字节码</a>总结出源代码&ndash;基本能和java的源代码相对应。</p>
-
 <h4 id="微信客户端的架构">微信客户端的架构</h4>
-
-<p>微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c++代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c++的反编译代码了。*libnetwork.so*这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,*libMMProtocalJni.so*这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。
-而java代码封装了UI和网络适配器,基本流程如下：<br />
+<p>微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c++代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c++的反编译代码了。<em>libnetwork.so</em>这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,<em>libMMProtocalJni.so</em>这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。
+而java代码封装了UI和网络适配器,基本流程如下：<br>
 java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作
 这样的结构,确实增加了破译的难度,除非耐着性子看完<strong>800K+</strong>汇编代码。</p>
-
 <h5 id="libmmprotocaljni">libMMProtocalJni</h5>
-
 <p>通过libMMProtocalJni的反汇编代码,我们可以看到关键字<strong>aes</strong>和<strong>cbc</strong>,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。</p>
-
 <h4 id="另类的破解">另类的破解</h4>
-
 <p>与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。</p>
-</div><div class="section bottom-menu"><hr/><p>
-<a href="/posts">back</a>
- &#183;
+
+    </article>
+</div>
 
 
+        
+<nav role="navigation" class="flex-container bottom-menu">
+    
+<hr />
+<p>
 
-<a href="/posts">博客日志</a>
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/posts">博客日志</a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">我是谁?</a>
+        
+    
+    &#183; 
+    <a href="/">
+        主页
+    </a>
+
+</p>
+</nav>
+
+    </main>
+    
+    <footer class="flex-container footer">石头, OOPS!!!
 
 
-&#183; <a href="/about">我是谁?</a>
+  <script data-ad-client="ca-pub-9689498343252538" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-&#183; <a href="http://oopschen.github.io">home</a></p></div><div class="section footer">石头, OOPS!!!</div></div></body>
+</footer>
+    
+    
+</body>
+
+</html>
