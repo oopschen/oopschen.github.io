@@ -49,11 +49,13 @@ isMenu: true
         return 1;
       }
       me.program_langs[0] = "C";
-      me.program_langs[1] = "Java6";
+      me.program_langs[1] = "Java";
       me.program_langs[2] = "Python2.x";
-      me.program_langs[3] = "Javascript";
-      me.program_langs[4] = "Haskell";
-      me.program_langs[5] = "Coffee";
+      me.program_langs[3] = "Python3.x";
+      me.program_langs[4] = "Javascript";
+      me.program_langs[5] = "Haskell";
+      me.program_langs[6] = "Coffee";
+      me.program_langs[7] = "Rust";
 
       return hire(&me);
     }

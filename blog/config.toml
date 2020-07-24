@@ -1,5 +1,7 @@
 baseurl                 = "http://oopschen.github.io"               # Your domain name. Must end with "/"
 languageCode            = "zh-CN"
+defaultContentLanguage   = "zh"
+isMultilingual           = false
 copyright = "版权归Ray所有, 授权在MIT协议下."
 title                   = "Oopschen的日志"
 theme                   = "sam"
@@ -12,10 +14,11 @@ rssLimit                = 7
     dateform            = "Mon Jan 02, 2006"
     dateformfull        = "Mon Jan 2 2006 15:04:05 EST"
     favicon             = "/sam.ico"
-    homepage            = "home"                        # What to call the home page link
+    homepage            = "主页"                        # What to call the home page link
     galleryFolder       = "imgs/"                     # Where you've put your images, after "/content/gallery/"
     clickablePhotos     = true                          # Allow links to the full size images
     footerText          = "石头, OOPS!!!"
+    googleAdSense           = "ca-pub-9689498343252538"
 
 # Metadata
     description         = "石头的博客."            # Max 160 characters show in search results
@@ -25,10 +28,6 @@ rssLimit                = 7
 [[params.mainMenu]]
     link = "/posts"
     text = "博客日志"
-
-#[[params.mainMenu]]
-#    link = "/gallery"
-#    text = "gallery"
 
 [[params.mainMenu]]
     link = "/about"
