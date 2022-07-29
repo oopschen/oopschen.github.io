@@ -1,6 +1,6 @@
 [submodule "blog/themes/sam"]
 	path = blog/themes/sam
-	url = git@github.com:oopschen/hugo-theme-sam.git
+	url = git@github.com:victoriadrake/hugo-theme-sam.git
   branch = master
 [submodule "deploy"]
 	path = deploy
