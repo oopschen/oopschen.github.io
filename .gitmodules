@@ -1,1 +1,9 @@
 
+[submodule "themes/sam"]
+	path = themes/sam
+	url = git@github.com:victoriadrake/hugo-theme-sam.git
+	branch = master
+[submodule "public"]
+	path = public
+	url = git@github.com:oopschen/oopschen.github.io.git
+	branch = master

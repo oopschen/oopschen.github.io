@@ -1,4 +1,3 @@
 .*
 !.gitignore
-blog/public/
-blog/resources/
+resources/
