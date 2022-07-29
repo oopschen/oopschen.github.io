@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,35 +48,37 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Mysql 复合索引记录"/>
 <meta name="twitter:description" content="Mysql不用多介绍,很好很强大,这篇文章主要记录innodb中复合索引的引用, 本文中的缩影指的都是二级索引.
-概述 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
+概述&nbsp;¶ 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
 innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷贝一份主键!!!
-场景 先来看看如下场景
+场景&nbsp;¶ 先来看看如下场景
 create table testexplain ( f0 varchar(10) primary key, f1 varchar(10), f2 varchar(10), f3 varchar(10) ); 假使我们常用的查询sql如下
 1. select * from testexplain f0 = &#39;xxx&#39;; 2. select * from testexplain f1 = &#39;xxx&#39; and f2 = &#39;xxxx&#39;; 3. select * from testexplain f2 = &#39;xxx&#39; and f3 = &#39;xxxx&#39;; 4. select * from testexplain f1 = &#39;xxx&#39; or f2 = &#39;xxxx&#39;; 5."/>
 
 <meta property="og:title" content="Mysql 复合索引记录" />
 <meta property="og:description" content="Mysql不用多介绍,很好很强大,这篇文章主要记录innodb中复合索引的引用, 本文中的缩影指的都是二级索引.
-概述 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
+概述&nbsp;¶ 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
 innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷贝一份主键!!!
-场景 先来看看如下场景
+场景&nbsp;¶ 先来看看如下场景
 create table testexplain ( f0 varchar(10) primary key, f1 varchar(10), f2 varchar(10), f3 varchar(10) ); 假使我们常用的查询sql如下
 1. select * from testexplain f0 = &#39;xxx&#39;; 2. select * from testexplain f1 = &#39;xxx&#39; and f2 = &#39;xxxx&#39;; 3. select * from testexplain f2 = &#39;xxx&#39; and f3 = &#39;xxxx&#39;; 4. select * from testexplain f1 = &#39;xxx&#39; or f2 = &#39;xxxx&#39;; 5." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2014/mysql-multiple-column-index/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/mysql-multiple-column-index/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-09-12T17:51:56+00:00" />
 <meta property="article:modified_time" content="2014-09-14T09:51:56+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -120,29 +128,33 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>Mysql不用多介绍,很好很强大,这篇文章主要记录innodb中复合索引的引用, 本文中的缩影指的都是二级索引.</p>
-<h3 id="概述">概述</h3>
+
+<h3 id="概述" class="anchor-link"><a href="#%e6%a6%82%e8%bf%b0">概述<span class="pilcrow">&nbsp;¶</span></a></h3>
 <p>索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.<br>
 innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷贝一份主键!!!</p>
-<h3 id="场景">场景</h3>
+
+<h3 id="场景" class="anchor-link"><a href="#%e5%9c%ba%e6%99%af">场景<span class="pilcrow">&nbsp;¶</span></a></h3>
 <p>先来看看如下场景</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> testexplain (
-      f0 varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>,
-      f1 varchar(<span style="color:#ae81ff">10</span>),
-      f2 varchar(<span style="color:#ae81ff">10</span>),
-      f3 varchar(<span style="color:#ae81ff">10</span>) 
-    );
-</code></pre></div><p>假使我们常用的查询sql如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#ae81ff">1</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f0 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
-    <span style="color:#ae81ff">2</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">and</span> f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
-    <span style="color:#ae81ff">3</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">and</span> f3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
-    <span style="color:#ae81ff">4</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">or</span> f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
-    <span style="color:#ae81ff">5</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
-    <span style="color:#ae81ff">6</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
-</code></pre></div><p>那么我们建立如下索引能满足要求</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> index_testexplain_f1_f2 <span style="color:#66d9ef">on</span> testexplain(f1,f2,f3);
-</code></pre></div><h3 id="分析">分析</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>    <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> testexplain (
+</span></span><span style="display:flex;"><span>      f0 varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>,
+</span></span><span style="display:flex;"><span>      f1 varchar(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>      f2 varchar(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>      f3 varchar(<span style="color:#ae81ff">10</span>) 
+</span></span><span style="display:flex;"><span>    );
+</span></span></code></pre></div><p>假使我们常用的查询sql如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f0 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">2</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">and</span> f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">and</span> f3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">4</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span> <span style="color:#66d9ef">or</span> f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxxx&#39;</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">5</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">6</span>. <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> testexplain f2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xxx&#39;</span>;  
+</span></span></code></pre></div><p>那么我们建立如下索引能满足要求</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>    <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> index_testexplain_f1_f2 <span style="color:#66d9ef">on</span> testexplain(f1,f2,f3);
+</span></span></code></pre></div>
+<h3 id="分析" class="anchor-link"><a href="#%e5%88%86%e6%9e%90">分析<span class="pilcrow">&nbsp;¶</span></a></h3>
 <p>事实是否如此呢?我们需要mysql告诉我们.说到索引分析,我们必须要用到<strong>explain</strong>:</p>
-<h5 id="一">一</h5>
+
+<h5 id="一" class="anchor-link"><a href="#%e4%b8%80">一<span class="pilcrow">&nbsp;¶</span></a></h5>
 <pre><code>+----+-------------+-------------+-------+---------------+---------+---------+-------+------+-------+  
 | id | select_type | table       | type  | possible_keys | key     | key_len | ref   | rows | Extra |  
 +----+-------------+-------------+-------+---------------+---------+---------+-------+------+-------+  
@@ -150,7 +162,8 @@ innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷
 +----+-------------+-------------+-------+---------------+---------+---------+-------+------+-------+
 </code></pre>
 <p>很明显走了主键索引, 和预期相同.</p>
-<h5 id="二">二</h5>
+
+<h5 id="二" class="anchor-link"><a href="#%e4%ba%8c">二<span class="pilcrow">&nbsp;¶</span></a></h5>
 <pre><code>+----+-------------+-------------+------+-------------------------+-------------------------+---------+-------------+------+-------------+  
 | id | select_type | table       | type | possible_keys           | key                     | key_len | ref         | rows | Extra       |  
 +----+-------------+-------------+------+-------------------------+-------------------------+---------+-------------+------+-------------+  
@@ -158,7 +171,8 @@ innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷
 +----+-------------+-------------+------+-------------------------+-------------------------+---------+-------------+------+-------------+
 </code></pre>
 <p>同样也符合预期.</p>
-<h5 id="三">三</h5>
+
+<h5 id="三" class="anchor-link"><a href="#%e4%b8%89">三<span class="pilcrow">&nbsp;¶</span></a></h5>
 <pre><code>+----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
 | id | select_type | table       | type  | possible_keys | key                        | key_len | ref  | rows   | Extra                    |  
 +----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
@@ -166,7 +180,8 @@ innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷
 +----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+
 </code></pre>
 <p>虽然mysql选择扫描了使用index, 但是依然遍历了481495行, 并没有起到加速的作用.因为mysql虽然没遍历全表但是遍历了全索引.</p>
-<h5 id="四">四</h5>
+
+<h5 id="四" class="anchor-link"><a href="#%e5%9b%9b">四<span class="pilcrow">&nbsp;¶</span></a></h5>
 <pre><code>+----+-------------+-------------+-------+----------------------------+----------------------------+---------+------+--------+--------------------------+  
 | id | select_type | table       | type  | possible_keys              | key                        | key_len | ref  | rows   | Extra                    |  
 +----+-------------+-------------+-------+----------------------------+----------------------------+---------+------+--------+--------------------------+  
@@ -174,7 +189,8 @@ innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷
 +----+-------------+-------------+-------+----------------------------+----------------------------+---------+------+--------+--------------------------+
 </code></pre>
 <p>mysql选择扫描了全索引.</p>
-<h5 id="五">五</h5>
+
+<h5 id="五" class="anchor-link"><a href="#%e4%ba%94">五<span class="pilcrow">&nbsp;¶</span></a></h5>
 <pre><code>+----+-------------+-------------+------+-------------------------+-------------------------+---------+-------+------+-------------+  
 | id | select_type | table       | type | possible_keys           | key                     | key_len | ref   | rows | Extra       |  
 +----+-------------+-------------+------+-------------------------+-------------------------+---------+-------+------+-------------+  
@@ -182,7 +198,8 @@ innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷
 +----+-------------+-------------+------+-------------------------+-------------------------+---------+-------+------+-------------+
 </code></pre>
 <p>mysql选择了索引.</p>
-<h5 id="六">六</h5>
+
+<h5 id="六" class="anchor-link"><a href="#%e5%85%ad">六<span class="pilcrow">&nbsp;¶</span></a></h5>
 <pre><code>+----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
 | id | select_type | table       | type  | possible_keys | key                        | key_len | ref  | rows   | Extra                    |  
 +----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+  
@@ -190,7 +207,8 @@ innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷
 +----+-------------+-------------+-------+---------------+----------------------------+---------+------+--------+--------------------------+
 </code></pre>
 <p>mysql选择扫描了全索引.</p>
-<h3 id="总结">总结</h3>
+
+<h3 id="总结" class="anchor-link"><a href="#%e6%80%bb%e7%bb%93">总结<span class="pilcrow">&nbsp;¶</span></a></h3>
 <p>由上面的测试结果我们可以看出原先的结论是不成立的, 也就是说要想使用复合索引必须按照一定的规则.查看<a href="http://dev.mysql.com/doc/refman/5.0/en/multiple-column-indexes.html" title="Multiple-Column index">mysql官方文档</a>: 想要利用符合索引, sql语句的where条件必须是符合从左最匹配索引原则.这样翻译确实太抽象.<br>
 假使我们有上面的表结构, 要想利用复合索引, where语句的条件必须是f1,f2,f3|f1,f2|f1|f1,f3的形式(从而满足索引的顺序f1,f2,f3), 并且使用and, 条件的顺序可以乱序.or的话代表是两个不同的查询条件, mysql会使用index merge去优化查询, 简单说明就是两个不同的查询过程, 然后做merge.</p>
 
@@ -223,10 +241,13 @@ innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

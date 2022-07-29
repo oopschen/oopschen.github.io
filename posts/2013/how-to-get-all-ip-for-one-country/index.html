@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,51 +48,53 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何获取某个国家的ip段分配,以及ip所对应的服务商"/>
 <meta name="twitter:description" content="互联网在最初的时候只是一个局域网,各个国家的局域网连接起来后就变成了当今的局域网。所谓ip,就是分配给每个上网设备的一个地址,像家庭地址一样。而这个工作不可能由一个组织具体到每个设备,这样既消耗资源,又不高效。因此,一个名为IANA,的组织负责统筹安排数字的分配（包含ip地址,端口地址,域名等等）,当然具体执行的时候,会分配到各个国家地方的办事处。而亚洲的办事处称为APNIC。说了这么多,好像没说重点,这篇博客主要记录如何获取某个国家的ip段,以及如何过滤出某些运营商的ip段。
-世界IP办事处 世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。 APNIC: 是亚太地区的总办事处,下属还有各个国家的。 AFRINIC: 是非洲的总办事处,下属还有各个国家的。 ARIN: 是美洲的总办事处,下属还有各个国家的。 LACNIC: 是拉丁美州的总办事处,下属还有各个国家的。 RIPE NCC: 是欧洲和部分中亚的总办事处,下属还有各个国家的。 具体有哪些国家可以点击链接去各个网站查看明细。
-获取某个国家的ip段 在这之前,我们先了解下什么是Country Code(CC), CC是国家代码的简称。我们通常可以在域名后看到,比如www.google.com.hk就代表google在香港的服务,而wwww.google.com.sg则是新加坡的服务,后面我们将用他来过滤ip段。更多的CC可以参考这里
+世界IP办事处&nbsp;¶ 世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。 APNIC: 是亚太地区的总办事处,下属还有各个国家的。 AFRINIC: 是非洲的总办事处,下属还有各个国家的。 ARIN: 是美洲的总办事处,下属还有各个国家的。 LACNIC: 是拉丁美州的总办事处,下属还有各个国家的。 RIPE NCC: 是欧洲和部分中亚的总办事处,下属还有各个国家的。 具体有哪些国家可以点击链接去各个网站查看明细。
+获取某个国家的ip段&nbsp;¶ 在这之前,我们先了解下什么是Country Code(CC), CC是国家代码的简称。我们通常可以在域名后看到,比如www.google.com.hk就代表google在香港的服务,而wwww.google.com.sg则是新加坡的服务,后面我们将用他来过滤ip段。更多的CC可以参考这里
 Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文件Lastes IP Allocation, 下面我们简单介绍下apnic的的格式：
-备注行 **#**在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等
-文件头行 样例：
- 2|apnic|20130531|29927|19850701|20130530|&#43;1000
- 格式:
- version|registry|serial|records|startdate|enddate|UTCoffset
-  version, 表示当前的版本,目前是2 registry, 办事处简称,可以是afrinic, apnic, arin,iana, lacnic, ripencc其中的一个 serial, 可以理解成文件的id records, 文件有多少条记录,不包括空行,文件头行,备注行以及概要行 startdate, 开始的日期,格式为yyyymmdd enddate, 结束日期, 格式如上 UTCoffset, UTC中的距离  概要行 样例：
- apnic||asn||5214|summary
- 格式：
- registry||type||count|summary
-  registry, 同上 *,保留字段 type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号 count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数 summary, 就是字符串&quot;summary&rdquo;, 为了和记录行区别  记录行 样例："/>
+备注行&nbsp;¶ **#**在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等
+文件头行&nbsp;¶ 样例：
+2|apnic|20130531|29927|19850701|20130530|&#43;1000
+格式:
+version|registry|serial|records|startdate|enddate|UTCoffset
+version, 表示当前的版本,目前是2 registry, 办事处简称,可以是afrinic, apnic, arin,iana, lacnic, ripencc其中的一个 serial, 可以理解成文件的id records, 文件有多少条记录,不包括空行,文件头行,备注行以及概要行 startdate, 开始的日期,格式为yyyymmdd enddate, 结束日期, 格式如上 UTCoffset, UTC中的距离 概要行&nbsp;¶ 样例：
+apnic||asn||5214|summary
+格式：
+registry||type||count|summary
+registry, 同上 *,保留字段 type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号 count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数 summary, 就是字符串&quot;summary&quot;, 为了和记录行区别 记录行&nbsp;¶ 样例："/>
 
 <meta property="og:title" content="如何获取某个国家的ip段分配,以及ip所对应的服务商" />
 <meta property="og:description" content="互联网在最初的时候只是一个局域网,各个国家的局域网连接起来后就变成了当今的局域网。所谓ip,就是分配给每个上网设备的一个地址,像家庭地址一样。而这个工作不可能由一个组织具体到每个设备,这样既消耗资源,又不高效。因此,一个名为IANA,的组织负责统筹安排数字的分配（包含ip地址,端口地址,域名等等）,当然具体执行的时候,会分配到各个国家地方的办事处。而亚洲的办事处称为APNIC。说了这么多,好像没说重点,这篇博客主要记录如何获取某个国家的ip段,以及如何过滤出某些运营商的ip段。
-世界IP办事处 世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。 APNIC: 是亚太地区的总办事处,下属还有各个国家的。 AFRINIC: 是非洲的总办事处,下属还有各个国家的。 ARIN: 是美洲的总办事处,下属还有各个国家的。 LACNIC: 是拉丁美州的总办事处,下属还有各个国家的。 RIPE NCC: 是欧洲和部分中亚的总办事处,下属还有各个国家的。 具体有哪些国家可以点击链接去各个网站查看明细。
-获取某个国家的ip段 在这之前,我们先了解下什么是Country Code(CC), CC是国家代码的简称。我们通常可以在域名后看到,比如www.google.com.hk就代表google在香港的服务,而wwww.google.com.sg则是新加坡的服务,后面我们将用他来过滤ip段。更多的CC可以参考这里
+世界IP办事处&nbsp;¶ 世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。 APNIC: 是亚太地区的总办事处,下属还有各个国家的。 AFRINIC: 是非洲的总办事处,下属还有各个国家的。 ARIN: 是美洲的总办事处,下属还有各个国家的。 LACNIC: 是拉丁美州的总办事处,下属还有各个国家的。 RIPE NCC: 是欧洲和部分中亚的总办事处,下属还有各个国家的。 具体有哪些国家可以点击链接去各个网站查看明细。
+获取某个国家的ip段&nbsp;¶ 在这之前,我们先了解下什么是Country Code(CC), CC是国家代码的简称。我们通常可以在域名后看到,比如www.google.com.hk就代表google在香港的服务,而wwww.google.com.sg则是新加坡的服务,后面我们将用他来过滤ip段。更多的CC可以参考这里
 Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文件Lastes IP Allocation, 下面我们简单介绍下apnic的的格式：
-备注行 **#**在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等
-文件头行 样例：
- 2|apnic|20130531|29927|19850701|20130530|&#43;1000
- 格式:
- version|registry|serial|records|startdate|enddate|UTCoffset
-  version, 表示当前的版本,目前是2 registry, 办事处简称,可以是afrinic, apnic, arin,iana, lacnic, ripencc其中的一个 serial, 可以理解成文件的id records, 文件有多少条记录,不包括空行,文件头行,备注行以及概要行 startdate, 开始的日期,格式为yyyymmdd enddate, 结束日期, 格式如上 UTCoffset, UTC中的距离  概要行 样例：
- apnic||asn||5214|summary
- 格式：
- registry||type||count|summary
-  registry, 同上 *,保留字段 type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号 count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数 summary, 就是字符串&quot;summary&rdquo;, 为了和记录行区别  记录行 样例：" />
+备注行&nbsp;¶ **#**在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等
+文件头行&nbsp;¶ 样例：
+2|apnic|20130531|29927|19850701|20130530|&#43;1000
+格式:
+version|registry|serial|records|startdate|enddate|UTCoffset
+version, 表示当前的版本,目前是2 registry, 办事处简称,可以是afrinic, apnic, arin,iana, lacnic, ripencc其中的一个 serial, 可以理解成文件的id records, 文件有多少条记录,不包括空行,文件头行,备注行以及概要行 startdate, 开始的日期,格式为yyyymmdd enddate, 结束日期, 格式如上 UTCoffset, UTC中的距离 概要行&nbsp;¶ 样例：
+apnic||asn||5214|summary
+格式：
+registry||type||count|summary
+registry, 同上 *,保留字段 type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号 count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数 summary, 就是字符串&quot;summary&quot;, 为了和记录行区别 记录行&nbsp;¶ 样例：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2013/how-to-get-all-ip-for-one-country/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2013/how-to-get-all-ip-for-one-country/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2013-05-31T16:45:00+00:00" />
 <meta property="article:modified_time" content="2013-07-26T14:29:00+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -142,7 +150,8 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>互联网在最初的时候只是一个局域网,各个国家的局域网连接起来后就变成了当今的局域网。所谓ip,就是分配给每个上网设备的一个地址,像家庭地址一样。而这个工作不可能由一个组织具体到每个设备,这样既消耗资源,又不高效。因此,一个名为<a href="http://www.iana.org/" title="IANA Website">IANA</a>,的组织负责统筹安排数字的分配（包含ip地址,端口地址,域名等等）,当然具体执行的时候,会分配到各个国家地方的办事处。而亚洲的办事处称为<a href="http://www.apnic.net/" title="APNIC Website">APNIC</a>。说了这么多,好像没说重点,这篇博客主要记录如何获取某个国家的ip段,以及如何过滤出某些运营商的ip段。</p>
-<h4 id="世界ip办事处">世界IP办事处</h4>
+
+<h4 id="世界ip办事处" class="anchor-link"><a href="#%e4%b8%96%e7%95%8cip%e5%8a%9e%e4%ba%8b%e5%a4%84">世界IP办事处<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>世界上的IP办事处总共分为以下5个,每个办事处还有下属机构。
 <a href="http://www.apnic.net/" title="APNIC Website">APNIC</a>: 是亚太地区的总办事处,下属还有各个国家的。
 <a href="http://afrinic.net/" title="AFRINIC Website">AFRINIC</a>: 是非洲的总办事处,下属还有各个国家的。
@@ -150,12 +159,15 @@ if (!doNotTrack) {
 <a href="http://lacnic.net/" title="LACNIC Website">LACNIC</a>: 是拉丁美州的总办事处,下属还有各个国家的。
 <a href="http://ripe.net/" title="RIPE NCC Website">RIPE NCC</a>: 是欧洲和部分中亚的总办事处,下属还有各个国家的。
 具体有哪些国家可以点击链接去各个网站查看明细。</p>
-<h4 id="获取某个国家的ip段">获取某个国家的ip段</h4>
-<p>在这之前,我们先了解下什么是<strong>Country Code(CC)</strong>, CC是国家代码的简称。我们通常可以在域名后看到,比如<em><a href="http://www.google.com.hk">www.google.com.hk</a></em>就代表google在香港的服务,而<em>wwww.google.com.sg</em>则是新加坡的服务,后面我们将用他来过滤ip段。<a href="http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm" title="ISO-3166 Country Code">更多的CC可以参考这里</a><br>
+
+<h4 id="获取某个国家的ip段" class="anchor-link"><a href="#%e8%8e%b7%e5%8f%96%e6%9f%90%e4%b8%aa%e5%9b%bd%e5%ae%b6%e7%9a%84ip%e6%ae%b5">获取某个国家的ip段<span class="pilcrow">&nbsp;¶</span></a></h4>
+<p>在这之前,我们先了解下什么是<strong>Country Code(CC)</strong>, CC是国家代码的简称。我们通常可以在域名后看到,比如<em><a href="https://www.google.com.hk">www.google.com.hk</a></em>就代表google在香港的服务,而<em>wwww.google.com.sg</em>则是新加坡的服务,后面我们将用他来过滤ip段。<a href="http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm" title="ISO-3166 Country Code">更多的CC可以参考这里</a><br>
 Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文件<a href="http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest" title="APNIC Latest IP">Lastes IP Allocation</a>, 下面我们简单介绍下apnic的的<a href="http://www.apnic.net/publications/media-library/documents/resource-guidelines/rir-statistics-exchange-format#Format" title="APNIC IP ALLOC FORMAT">格式</a>：</p>
-<h6 id="备注行">备注行</h6>
+
+<h6 id="备注行" class="anchor-link"><a href="#%e5%a4%87%e6%b3%a8%e8%a1%8c">备注行<span class="pilcrow">&nbsp;¶</span></a></h6>
 <p>**#**在文件中表示备注,可以正常忽略,当然也有一些有用的信息,比如文档地址在哪里等</p>
-<h5 id="文件头行">文件头行</h5>
+
+<h5 id="文件头行" class="anchor-link"><a href="#%e6%96%87%e4%bb%b6%e5%a4%b4%e8%a1%8c">文件头行<span class="pilcrow">&nbsp;¶</span></a></h5>
 <p>样例：</p>
 <blockquote>
 <p>2|apnic|20130531|29927|19850701|20130530|+1000</p>
@@ -173,7 +185,8 @@ Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文
 <li>enddate, 结束日期, 格式如上</li>
 <li>UTCoffset, UTC中的距离</li>
 </ol>
-<h5 id="概要行">概要行</h5>
+
+<h5 id="概要行" class="anchor-link"><a href="#%e6%a6%82%e8%a6%81%e8%a1%8c">概要行<span class="pilcrow">&nbsp;¶</span></a></h5>
 <p>样例：</p>
 <blockquote>
 <p>apnic|<em>|asn|</em>|5214|summary</p>
@@ -187,9 +200,10 @@ Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文
 <li>*,保留字段</li>
 <li>type, 可以是asn,ipv4,ipv6中的一个, asn, 全称Autonomous System (AS) Numbers), 可以理解成办事处的id号</li>
 <li>count, type指定类型的记录数,比如type这列为ipv4,那count列表是文件中ipv4的记录数</li>
-<li>summary, 就是字符串&quot;summary&rdquo;, 为了和记录行区别</li>
+<li>summary, 就是字符串&quot;summary&quot;, 为了和记录行区别</li>
 </ol>
-<h5 id="记录行">记录行</h5>
+
+<h5 id="记录行" class="anchor-link"><a href="#%e8%ae%b0%e5%bd%95%e8%a1%8c">记录行<span class="pilcrow">&nbsp;¶</span></a></h5>
 <p>样例：</p>
 <blockquote>
 <p>apnic|CN|ipv4|1.0.1.0|256|20110414|allocated</p>
@@ -206,10 +220,11 @@ Apnic负责亚洲地区的ip分配,而所有ip信息是公开的,具体参考文
 <li>value,从start开始有几个数值</li>
 <li>date, 记录被确定的日期,格式和startdate相同</li>
 <li>status, 可以是allocated或者assign,至于这两者的区别就是allocated一定是在使用中的,而assign可以是预先保留,未使用</li>
-<li>extensions, 额外的信息,但是必须用<strong>|</strong>分割</li>
+<li>extensions, 额外的信息,但是必须用**|**分割</li>
 </ol>
 <p>到这里我们就应该知道如何解析这个文件从而获取国内的ip了, <strong>文章结尾附上脚本获取apnic的指定ip</strong></p>
-<h4 id="查询每个ip段的服务商">查询每个ip段的服务商</h4>
+
+<h4 id="查询每个ip段的服务商" class="anchor-link"><a href="#%e6%9f%a5%e8%af%a2%e6%af%8f%e4%b8%aaip%e6%ae%b5%e7%9a%84%e6%9c%8d%e5%8a%a1%e5%95%86">查询每个ip段的服务商<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>上面我们介绍了如何去获得指定ip段,但是这些ip段又会再分配给不同的运营商使用,比如电信,联通,移动以及各高校的固定ip。这些情形APNIC是不会知道的,也不关心,那么我们如何去解析呢？</p>
 <p>这个时候我们需要用到whois, whois主要是查询<a href="http://www.ietf.org/rfc/rfc3912.txt" title="RFC 3921">RFC3921</a>中的对象,whosi通过建立tcp链接,遵循request和response的设计,以文本的格式传递信息,当然只允许ASCII。但是我查了很久,没有一个标准的whois协议,可能是各个办事处自己定制的。啥历史原因就不得而知了。其实说的更加透彻的话,whois是建立在数据库上的应用,每次的whois查询都是对办事处数据库的访问。<br>
 下面是一个whois 1.0.1.0的例子:</p>
@@ -246,7 +261,7 @@ remarks:        times in UTC<br>
 admin-c:        FH71-AP<br>
 tech-c:         FH71-AP<br>
 nic-hdl:        CA67-AP<br>
-remarks:        <a href="http://www.fjtelecom.com">www.fjtelecom.com</a><br>
+remarks:        <a href="https://www.fjtelecom.com">www.fjtelecom.com</a><br>
 notify:         <a href="mailto:fjnic@fjdcb.fz.fj.cn">fjnic@fjdcb.fz.fj.cn</a><br>
 mnt-by:         MAINT-CHINANET-FJ<br>
 changed:        <a href="mailto:fjnic@fjdcb.fz.fj.cn">fjnic@fjdcb.fz.fj.cn</a> 20100108<br>
@@ -254,28 +269,33 @@ source:         APNIC<br>
 changed:        <a href="mailto:hm-changed@apnic.net">hm-changed@apnic.net</a> 20111114</p>
 </blockquote>
 <p>从上面我们不难看出是电信福建(CHINANET-FJ)的网络.</p>
-<h4 id="whois-进阶">WHOIS 进阶</h4>
+
+<h4 id="whois-进阶" class="anchor-link"><a href="#whois-%e8%bf%9b%e9%98%b6">WHOIS 进阶<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>从上面的例子可以看到我们查询出的结果包含了很多不必要的信息,比如什么角色在维护。<br>
 我们可以通过whois的参数来限制查询的范围。以下例子仅限于APNIC。
 我们来看一下例子：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">whois -h whois.apnic.net -T inetnum -r  1.0.1.0
-</code></pre></div><p>上面的例子我们可以看到*-T*, *-h*, *-r*参数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>whois -h whois.apnic.net -T inetnum -r  1.0.1.0
+</span></span></code></pre></div><p>上面的例子我们可以看到*-T*, <em>-h</em>, <em>-r</em>参数：</p>
 <ol>
 <li>-T, 制定我们需要查询的对象的类型,如果想要其他类型可以查询<a href="http://www.apnic.net/apnic-info/whois_search/using-whois" title="APNIC WHOIS">这里的教程</a></li>
 <li>-h, 指定查询的服务器,如果不指定,whois首先会去另一台配置的服务器查询后面跟着的查询条件是在哪台机子上,最后在从那台机子上查询信息</li>
 <li>-r, 不进行关联查询,比如一个ip地址对应一个管理人员,不加-r参数的话,会连带管理人员的信息也查询出来</li>
 </ol>
-<h6 id="-t">-t</h6>
+
+<h6 id="-t" class="anchor-link"><a href="#-t">-t<span class="pilcrow">&nbsp;¶</span></a></h6>
 <p>帮助命令,whois请求whois server查询whois命令的格式。</p>
-<h4 id="apnic查询结果">APNIC查询结果</h4>
+
+<h4 id="apnic查询结果" class="anchor-link"><a href="#apnic%e6%9f%a5%e8%af%a2%e7%bb%93%e6%9e%9c">APNIC查询结果<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>这里我用脚本查询了APNIC管理下的所有IP地址的运营商,供大家参考,<a href="/2013/apnic.ipv4.tar.xz" title="APNIC IPV4库">APNIC IPV4 IP库</a>
 (更新时间： 
 2013/07/26 14:29:00
 
  )</p>
-<h6 id="压缩包目录格式">压缩包目录格式：</h6>
+
+<h6 id="压缩包目录格式" class="anchor-link"><a href="#%e5%8e%8b%e7%bc%a9%e5%8c%85%e7%9b%ae%e5%bd%95%e6%a0%bc%e5%bc%8f">压缩包目录格式：<span class="pilcrow">&nbsp;¶</span></a></h6>
 <p>国家代码（iso3166 的两个字符码）/运营商英文</p>
-<h6 id="文件格式">文件格式</h6>
+
+<h6 id="文件格式" class="anchor-link"><a href="#%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f">文件格式<span class="pilcrow">&nbsp;¶</span></a></h6>
 <p>起始IP-结束IP<br>
 两头都包含</p>
 
@@ -308,10 +328,13 @@ changed:        <a href="mailto:hm-changed@apnic.net">hm-changed@apnic.net</a> 2
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

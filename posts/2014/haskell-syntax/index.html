@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,27 +48,29 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Haskell学习笔记三--语法"/>
 <meta name="twitter:description" content="这篇blog要记录下笔者在看haskell的BNF的种种, 希望能全面的了解haskell的语法规则.这里的语法规则主要指的是Haskell 2010.
-Lexeme BNF program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace  上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义."/>
+Lexeme BNF&nbsp;¶ program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace 上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义."/>
 
 <meta property="og:title" content="Haskell学习笔记三--语法" />
 <meta property="og:description" content="这篇blog要记录下笔者在看haskell的BNF的种种, 希望能全面的了解haskell的语法规则.这里的语法规则主要指的是Haskell 2010.
-Lexeme BNF program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace  上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义." />
+Lexeme BNF&nbsp;¶ program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace 上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-syntax/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-syntax/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-01-25T15:36:26+00:00" />
 <meta property="article:modified_time" content="2014-01-25T15:36:26+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -128,7 +136,8 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>这篇blog要记录下笔者在看haskell的BNF的种种, 希望能全面的了解haskell的语法规则.这里的语法规则主要指的是<a href="http://www.haskell.org/onlinereport/haskell2010/haskellch2.html#x7-140002" title="Haskell 2010 语法">Haskell 2010</a>.</p>
-<h1 id="lexeme-bnf">Lexeme BNF</h1>
+
+<h1 id="lexeme-bnf" class="anchor-link"><a href="#lexeme-bnf">Lexeme BNF<span class="pilcrow">&nbsp;¶</span></a></h1>
 <pre><code>program	→	{ lexeme | whitespace }
 lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid 
 whitespace	→	whitestuff {whitestuff}
@@ -156,7 +165,7 @@ ANY	→	graphic | whitechar
 any	→	graphic | space | tab
 graphic	→	small | large | symbol | digit | special | &quot; | '
 </code></pre>
-<p>这里我们可以看出comment有两种格式,一种是以*--*开头到一行结束为comment, 另一种是以*{-*开头,并且可以包行多行,直到以*-}*结束的多行comment.注意,以dash方式进行comment的时候是要除掉symbol以外的any字符,至于symbol的定义,请接着往下看.</p>
+<p>这里我们可以看出comment有两种格式,一种是以*--<em>开头到一行结束为comment, 另一种是以</em>{-<em>开头,并且可以包行多行,直到以</em>-}*结束的多行comment.注意,以dash方式进行comment的时候是要除掉symbol以外的any字符,至于symbol的定义,请接着往下看.</p>
 <pre><code>small	→	ascSmall | uniSmall | _
 ascSmall	→	a | b | … | z
 uniSmall	→	 any Unicode lowercase letter
@@ -172,9 +181,10 @@ uniDigit	→	 any Unicode decimal digit
 octit	→	0 | 1 | … | 7
 hexit	→	digit | A | … | F | a | … | f
 </code></pre>
-<p>这里对symbol的定义是uniSymbol中除去*_*, *&quot;*, 和*'*以外的字符, 以及ascSymbol指向的哪些字符.</p>
+<p>这里对symbol的定义是uniSymbol中除去*_<em>, <em>&quot;</em>, 和</em>'*以外的字符, 以及ascSymbol指向的哪些字符.</p>
 <p><strong>PS, 语法解析的时候应该是用贪婪的策略, 也就是越长匹配的语法越优先.比如解析器碰到==的时候, 应该把他识别为==而不是= =</strong></p>
-<h1 id="变量名称和操作符">变量名称和操作符</h1>
+
+<h1 id="变量名称和操作符" class="anchor-link"><a href="#%e5%8f%98%e9%87%8f%e5%90%8d%e7%a7%b0%e5%92%8c%e6%93%8d%e4%bd%9c%e7%ac%a6">变量名称和操作符<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>看了这么一大堆定义估计脑子都秀逗了, 所以我们来回忆下上面对lexeme的定义.</p>
 <pre><code>lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid 
 </code></pre>
@@ -208,7 +218,8 @@ reservedop	→	.. | : | :: | = | \ | | | &lt;- | -&gt; | @ | ~ | =&gt;
 </ol>
 <p>其中variables和type variables必须以小写的字母或者下划线开头, 其他的namespace以大写字母开头.变量名称不能和type constructor的命名以及同作用域内的class同名.</p>
 <p>我们从上面的定义可以看出, varsym是一般的变量命名, 非:开头.而以:开头的名称是被当作为constructors.</p>
-<h1 id="数字语法">数字语法</h1>
+
+<h1 id="数字语法" class="anchor-link"><a href="#%e6%95%b0%e5%ad%97%e8%af%ad%e6%b3%95">数字语法<span class="pilcrow">&nbsp;¶</span></a></h1>
 <pre><code>decimal	→	digit{digit}
 octal	→	octit{octit}
 hexadecimal	→	hexit{hexit}
@@ -217,7 +228,8 @@ float	→	decimal . decimal [exponent] |	decimal exponent
 exponent	→	(e | E) [+ | -] decimal
 </code></pre>
 <p>上面的定义很清晰的解释了整型, 浮点, 八进制, 十六进制, 以及十进制的语法规则.</p>
-<h1 id="字符串语法">字符串语法</h1>
+
+<h1 id="字符串语法" class="anchor-link"><a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e8%af%ad%e6%b3%95">字符串语法<span class="pilcrow">&nbsp;¶</span></a></h1>
 <pre><code>char	→	' (graphic⟨' | \⟩ | space | escape⟨\&amp;⟩) '
 string	→	&quot; {graphic⟨&quot; | \⟩ | space | escape | gap} &quot;
 escape	→	\ ( charesc | ascii | decimal | o octal | x hexadecimal )
@@ -227,13 +239,14 @@ cntrl	→	ascLarge | @ | [ | \ | ] | ^ | _
 gap	→	\ whitechar {whitechar} \
 </code></pre>
 <p>这里比较奇葩的东西是<strong>gap</strong>, 他的作用其实就是逻辑行继续(不知道用什么词表达), 当一行的字符太多的时候我们在c语言中往往会用**\**来另起一行,而haskell则是用两个反斜杠和当中的空格表达这个意图.</p>
-<h1 id="layout">Layout</h1>
+
+<h1 id="layout" class="anchor-link"><a href="#layout">Layout<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>这个也是和其他语言相比比较奇怪的地方, Haskell既支持{, }, ; 等的语句和作用域的声明, 又支持类似python利用缩进表达作用域的声明.Layout指的就是python的缩进方式.</p>
 <p>当编译器碰到where, let, do, or of等关键字的时候,如果没有{字符, 那么自动采用layout的模式解析, 他会先在这些关键字之后插入一个{.<br>
 如果后续的lexeme缩进更多, 那么不做任何处理.<br>
-如果后续的lexeme缩进是一样的, 那么会插入一个字符**;**.
-如果后续的lexeme缩进的少了, 那么会插入一个**}**.<br>
-当然如果语义上已经表示lexeme的结束,那么**}**就会被插入.</p>
+如果后续的lexeme缩进是一样的, 那么会插入一个字符**;<strong>.
+如果后续的lexeme缩进的少了, 那么会插入一个</strong>}<strong>.<br>
+当然如果语义上已经表示lexeme的结束,那么</strong>}**就会被插入.</p>
 <pre><code>.... where  
 f :: Num a =&gt; a -&gt; a
 f1 :: Num a =&gt; a -&gt; a
@@ -275,10 +288,13 @@ f1 :: Num a =&gt; a -&gt; a
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

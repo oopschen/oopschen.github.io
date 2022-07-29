@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Mon, 27 Jan 2014 20:04:13 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/expression/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 27 Jan 2014 20:04:13 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/expression/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell学习笔记--Expression</title>
       <link>http://oopschen.github.io/posts/2014/haskell-expression/</link>
@@ -19,7 +15,7 @@
       
       <guid>http://oopschen.github.io/posts/2014/haskell-expression/</guid>
       <description>休息了一天,今天本想再偷懒下的,还是不能太放纵自己,把这宝贵的一小时奉献给Haskell.今天来看看haskell expression的定义.
-Expression 全局的看下Haskell的expression的定义.
+Expression&amp;nbsp;¶ 全局的看下Haskell的expression的定义.
 exp	→	infixexp :: [context =&amp;gt;] type	(expression type signature) |	infixexp infixexp	→	lexp qop infixexp	(infix operator application) |	- infixexp	(prefix negation) |	lexp lexp	→	\ apat1 … apatn -&amp;gt; exp	(lambda abstraction, n ≥ 1) |	let decls in exp	(let expression) |	if exp [;] then exp [;] else exp	(conditional) |	case exp of { alts }	(case expression) |	do { stmts }	(do expression) |	fexp fexp	→	[fexp] aexp	(function application) aexp	→	qvar	(variable) |	gcon	(general constructor) |	literal |	( exp )	(parenthesized expression) |	( exp1 , … , expk )	(tuple, k ≥ 2) |	[ exp1 , … , expk ]	(list, k ≥ 1) |	[ exp1 [, exp2] .</description>
     </item>
     

@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,33 +48,35 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="webkit下的KeyboardEvent模拟"/>
 <meta name="twitter:description" content="在javascript中模拟dom的事件是一件非常有趣的事情,他不仅可以将人工机器化,也让页面变得更加丰富。DOM时间参考资料可参见DOM2和DOM3。
-常用方式 我们在javascript中模拟dom事件一般用两种方法：
-调用事件函数 element.click(); 创建事件对象 var evt = document.createEvent(&#34;MouseEvent&#34;); evt.initMouseEvent( &#34;click&#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt); 区别 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
-webkit 中KeyboardEvent 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
-// Event Constructor Syntax:  [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3:  void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); }; 我们来主要看几个参数："/>
+常用方式&nbsp;¶ 我们在javascript中模拟dom事件一般用两种方法：
+调用事件函数&nbsp;¶ element.click(); 创建事件对象&nbsp;¶ var evt = document.createEvent(&#34;MouseEvent&#34;); evt.initMouseEvent( &#34;click&#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt); 区别&nbsp;¶ 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
+webkit 中KeyboardEvent&nbsp;¶ 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
+// Event Constructor Syntax: [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3: void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); }; 我们来主要看几个参数："/>
 
 <meta property="og:title" content="webkit下的KeyboardEvent模拟" />
 <meta property="og:description" content="在javascript中模拟dom的事件是一件非常有趣的事情,他不仅可以将人工机器化,也让页面变得更加丰富。DOM时间参考资料可参见DOM2和DOM3。
-常用方式 我们在javascript中模拟dom事件一般用两种方法：
-调用事件函数 element.click(); 创建事件对象 var evt = document.createEvent(&#34;MouseEvent&#34;); evt.initMouseEvent( &#34;click&#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt); 区别 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
-webkit 中KeyboardEvent 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
-// Event Constructor Syntax:  [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3:  void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); }; 我们来主要看几个参数：" />
+常用方式&nbsp;¶ 我们在javascript中模拟dom事件一般用两种方法：
+调用事件函数&nbsp;¶ element.click(); 创建事件对象&nbsp;¶ var evt = document.createEvent(&#34;MouseEvent&#34;); evt.initMouseEvent( &#34;click&#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt); 区别&nbsp;¶ 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
+webkit 中KeyboardEvent&nbsp;¶ 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
+// Event Constructor Syntax: [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3: void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); }; 我们来主要看几个参数：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2013/webkit-keyboardevent/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2013/webkit-keyboardevent/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2013-06-17T10:14:13+00:00" />
 <meta property="article:modified_time" content="2013-06-17T10:14:13+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -112,83 +120,89 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>在javascript中模拟dom的事件是一件非常有趣的事情,他不仅可以将人工机器化,也让页面变得更加丰富。DOM时间参考资料可参见<a href="http://www.w3.org/TR/DOM-Level-2-Events/" title="DOM2 EVENT SPEC">DOM2</a>和<a href="http://www.w3.org/TR/DOM-Level-3-Events/" title="DOM3 EVENT SPEC">DOM3</a>。</p>
-<h4 id="常用方式">常用方式</h4>
+
+<h4 id="常用方式" class="anchor-link"><a href="#%e5%b8%b8%e7%94%a8%e6%96%b9%e5%bc%8f">常用方式<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>我们在javascript中模拟dom事件一般用两种方法：</p>
-<h5 id="调用事件函数">调用事件函数</h5>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">click</span>();
-</code></pre></div><h5 id="创建事件对象">创建事件对象</h5>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">evt</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createEvent</span>(<span style="color:#e6db74">&#34;MouseEvent&#34;</span>);
-    <span style="color:#a6e22e">evt</span>.<span style="color:#a6e22e">initMouseEvent</span>(
-      <span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, document.<span style="color:#a6e22e">defaultView</span>,
-      <span style="color:#ae81ff">1</span>, window.<span style="color:#a6e22e">screenX</span>, window.<span style="color:#a6e22e">screenY</span>,
-      <span style="color:#a6e22e">clientX</span>, <span style="color:#a6e22e">clientY</span>,
-      <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">null</span>
-    );
-    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#a6e22e">evt</span>);
-</code></pre></div><h5 id="区别">区别</h5>
+
+<h5 id="调用事件函数" class="anchor-link"><a href="#%e8%b0%83%e7%94%a8%e4%ba%8b%e4%bb%b6%e5%87%bd%e6%95%b0">调用事件函数<span class="pilcrow">&nbsp;¶</span></a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">click</span>();
+</span></span></code></pre></div>
+<h5 id="创建事件对象" class="anchor-link"><a href="#%e5%88%9b%e5%bb%ba%e4%ba%8b%e4%bb%b6%e5%af%b9%e8%b1%a1">创建事件对象<span class="pilcrow">&nbsp;¶</span></a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">evt</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createEvent</span>(<span style="color:#e6db74">&#34;MouseEvent&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">evt</span>.<span style="color:#a6e22e">initMouseEvent</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, document.<span style="color:#a6e22e">defaultView</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>, window.<span style="color:#a6e22e">screenX</span>, window.<span style="color:#a6e22e">screenY</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">clientX</span>, <span style="color:#a6e22e">clientY</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">dispatchEvent</span>(<span style="color:#a6e22e">evt</span>);
+</span></span></code></pre></div>
+<h5 id="区别" class="anchor-link"><a href="#%e5%8c%ba%e5%88%ab">区别<span class="pilcrow">&nbsp;¶</span></a></h5>
 <p>这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。</p>
-<h4 id="webkit-中keyboardevent">webkit 中KeyboardEvent</h4>
+
+<h4 id="webkit-中keyboardevent" class="anchor-link"><a href="#webkit-%e4%b8%adkeyboardevent">webkit 中KeyboardEvent<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">    <span style="color:#75715e">// Event Constructor Syntax:
-</span><span style="color:#75715e"></span>    [<span style="color:#a6e22e">Constructor</span>(<span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">typeArg</span>, <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">KeyboardEventInit</span> <span style="color:#a6e22e">keyboardEventInitDict</span>)]
-    <span style="color:#a6e22e">partial</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">KeyboardEvent</span>
-    {
-      <span style="color:#75715e">// Originally introduced (and deprecated) in DOM Level 3:
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initKeyboardEvent</span>(<span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">typeArg</span>,
-                             <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">canBubbleArg</span>,
-                             <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">cancelableArg</span>,
-                             <span style="color:#a6e22e">AbstractView</span><span style="color:#f92672">?</span> <span style="color:#a6e22e">viewArg</span>,
-                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">charArg</span>,
-                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">keyArg</span>,
-                             <span style="color:#a6e22e">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">locationArg</span>,
-                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">modifiersListArg</span>,
-                             <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">repeat</span>,
-                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">localeArg</span>);
-    };
-</code></pre></div><p>我们来主要看几个参数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#75715e">// Event Constructor Syntax:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    [<span style="color:#a6e22e">Constructor</span>(<span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">typeArg</span>, <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">KeyboardEventInit</span> <span style="color:#a6e22e">keyboardEventInitDict</span>)]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">partial</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">KeyboardEvent</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// Originally introduced (and deprecated) in DOM Level 3:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initKeyboardEvent</span>(<span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">typeArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">canBubbleArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">cancelableArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">AbstractView</span><span style="color:#f92672">?</span> <span style="color:#a6e22e">viewArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">charArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">keyArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">locationArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">modifiersListArg</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">repeat</span>,
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">localeArg</span>);
+</span></span><span style="display:flex;"><span>    };
+</span></span></code></pre></div><p>我们来主要看几个参数：</p>
 <ol>
 <li>charArg表示按键的值和keyArg等同,如果值是不可见字符则charArg为空字符</li>
 <li>modifiersListArg表示是否有按键Control等修饰符</li>
 </ol>
 <p>然而在webkit中<em>core/dom/KeyboardEvent.idl</em>中确是这样的代码:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">    <span style="color:#75715e">// FIXME: this does not match the version in the DOM spec.
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initKeyboardEvent</span>([<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">type</span>, 
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">canBubble</span>, 
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">cancelable</span>, 
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">DOMWindow</span> <span style="color:#a6e22e">view</span>, 
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">keyIdentifier</span>,
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">keyLocation</span>,
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">ctrlKey</span>,
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">altKey</span>,
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">shiftKey</span>,
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">metaKey</span>,
-                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">altGraphKey</span>);
-</code></pre></div><p>和上面完全不一致,而从实现的类的177到200行来看我们无法通过创建KeyboardEvent来创建一个按键,因为无法设置keyCode值。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">KeyboardEvent</span><span style="color:#f92672">::</span><span style="color:#a6e22e">keyCode</span>() <span style="color:#66d9ef">const</span>
-    {
-        <span style="color:#75715e">// IE: virtual key code for keyup/keydown, character code for keypress
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Firefox: virtual key code for keyup/keydown, zero for keypress
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// We match IE.
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">m_keyEvent</span>)
-            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">type</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">eventNames</span>().<span style="color:#a6e22e">keydownEvent</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">type</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">eventNames</span>().<span style="color:#a6e22e">keyupEvent</span>)
-            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">windowsVirtualKeyCodeWithoutLocation</span>(<span style="color:#a6e22e">m_keyEvent</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">windowsVirtualKeyCode</span>());
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#75715e">// FIXME: this does not match the version in the DOM spec.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initKeyboardEvent</span>([<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">type</span>, 
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">canBubble</span>, 
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">cancelable</span>, 
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">DOMWindow</span> <span style="color:#a6e22e">view</span>, 
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">DOMString</span> <span style="color:#a6e22e">keyIdentifier</span>,
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#a6e22e">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">keyLocation</span>,
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">ctrlKey</span>,
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">altKey</span>,
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">shiftKey</span>,
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">metaKey</span>,
+</span></span><span style="display:flex;"><span>                           [<span style="color:#a6e22e">Default</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Undefined</span>] <span style="color:#a6e22e">optional</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">altGraphKey</span>);
+</span></span></code></pre></div><p>和上面完全不一致,而从实现的类的177到200行来看我们无法通过创建KeyboardEvent来创建一个按键,因为无法设置keyCode值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">KeyboardEvent</span><span style="color:#f92672">::</span><span style="color:#a6e22e">keyCode</span>() <span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// IE: virtual key code for keyup/keydown, character code for keypress
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Firefox: virtual key code for keyup/keydown, zero for keypress
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// We match IE.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">m_keyEvent</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">type</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">eventNames</span>().<span style="color:#a6e22e">keydownEvent</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">type</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">eventNames</span>().<span style="color:#a6e22e">keyupEvent</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">windowsVirtualKeyCodeWithoutLocation</span>(<span style="color:#a6e22e">m_keyEvent</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">windowsVirtualKeyCode</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">charCode</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">KeyboardEvent</span><span style="color:#f92672">::</span><span style="color:#a6e22e">charCode</span>() <span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// IE: not supported
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Firefox: 0 for keydown/keyup events, character code for keypress
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// We match Firefox
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">m_keyEvent</span> <span style="color:#f92672">||</span> (<span style="color:#a6e22e">type</span>() <span style="color:#f92672">!=</span> <span style="color:#a6e22e">eventNames</span>().<span style="color:#a6e22e">keypressEvent</span>))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        String <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">m_keyEvent</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">text</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#a6e22e">text</span>.<span style="color:#a6e22e">characterStartingAt</span>(<span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>m_keyEvent是一个PlatformKeyboardEvent的实例,而这个实例无法通过js创建。</p>
 
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">charCode</span>();
-    }
-    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">KeyboardEvent</span><span style="color:#f92672">::</span><span style="color:#a6e22e">charCode</span>() <span style="color:#66d9ef">const</span>
-    {
-        <span style="color:#75715e">// IE: not supported
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Firefox: 0 for keydown/keyup events, character code for keypress
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// We match Firefox
-</span><span style="color:#75715e"></span>
-        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">m_keyEvent</span> <span style="color:#f92672">||</span> (<span style="color:#a6e22e">type</span>() <span style="color:#f92672">!=</span> <span style="color:#a6e22e">eventNames</span>().<span style="color:#a6e22e">keypressEvent</span>))
-            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-        String <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">m_keyEvent</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">text</span>();
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#a6e22e">text</span>.<span style="color:#a6e22e">characterStartingAt</span>(<span style="color:#ae81ff">0</span>));
-    }
-</code></pre></div><p>m_keyEvent是一个PlatformKeyboardEvent的实例,而这个实例无法通过js创建。</p>
-<h4 id="总结">总结</h4>
+<h4 id="总结" class="anchor-link"><a href="#%e6%80%bb%e7%bb%93">总结<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>在这个实现未被修改之前,我们仍无法通过javascript在webkit内核下创建一个真实的按键效果。</p>
 
     </article>
@@ -220,10 +234,13 @@ if (!doNotTrack) {
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

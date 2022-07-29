@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Mon, 17 Jun 2013 10:14:13 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/js%E6%A8%A1%E6%8B%9Fkeyboardevent/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 17 Jun 2013 10:14:13 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/js%E6%A8%A1%E6%8B%9Fkeyboardevent/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>webkit下的KeyboardEvent模拟</title>
       <link>http://oopschen.github.io/posts/2013/webkit-keyboardevent/</link>
@@ -19,10 +15,10 @@
       
       <guid>http://oopschen.github.io/posts/2013/webkit-keyboardevent/</guid>
       <description>在javascript中模拟dom的事件是一件非常有趣的事情,他不仅可以将人工机器化,也让页面变得更加丰富。DOM时间参考资料可参见DOM2和DOM3。
-常用方式 我们在javascript中模拟dom事件一般用两种方法：
-调用事件函数 element.click(); 创建事件对象 var evt = document.createEvent(&amp;#34;MouseEvent&amp;#34;); evt.initMouseEvent( &amp;#34;click&amp;#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt); 区别 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
-webkit 中KeyboardEvent 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
-// Event Constructor Syntax:  [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3:  void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); }; 我们来主要看几个参数：</description>
+常用方式&amp;nbsp;¶ 我们在javascript中模拟dom事件一般用两种方法：
+调用事件函数&amp;nbsp;¶ element.click(); 创建事件对象&amp;nbsp;¶ var evt = document.createEvent(&amp;#34;MouseEvent&amp;#34;); evt.initMouseEvent( &amp;#34;click&amp;#34;, true, true, document.defaultView, 1, window.screenX, window.screenY, clientX, clientY, 0, null ); element.dispatchEvent(evt); 区别&amp;nbsp;¶ 这两种方式其实没有区别,都会进行完整的时间传递从capture phase到target phase,最后bubble phase。唯一的区别是后者可以自定义一些事件相关的参数,比如点击的位置等。
+webkit 中KeyboardEvent&amp;nbsp;¶ 在webkit中无法通过KeyboardEvent来完全模拟按键,原因是webkit中的实现和DOM3的标准不一致。我们来看下DOM3中对KeyboardEvent的initKeyboardEvent函数的定义：
+// Event Constructor Syntax: [Constructor(DOMString typeArg, optional KeyboardEventInit keyboardEventInitDict)] partial interface KeyboardEvent { // Originally introduced (and deprecated) in DOM Level 3: void initKeyboardEvent(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, AbstractView? viewArg, DOMString charArg, DOMString keyArg, unsigned long locationArg, DOMString modifiersListArg, boolean repeat, DOMString localeArg); }; 我们来主要看几个参数：</description>
     </item>
     
   </channel>

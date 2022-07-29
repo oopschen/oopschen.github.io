@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Thu, 15 May 2014 19:14:32 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/activemq/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 15 May 2014 19:14:32 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/activemq/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MQ的尝试</title>
       <link>http://oopschen.github.io/posts/2014/mq-experiment/</link>
@@ -19,15 +15,15 @@
       
       <guid>http://oopschen.github.io/posts/2014/mq-experiment/</guid>
       <description>long long ago, 就听说过Message Queue(mq), 一直没去尝试, 毕竟用到这种工具的都是分布式的场景了. 这次碰到一个很适合的场景决定适用一把mq.
-场景 这次的场景需要由一个总控端将特定的任务分配给执行段, 当执行端完成作业后, 将这个任务从总控端中剔除.这个分配的动作则是由执行端主动去总控端获取.
+场景&amp;nbsp;¶ 这次的场景需要由一个总控端将特定的任务分配给执行段, 当执行端完成作业后, 将这个任务从总控端中剔除.这个分配的动作则是由执行端主动去总控端获取.
 所以我把这个场景设计为三个部分:
- 总控端, 负责生成任务并插入mq, 并监测mq的长度, 保证适度的长度 执行端, 负责从mq中获取任务并执行, 当任务失败或者程序崩溃的时候, 刚才获取的任务则重新回归总控端, 交给其他执行端执行, 保证任务一定被完整的执行. mq, 负责任务必须被一个执行端完整的执行  选择MQ 从google搜索, 可以有很多mq, 比如RabbitMQ, ActiveMQ, MSMQ, ZeroMQ等等, 一时间还比较难选择.
+总控端, 负责生成任务并插入mq, 并监测mq的长度, 保证适度的长度 执行端, 负责从mq中获取任务并执行, 当任务失败或者程序崩溃的时候, 刚才获取的任务则重新回归总控端, 交给其他执行端执行, 保证任务一定被完整的执行. mq, 负责任务必须被一个执行端完整的执行 选择MQ&amp;nbsp;¶ 从google搜索, 可以有很多mq, 比如RabbitMQ, ActiveMQ, MSMQ, ZeroMQ等等, 一时间还比较难选择.
 首先可以从google搜索结果的排名上排除几个, 剩下RabbitMQ和ActiveMQ.然后下载build文件的时候, RabbitMQ只要4M左右的大小而ActiveMQ则要40M, 对于没有耐性的我果断选择了RabbitMQ.
 再细看RabbitMQ的文档, 它是用erlang写的&amp;ndash;看过一篇文章, 这门语言是Ericsson为了通信行业写的, 所以对于他的可靠性和高效比较认可.最后看看他是不是支持业务场景&amp;ndash;RabbitMQ支持message的ack模式, 也就是说receiver可以先获取message, 然后再任务处理完后, 确认这个message被消耗. 这下完美了, 可以开始动工了.
-安装和体验 对于第一次上手RabbitMQ, 过程还是比较顺利的.在Gentoo和Centos下只需要1分钟的时间就安装完毕了.
+安装和体验&amp;nbsp;¶ 对于第一次上手RabbitMQ, 过程还是比较顺利的.在Gentoo和Centos下只需要1分钟的时间就安装完毕了.
 再看配置文件, RabbitMQ的配置文件就是一个erlang的item, 格式如下
-[ {app, {key, value}}, .. ]  RabbitMQ基本不需要过多的配置, 采用默认的也可以, 非常方便.
-问题 在开发过程中, 遇到了一个比较蛋疼的问题. RabbitMQ对于链接有一个heartbeat机制, 也就是说, 当接收不到这个heartbeat的时候, 链接就会自动断开, message就重新被分配.</description>
+[ {app, {key, value}}, .. ] RabbitMQ基本不需要过多的配置, 采用默认的也可以, 非常方便.
+问题&amp;nbsp;¶ 在开发过程中, 遇到了一个比较蛋疼的问题. RabbitMQ对于链接有一个heartbeat机制, 也就是说, 当接收不到这个heartbeat的时候, 链接就会自动断开, message就重新被分配. 由于任务处理的时候比较长, 所以经常碰到任务处理完后, 链接已经断开, 无法ack这个message.</description>
     </item>
     
   </channel>

@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Fri, 04 Dec 2015 21:21:15 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/cpupower/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 04 Dec 2015 21:21:15 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/cpupower/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CPU在linux下的调试</title>
       <link>http://oopschen.github.io/posts/2015/linux-cpu-admin/</link>
@@ -20,14 +16,14 @@
       <guid>http://oopschen.github.io/posts/2015/linux-cpu-admin/</guid>
       <description>Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.
 先介绍一个工具&amp;ndash;CPUPower, CPUPower是linux下展示和设置cpu相关属性的工具.
-实验机器 cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
-应用cpupower cpupower frequency-info 会看到如下的提示:
- analyzing CPU 0: driver: acpi-cpufreq
+实验机器&amp;nbsp;¶ cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
+应用cpupower&amp;nbsp;¶ cpupower frequency-info 会看到如下的提示:
+analyzing CPU 0: driver: acpi-cpufreq
 CPUs which run at the same hardware frequency: 0
 CPUs which need to have their frequency coordinated by software: 0
 maximum transition latency: 10.0 us.
 hardware limits: 1.20 GHz - 2.67 GHz
-available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.</description>
+available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1.</description>
     </item>
     
   </channel>

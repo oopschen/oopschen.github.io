@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -43,42 +49,44 @@
 <meta name="twitter:title" content="CPU在linux下的调试"/>
 <meta name="twitter:description" content="Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.
 先介绍一个工具&ndash;CPUPower, CPUPower是linux下展示和设置cpu相关属性的工具.
-实验机器 cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
-应用cpupower cpupower frequency-info 会看到如下的提示:
- analyzing CPU 0: driver: acpi-cpufreq
+实验机器&nbsp;¶ cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
+应用cpupower&nbsp;¶ cpupower frequency-info 会看到如下的提示:
+analyzing CPU 0: driver: acpi-cpufreq
 CPUs which run at the same hardware frequency: 0
 CPUs which need to have their frequency coordinated by software: 0
 maximum transition latency: 10.0 us.
 hardware limits: 1.20 GHz - 2.67 GHz
-available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2."/>
+available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1."/>
 
 <meta property="og:title" content="CPU在linux下的调试" />
 <meta property="og:description" content="Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.
 先介绍一个工具&ndash;CPUPower, CPUPower是linux下展示和设置cpu相关属性的工具.
-实验机器 cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
-应用cpupower cpupower frequency-info 会看到如下的提示:
- analyzing CPU 0: driver: acpi-cpufreq
+实验机器&nbsp;¶ cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
+应用cpupower&nbsp;¶ cpupower frequency-info 会看到如下的提示:
+analyzing CPU 0: driver: acpi-cpufreq
 CPUs which run at the same hardware frequency: 0
 CPUs which need to have their frequency coordinated by software: 0
 maximum transition latency: 10.0 us.
 hardware limits: 1.20 GHz - 2.67 GHz
-available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2." />
+available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2015/linux-cpu-admin/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2015/linux-cpu-admin/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-12-04T21:21:15+00:00" />
 <meta property="article:modified_time" content="2015-12-04T21:21:15+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -137,12 +145,14 @@ if (!doNotTrack) {
     <article role="article">
         <p>Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.</p>
 <p>先介绍一个工具&ndash;<strong>CPUPower</strong>, CPUPower是linux下展示和设置cpu相关属性的工具.</p>
-<h2 id="实验机器">实验机器</h2>
+
+<h2 id="实验机器" class="anchor-link"><a href="#%e5%ae%9e%e9%aa%8c%e6%9c%ba%e5%99%a8">实验机器<span class="pilcrow">&nbsp;¶</span></a></h2>
 <p>cpu: i5-480m
 笔记本: thinkpad x201 nn5, 2011年款</p>
-<h2 id="应用cpupower">应用cpupower</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">  cpupower frequency-info  
-</code></pre></div><p>会看到如下的提示:</p>
+
+<h2 id="应用cpupower" class="anchor-link"><a href="#%e5%ba%94%e7%94%a8cpupower">应用cpupower<span class="pilcrow">&nbsp;¶</span></a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>  cpupower frequency-info  
+</span></span></code></pre></div><p>会看到如下的提示:</p>
 <blockquote>
 <p>analyzing CPU 0:
 driver: acpi-cpufreq<br>
@@ -163,21 +173,25 @@ Active: yes<br>
 2200 MHz max turbo 1 active cores</p>
 </blockquote>
 <p>从上面的输出结果可以看出cpu使用的Governor是<strong>performance</strong>, 当前cpu频率是2.67GHz. CPU可用的Governor有userspace, ondemand, performance, cpu可用的频率有2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1.87 GHz, 1.73 GHz, 1.60 GHz, 1.47 GHz, 1.33 GHz, 1.20 GHz.</p>
-<h2 id="cpu-governor">CPU Governor</h2>
+
+<h2 id="cpu-governor" class="anchor-link"><a href="#cpu-governor">CPU Governor<span class="pilcrow">&nbsp;¶</span></a></h2>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<h3 id="设置governor">设置Governor</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">    cpupower -c all frequency-set --governor performance
-</code></pre></div><p>使用如上命令设置cpu governor为performance</p>
-<h3 id="设置频率">设置频率</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">    cpupower -c all frequency-set  -f 1.33GHz
-</code></pre></div><p>使用如上命令设置cpu的频率为1.33GHz</p>
-<h2 id="其他">其他</h2>
+
+<h3 id="设置governor" class="anchor-link"><a href="#%e8%ae%be%e7%bd%aegovernor">设置Governor<span class="pilcrow">&nbsp;¶</span></a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>    cpupower -c all frequency-set --governor performance
+</span></span></code></pre></div><p>使用如上命令设置cpu governor为performance</p>
+
+<h3 id="设置频率" class="anchor-link"><a href="#%e8%ae%be%e7%bd%ae%e9%a2%91%e7%8e%87">设置频率<span class="pilcrow">&nbsp;¶</span></a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>    cpupower -c all frequency-set  -f 1.33GHz
+</span></span></code></pre></div><p>使用如上命令设置cpu的频率为1.33GHz</p>
+
+<h2 id="其他" class="anchor-link"><a href="#%e5%85%b6%e4%bb%96">其他<span class="pilcrow">&nbsp;¶</span></a></h2>
 <p>使用过程中可能会遇到一个问题,当笔记本电脑没有接电池只接AC的时候,linux默认会使用最低频率.如想突破此限制,可以在内核启动参数中添加如下参数:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">    processor.ignore_ppc<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> 
-</code></pre></div><p>此参数会忽略bios的限制.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>    processor.ignore_ppc<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> 
+</span></span></code></pre></div><p>此参数会忽略bios的限制.</p>
 
     </article>
 </div>
@@ -208,10 +222,13 @@ Active: yes<br>
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Wed, 29 Jan 2014 20:32:43 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/declarations/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 29 Jan 2014 20:32:43 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/declarations/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell学习笔记--Declarations and Bindings</title>
       <link>http://oopschen.github.io/posts/2014/haskell-declaration/</link>
@@ -19,8 +15,8 @@
       
       <guid>http://oopschen.github.io/posts/2014/haskell-declaration/</guid>
       <description>即将到年三十了, 好学的年轻人还是决定在今天花一个小时提升下自己的技能. 今天来看看Haskell 2010语言规范中的Declarations和Bindings.
-Declarations 这部分在理解Haskell中很重要, 因为他诠释了haskell这门语言是如何定义事情的, 他的定义会告诉编译器把这些代码生成低级机器语言.
-module	→	module modid [exports] where body |	body body	→	{ impdecls ; topdecls } |	{ impdecls } |	{ topdecls } topdecls	→	topdecl1 ; … ; topdecln	(n ≥ 1) topdecl	→	type simpletype = type |	data [context =&amp;gt;] simpletype [= constrs] [deriving] |	newtype [context =&amp;gt;] simpletype = newconstr [deriving] |	class [scontext =&amp;gt;] tycls tyvar [where cdecls] |	instance [scontext =&amp;gt;] qtycls inst [where idecls] |	default (type1 , … , typen)	(n ≥ 0) |	foreign fdecl |	decl decls	→	{ decl1 ; … ; decln }	(n ≥ 0) decl	→	gendecl |	(funlhs | pat) rhs cdecls	→	{ cdecl1 ; … ; cdecln }	(n ≥ 0) cdecl	→	gendecl |	(funlhs | var) rhs idecls	→	{ idecl1 ; … ; idecln }	(n ≥ 0) idecl	→	(funlhs | var) rhs |	(empty) gendecl	→	vars :: [context =&amp;gt;] type	(type signature) |	fixity [integer] ops	(fixity declaration) |	(empty declaration) ops	→	op1 , … , opn	(n ≥ 1) vars	→	var1 , … , varn	(n ≥ 1) fixity	→	infixl | infixr | infix  从上面我们可以看到有topdecls和decls的区分, topdecls只能在module的top level中被声明, 而不能在其他的scope(比如where, let等)中被声明.</description>
+Declarations&amp;nbsp;¶ 这部分在理解Haskell中很重要, 因为他诠释了haskell这门语言是如何定义事情的, 他的定义会告诉编译器把这些代码生成低级机器语言.
+module	→	module modid [exports] where body |	body body	→	{ impdecls ; topdecls } |	{ impdecls } |	{ topdecls } topdecls	→	topdecl1 ; … ; topdecln	(n ≥ 1) topdecl	→	type simpletype = type |	data [context =&amp;gt;] simpletype [= constrs] [deriving] |	newtype [context =&amp;gt;] simpletype = newconstr [deriving] |	class [scontext =&amp;gt;] tycls tyvar [where cdecls] |	instance [scontext =&amp;gt;] qtycls inst [where idecls] |	default (type1 , … , typen)	(n ≥ 0) |	foreign fdecl |	decl decls	→	{ decl1 ; … ; decln }	(n ≥ 0) decl	→	gendecl |	(funlhs | pat) rhs cdecls	→	{ cdecl1 ; … ; cdecln }	(n ≥ 0) cdecl	→	gendecl |	(funlhs | var) rhs idecls	→	{ idecl1 ; … ; idecln }	(n ≥ 0) idecl	→	(funlhs | var) rhs |	(empty) gendecl	→	vars :: [context =&amp;gt;] type	(type signature) |	fixity [integer] ops	(fixity declaration) |	(empty declaration) ops	→	op1 , … , opn	(n ≥ 1) vars	→	var1 , … , varn	(n ≥ 1) fixity	→	infixl | infixr | infix 从上面我们可以看到有topdecls和decls的区分, topdecls只能在module的top level中被声明, 而不能在其他的scope(比如where, let等)中被声明.</description>
     </item>
     
   </channel>

@@ -7,32 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux下锁的应用</title>
       <link>http://oopschen.github.io/posts/2018/linux_fcntl_lock_usage/</link>
       <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
       <guid>http://oopschen.github.io/posts/2018/linux_fcntl_lock_usage/</guid>
-      <description>概述 前不久工作需要实现一个文件转递的应用系统,功能如下:
- 数据采集方通过ftp上传文件(大小在200KB) 转递程序监听ftp的上传文件夹,实时转递文件到大数据平台 应用部署在Centos7 64bit  第一版实现 采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送
+      <description>概述&amp;nbsp;¶ 前不久工作需要实现一个文件转递的应用系统,功能如下:
+数据采集方通过ftp上传文件(大小在200KB) 转递程序监听ftp的上传文件夹,实时转递文件到大数据平台 应用部署在Centos7 64bit 第一版实现&amp;nbsp;¶ 采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送
 推送文件到大数据平台.
-问题 在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,
+问题&amp;nbsp;¶ 在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,
 ftp服务器写入到硬盘的速度变慢,当转递程序扫描文件夹的时候, 文件虽然已经生成,但文件内容却没有完全写入
 完毕, 从而造成读取到文件但解析失败的情况.
-探究 那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?
+探究&amp;nbsp;¶ 那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?
 在Linux系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.
-Advisory record lock 一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.
-Mandatory lock 一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.
+Advisory record lock&amp;nbsp;¶ 一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.
+Mandatory lock&amp;nbsp;¶ 一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.
 那我们有没有办法用这些机制去保证呢?
-vsftpd 如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.
+vsftpd&amp;nbsp;¶ 如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.
 硬着头皮去看下源码, 幸好vsftpd作者考虑到了这点, 在写入文件的时候已经加如了锁的处理.
 具体戳这里
-Java Advisory record lock 由于转递程序是Java写的, 那怎么使用fcntl呢?难道使用jni吗?会不会太复杂? 首先, 我们了解下Java里面文件锁如何添加:
+Java Advisory record lock&amp;nbsp;¶ 由于转递程序是Java写的, 那怎么使用fcntl呢?难道使用jni吗?会不会太复杂? 首先, 我们了解下Java里面文件锁如何添加:
 File outFile = new File(&amp;#34;/tmp/filelock.tmp&amp;#34;); FileOutputStream outputStream = new FileOutputStream(outFile); FileChannel channel = outputStream.getChannel(); FileLock lock = channel.</description>
     </item>
     
@@ -44,14 +40,14 @@ File outFile = new File(&amp;#34;/tmp/filelock.tmp&amp;#34;); FileOutputStream o
       <guid>http://oopschen.github.io/posts/2015/linux-cpu-admin/</guid>
       <description>Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.
 先介绍一个工具&amp;ndash;CPUPower, CPUPower是linux下展示和设置cpu相关属性的工具.
-实验机器 cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
-应用cpupower cpupower frequency-info 会看到如下的提示:
- analyzing CPU 0: driver: acpi-cpufreq
+实验机器&amp;nbsp;¶ cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
+应用cpupower&amp;nbsp;¶ cpupower frequency-info 会看到如下的提示:
+analyzing CPU 0: driver: acpi-cpufreq
 CPUs which run at the same hardware frequency: 0
 CPUs which need to have their frequency coordinated by software: 0
 maximum transition latency: 10.0 us.
 hardware limits: 1.20 GHz - 2.67 GHz
-available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.</description>
+available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1.</description>
     </item>
     
     <item>
@@ -61,18 +57,18 @@ available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.1
       
       <guid>http://oopschen.github.io/posts/2014/tmux_give_it_a_try/</guid>
       <description>如果不是无鼠标操作控就可以忽略这篇文章了.很高兴你也是个无鼠标操作控, 今天就来看看tmux的神奇魔力.
-现状 在介绍tmux之前,还是先来说说场景&amp;ndash;当我们需要开起多个ssh来观察不同服务器的状态的时候,很多个terminal将不得不被打开,如果你是window,那么你要很辛苦的拖动个个框保持满屏,或者也可以使用第三方的tab功能,而如果你是linux,我恐怕你也不得不这么做.当然如果你是利用类似xmonad等的titling的窗口管理器,这也是可以得到解决的.
+现状&amp;nbsp;¶ 在介绍tmux之前,还是先来说说场景&amp;ndash;当我们需要开起多个ssh来观察不同服务器的状态的时候,很多个terminal将不得不被打开,如果你是window,那么你要很辛苦的拖动个个框保持满屏,或者也可以使用第三方的tab功能,而如果你是linux,我恐怕你也不得不这么做.当然如果你是利用类似xmonad等的titling的窗口管理器,这也是可以得到解决的.
 目前,本人也是利用xmonad和urxvt来达到这个效果, 使用久了也会觉得这样是如此烦,每次想要在terminal里面干点别的事情就不得不打开新的terminal.
-tmux&amp;ndash;爽 首先, 我们需要确定的事情是tmux不是terminal!!!它只是terminal的管理器,更准确的说是terminal复用器.
+tmux&amp;ndash;爽&amp;nbsp;¶ 首先, 我们需要确定的事情是tmux不是terminal!!!它只是terminal的管理器,更准确的说是terminal复用器.
 有什么直接的好处呢?Tmux可以帮助我们解决在只打开一个terminal的时候,既可以管理多个ssh,还可以管理多个vi或者top.或许你会问,这个功能通过后台进程不是可以搞定么?回答是是的,但是tmux do better.
-tmux概念 在使用tmux之前,我们需要理解tmux中的四个概念client,session,window,pane.
-client client指的是我们的terminal,也就是能直接和session打交道的部分.
-session session则是进程的集合,也就是我们所说的多个ssh或者vi.
-window window是session的具体展现,可以理解为我们能看到的session.
-pane pane是把window切割成多个部分,也就是说我们可以在一个window中看到多个ssh.
-使用后感受 使用了tmux大概有3天, 总体感觉得心应手, 特别是session的概念, 让多个程序管理起来有序,清晰, 非常使用.
+tmux概念&amp;nbsp;¶ 在使用tmux之前,我们需要理解tmux中的四个概念client,session,window,pane.
+client&amp;nbsp;¶ client指的是我们的terminal,也就是能直接和session打交道的部分.
+session&amp;nbsp;¶ session则是进程的集合,也就是我们所说的多个ssh或者vi.
+window&amp;nbsp;¶ window是session的具体展现,可以理解为我们能看到的session.
+pane&amp;nbsp;¶ pane是把window切割成多个部分,也就是说我们可以在一个window中看到多个ssh.
+使用后感受&amp;nbsp;¶ 使用了tmux大概有3天, 总体感觉得心应手, 特别是session的概念, 让多个程序管理起来有序,清晰, 非常使用.
 下面罗列下常用的组合(所有组合都是默认的均未特别设置过):
- ctrl+b + [, 进入scroll模式, 默认用emacs的按键来移动, 也可配置成vi的模式 ctrl+b + [ 进入scroll模式后科使用space进入复制选择模式, 然后用enter复制选中的文本 ctrl+b + :, 进入tmux的命令行, 比如可以重开session, killsession等 ctrl+b + %, 新建pane并按垂直分割, ctrl+b + %, 水平新建pane ctrl+b + s, 查看所有session ctrl+b + ?, 查看按键绑定  </description>
+ctrl+b + [, 进入scroll模式, 默认用emacs的按键来移动, 也可配置成vi的模式 ctrl+b + [ 进入scroll模式后科使用space进入复制选择模式, 然后用enter复制选中的文本 ctrl+b + :, 进入tmux的命令行, 比如可以重开session, killsession等 ctrl+b + %, 新建pane并按垂直分割, ctrl+b + %, 水平新建pane ctrl+b + s, 查看所有session ctrl+b + ?, 查看按键绑定 </description>
     </item>
     
     <item>
@@ -82,11 +78,11 @@ pane pane是把window切割成多个部分,也就是说我们可以在一个wind
       
       <guid>http://oopschen.github.io/posts/2013/how-to-delete-timer-set-by-setitimer/</guid>
       <description>最近的项目需要用一个timer设置超时检测,看了timer_create和setitimer的文档,选择使用比较简单的setitimer方式进行检测,当然这种方式的可移植性不太好,建议选择timer_create（基于posix标准）方式进行超时设置。后来碰到一个问题：setitimer并没有对应的删除timer的系统调用,而文档也是一句带过：
- A timer which is set to zero (it_value is zero or the timer expires and it_interval is zero) stops.
- 上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：
-实验设计  设定主程序监听alarm信号,打印日志 开起timer 设定主程序监听SIGUSR1事件,停止timer 利用{% highlight bash %}kill -SIGUSR1 {% endhighlight %}方式停止timer  预期：
+A timer which is set to zero (it_value is zero or the timer expires and it_interval is zero) stops.
+上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：
+实验设计&amp;nbsp;¶ 设定主程序监听alarm信号,打印日志 开起timer 设定主程序监听SIGUSR1事件,停止timer 利用{% highlight bash %}kill -SIGUSR1 {% endhighlight %}方式停止timer 预期：
 主程序停止打印日志
-1. 设置timer的值为0 整体代码如下：
+1. 设置timer的值为0&amp;nbsp;¶ 整体代码如下：
 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;signal.h&amp;gt; #include &amp;lt;sys/time.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; static struct timeval __intrvl; static struct timeval __timer_val; static struct itimerval __timer; void hdl(int sigNum) { printf(&amp;#34;sig num %d, %ld-%ld, %ld-%ld\n&amp;#34;, sigNum, __timer_val.</description>
     </item>
     
@@ -97,12 +93,12 @@ pane pane是把window切割成多个部分,也就是说我们可以在一个wind
       
       <guid>http://oopschen.github.io/posts/2013/computer-time/</guid>
       <description>最近刚用Gentoo从零开始构建出了一个linux系统,使用ck内核。在此过程中碰到了一个时间问题,当我选用Asia/Shanghai的时候hwclock的时间比date的时间晚了近8个小时。然而,对照手表上的时间,hwclock的时间是正确的,而date的时间是错误的。这个问题废了我好多劲,今天终于有时间把这个问题整理下,记录下。
-时间 在了解问题前我们先了解下计算机里时间的概念。首先,在计算机里时间的记录是靠一个叫控制频率的硬件,每隔固定的时间给cpu发送中断,这样计算机才能知道到底过了多长时间。比如,我们控制频率的硬件的中断频率为100MHz,那么计算机能识别的最小的时间单位是0.01s（1/100MHz）,也就是说如果我们要求这台计算机每间隔0.001秒启动一个任务,那是办不到,因为cpu无法在0.001秒的时候中断。
+时间&amp;nbsp;¶ 在了解问题前我们先了解下计算机里时间的概念。首先,在计算机里时间的记录是靠一个叫控制频率的硬件,每隔固定的时间给cpu发送中断,这样计算机才能知道到底过了多长时间。比如,我们控制频率的硬件的中断频率为100MHz,那么计算机能识别的最小的时间单位是0.01s（1/100MHz）,也就是说如果我们要求这台计算机每间隔0.001秒启动一个任务,那是办不到,因为cpu无法在0.001秒的时候中断。
 时间在计算机里分为两块：
- 硬件时间 系统时间  硬件时间 所谓硬件时间,就是当系统关闭的时候,能持久保存在主板上的时间数据。它不包含只包含年月日,时分秒,却不包含zoneinfo（比如Asia/Shanghai）。
-系统时间 系统时间是根据硬件时间和设定的zoneinfo计算出本地时间,也可以理解为本地的时间。
-正确的设定时间 在BIOS里面设置系统时间,这里设置的是硬件时间
-更新/etc/conf.d/hwclock文件中的**clock=&amp;quot;UTC&amp;rdquo;**的值,如果BIOS设置的是UTC时间,那这里设置UTC,否则设置local。这个文件根据linux发行版不同而不同,这里用Gentoo做例子。这个文件同时还能配置是否将硬件时间写入系统时间或者关机时将系统时间写入硬件时间。
+硬件时间 系统时间 硬件时间&amp;nbsp;¶ 所谓硬件时间,就是当系统关闭的时候,能持久保存在主板上的时间数据。它不包含只包含年月日,时分秒,却不包含zoneinfo（比如Asia/Shanghai）。
+系统时间&amp;nbsp;¶ 系统时间是根据硬件时间和设定的zoneinfo计算出本地时间,也可以理解为本地的时间。
+正确的设定时间&amp;nbsp;¶ 在BIOS里面设置系统时间,这里设置的是硬件时间
+更新/etc/conf.d/hwclock文件中的**clock=&amp;ldquo;UTC&amp;rdquo;**的值,如果BIOS设置的是UTC时间,那这里设置UTC,否则设置local。这个文件根据linux发行版不同而不同,这里用Gentoo做例子。这个文件同时还能配置是否将硬件时间写入系统时间或者关机时将系统时间写入硬件时间。
 将/usr/share/zone中对应的时区信息文件拷贝到/etc/localtime
 cp /usr/share/zone/Asia/Shanghai /etc/localtime 将文件名写入/etc/timezone
 echo &amp;#34;Asia/Shanghai&amp;#34; &amp;gt; /etc/timezone </description>
@@ -115,12 +111,12 @@ echo &amp;#34;Asia/Shanghai&amp;#34; &amp;gt; /etc/timezone </description>
       
       <guid>http://oopschen.github.io/posts/2013/linux-ramdisk-usage/</guid>
       <description>内存技术日益发展的今天,一台电脑随随便便都有8g以上的内存,然后win系统只占了1.5G,linux也就200M,所以大部分的内存资源都是浪费的。因为大部分的软件都考虑了内存不足的情况,会把一些不必要的数据存在硬盘上,而这样小的读写对硬盘的寿命都是有害的,而且容易造成碎片,同时速度也不快。那么我们为什么不把这些临时文件存在内存里呢？这时,linux内核自带的ramdisk就非常好用。
-使用 下面我们来看下如何在linux下使用ramdisk：
+使用&amp;nbsp;¶ 下面我们来看下如何在linux下使用ramdisk：
 mount -t tmpfs -o size=xxm,uid=xx,gid=xx tmpfs /xxx/xx 我们也可以将其配置在**/etc/fstab**下：
- tmpfs /xxx/xxx tmpfs defaults,size=xxm,uid=xx,gid=xx 0 2
- 如果想使用ramfs则把上面的tmpfs替换成ramfs
-ramfs和tmpfs区别 setcap 经在centos 6.4上测试,setcap无法在tmpfs的文件上执行,错误信息是Operation not support。查找相关资料后,redhat应该在11年的时候就修复了,不知道为啥centos上还是出问题,具体bug链接。同样ramfs也是使用,其他linux发行版未测试。
-综述 ramdisk并不是万能的解药,他只适合用于加速磁盘读写频繁的应用,而且断电后ramdisk上的数据全部丢失。所以可以用它来当eclipse或chrome的工作目录。</description>
+tmpfs /xxx/xxx tmpfs defaults,size=xxm,uid=xx,gid=xx 0 2
+如果想使用ramfs则把上面的tmpfs替换成ramfs
+ramfs和tmpfs区别&amp;nbsp;¶ setcap&amp;nbsp;¶ 经在centos 6.4上测试,setcap无法在tmpfs的文件上执行,错误信息是Operation not support。查找相关资料后,redhat应该在11年的时候就修复了,不知道为啥centos上还是出问题,具体bug链接。同样ramfs也是使用,其他linux发行版未测试。
+综述&amp;nbsp;¶ ramdisk并不是万能的解药,他只适合用于加速磁盘读写频繁的应用,而且断电后ramdisk上的数据全部丢失。所以可以用它来当eclipse或chrome的工作目录。</description>
     </item>
     
   </channel>

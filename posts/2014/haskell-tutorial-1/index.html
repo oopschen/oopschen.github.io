@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,39 +48,41 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Haskell学习笔记一--Overview"/>
 <meta name="twitter:description" content="为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.
-编译器 GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
-程序结构  module层, 让代码能够被重用 declearation, 对数据类型,数据值的定义 expressions, 表达式 literal, 就是我们写的文本程序  语法 在阅读BNF规则的时候需要用到下面的规则:
+编译器&nbsp;¶ GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
+程序结构&nbsp;¶ module层, 让代码能够被重用 declearation, 对数据类型,数据值的定义 expressions, 表达式 literal, 就是我们写的文本程序 语法&nbsp;¶ 在阅读BNF规则的时候需要用到下面的规则:
 haskell支持在源代码中写unicode字符.
-Reserved word case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _
-Identifier 除了其他语言中常规的字符,还可以使用单引号当作变量名字.
-newline 这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符
-缩进 采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层."/>
+Reserved word&nbsp;¶ case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _
+Identifier&nbsp;¶ 除了其他语言中常规的字符,还可以使用单引号当作变量名字.
+newline&nbsp;¶ 这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符
+缩进&nbsp;¶ 采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层."/>
 
 <meta property="og:title" content="Haskell学习笔记一--Overview" />
 <meta property="og:description" content="为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.
-编译器 GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
-程序结构  module层, 让代码能够被重用 declearation, 对数据类型,数据值的定义 expressions, 表达式 literal, 就是我们写的文本程序  语法 在阅读BNF规则的时候需要用到下面的规则:
+编译器&nbsp;¶ GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.
+程序结构&nbsp;¶ module层, 让代码能够被重用 declearation, 对数据类型,数据值的定义 expressions, 表达式 literal, 就是我们写的文本程序 语法&nbsp;¶ 在阅读BNF规则的时候需要用到下面的规则:
 haskell支持在源代码中写unicode字符.
-Reserved word case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _
-Identifier 除了其他语言中常规的字符,还可以使用单引号当作变量名字.
-newline 这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符
-缩进 采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层." />
+Reserved word&nbsp;¶ case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _
+Identifier&nbsp;¶ 除了其他语言中常规的字符,还可以使用单引号当作变量名字.
+newline&nbsp;¶ 这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符
+缩进&nbsp;¶ 采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-tutorial-1/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-tutorial-1/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-01-22T10:23:18+00:00" />
 <meta property="article:modified_time" content="2014-01-22T10:23:18+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -124,48 +132,59 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>为了能更好的配置xmonad,我还是学点基础的haskell编程,反正技多不压身.有兴趣的朋友和我一起来看看和探讨下这种函数编程语言.</p>
-<h1 id="编译器">编译器</h1>
+
+<h1 id="编译器" class="anchor-link"><a href="#%e7%bc%96%e8%af%91%e5%99%a8">编译器<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>GHC是haskell的编译器,自带了一个GHCI&ndash;可交互式的命令行,类似python的命令行.如果有需要可以装个有GUI界面的HUGS.</p>
-<h1 id="程序结构">程序结构</h1>
+
+<h1 id="程序结构" class="anchor-link"><a href="#%e7%a8%8b%e5%ba%8f%e7%bb%93%e6%9e%84">程序结构<span class="pilcrow">&nbsp;¶</span></a></h1>
 <ol>
 <li>module层, 让代码能够被重用</li>
 <li>declearation, 对数据类型,数据值的定义</li>
 <li>expressions, 表达式</li>
 <li>literal, 就是我们写的文本程序</li>
 </ol>
-<h1 id="语法">语法</h1>
+
+<h1 id="语法" class="anchor-link"><a href="#%e8%af%ad%e6%b3%95">语法<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>在阅读BNF规则的时候需要用到下面的规则:</p>
 <!-- raw HTML omitted -->
 <p>haskell支持在源代码中写unicode字符.</p>
-<h1 id="reserved-word">Reserved word</h1>
+
+<h1 id="reserved-word" class="anchor-link"><a href="#reserved-word">Reserved word<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>case | class | data | default | deriving | do | else | foreign | if | import | in | infix | infixl | infixr | instance | let | module | newtype | of | then | type | where | _</p>
-<h1 id="identifier">Identifier</h1>
+
+<h1 id="identifier" class="anchor-link"><a href="#identifier">Identifier<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>除了其他语言中常规的字符,还可以使用单引号当作变量名字.</p>
-<h1 id="newline">newline</h1>
+
+<h1 id="newline" class="anchor-link"><a href="#newline">newline<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>这里除了CR,LF,CRLF之外,form feed(12)也是被认可的换行符</p>
-<h1 id="缩进">缩进</h1>
+
+<h1 id="缩进" class="anchor-link"><a href="#%e7%bc%a9%e8%bf%9b">缩进<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>采用了和python类似的缩进策略, 相等的缩进表示同一层,少缩进表示往上一层,多缩进表示往下一层.</p>
-<h1 id="prelude">Prelude</h1>
+
+<h1 id="prelude" class="anchor-link"><a href="#prelude">Prelude<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>这个文件包含了通用函数的定义</p>
-<h1 id="和其他程序的区别">和其他程序的区别</h1>
+
+<h1 id="和其他程序的区别" class="anchor-link"><a href="#%e5%92%8c%e5%85%b6%e4%bb%96%e7%a8%8b%e5%ba%8f%e7%9a%84%e5%8c%ba%e5%88%ab">和其他程序的区别<span class="pilcrow">&nbsp;¶</span></a></h1>
 <pre><code>a := 1  
 print a -- output 1  
 a := 2  
 print a -- output 2
 </code></pre>
-<p>这种语法在haskell里是不存在的, haskell的<em>=</em>的意义是定义这个变量为多少值,而不是给个他赋值.下面两种写法的效果是一样的.<br>
+<p>这种语法在haskell里是不存在的, haskell的*=*的意义是定义这个变量为多少值,而不是给个他赋值.下面两种写法的效果是一样的.<br>
 a := 1<br>
 print a &ndash; output 1</p>
 <pre><code>print a -- output 1
 a := 1  
 </code></pre>
 <p>Haskell金科玉律: 定义一个返回结果的函数,然后给他输入参数</p>
-<h1 id="简单函数">简单函数</h1>
+
+<h1 id="简单函数" class="anchor-link"><a href="#%e7%ae%80%e5%8d%95%e5%87%bd%e6%95%b0">简单函数<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>下面我们来写第一个函数,接受一个整形把它加一返回</p>
 <pre><code>firstFunc :: Int -&gt; Int  
 firstFunc num = num + 1
 </code></pre>
-<h1 id="引用">引用</h1>
+
+<h1 id="引用" class="anchor-link"><a href="#%e5%bc%95%e7%94%a8">引用<span class="pilcrow">&nbsp;¶</span></a></h1>
 <pre><code>import Data.Map as M
 </code></pre>
 <p>和python的语法差不多</p>
@@ -199,10 +218,13 @@ firstFunc num = num + 1
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

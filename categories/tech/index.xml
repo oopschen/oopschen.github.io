@@ -7,32 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux下锁的应用</title>
       <link>http://oopschen.github.io/posts/2018/linux_fcntl_lock_usage/</link>
       <pubDate>Thu, 05 Jul 2018 11:24:33 +0000</pubDate>
       
       <guid>http://oopschen.github.io/posts/2018/linux_fcntl_lock_usage/</guid>
-      <description>概述 前不久工作需要实现一个文件转递的应用系统,功能如下:
- 数据采集方通过ftp上传文件(大小在200KB) 转递程序监听ftp的上传文件夹,实时转递文件到大数据平台 应用部署在Centos7 64bit  第一版实现 采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送
+      <description>概述&amp;nbsp;¶ 前不久工作需要实现一个文件转递的应用系统,功能如下:
+数据采集方通过ftp上传文件(大小在200KB) 转递程序监听ftp的上传文件夹,实时转递文件到大数据平台 应用部署在Centos7 64bit 第一版实现&amp;nbsp;¶ 采用vsftpd作为ftp服务器, 配置文件夹并共享给转递程序.转递程序使用1个线程轮寻文件夹, 60个转递线程推送
 推送文件到大数据平台.
-问题 在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,
+问题&amp;nbsp;¶ 在实际运行中,出现文件解析失败数量随着数据量增大而增多.经过多方排查, 找奥问题处在并发上: 当文件增多,
 ftp服务器写入到硬盘的速度变慢,当转递程序扫描文件夹的时候, 文件虽然已经生成,但文件内容却没有完全写入
 完毕, 从而造成读取到文件但解析失败的情况.
-探究 那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?
+探究&amp;nbsp;¶ 那有没有系统锁可以锁住文件, 当文件在被ftp写入的时候,转递程序不去处理这个文件?
 在Linux系统下, 有两种锁的机制, 分别是Advisory record Lock和Mandatory lock.
-Advisory record lock 一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.
-Mandatory lock 一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.
+Advisory record lock&amp;nbsp;¶ 一种需要资源竞争者约定俗成,使用同一个api去加锁才能达到资源隔离的目的锁机制.
+Mandatory lock&amp;nbsp;¶ 一种内核保证的所有进程间的强制锁,但目前Linux下很多BUG,而且在4.5以后变成可选的特性.不建议使用.
 那我们有没有办法用这些机制去保证呢?
-vsftpd 如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.
+vsftpd&amp;nbsp;¶ 如果想使用Advisory record lock去保证锁的话, 必须修改vsftpd的代码,按照标准api实现加锁.
 硬着头皮去看下源码, 幸好vsftpd作者考虑到了这点, 在写入文件的时候已经加如了锁的处理.
 具体戳这里
-Java Advisory record lock 由于转递程序是Java写的, 那怎么使用fcntl呢?难道使用jni吗?会不会太复杂? 首先, 我们了解下Java里面文件锁如何添加:
+Java Advisory record lock&amp;nbsp;¶ 由于转递程序是Java写的, 那怎么使用fcntl呢?难道使用jni吗?会不会太复杂? 首先, 我们了解下Java里面文件锁如何添加:
 File outFile = new File(&amp;#34;/tmp/filelock.tmp&amp;#34;); FileOutputStream outputStream = new FileOutputStream(outFile); FileChannel channel = outputStream.getChannel(); FileLock lock = channel.</description>
     </item>
     
@@ -44,14 +40,14 @@ File outFile = new File(&amp;#34;/tmp/filelock.tmp&amp;#34;); FileOutputStream o
       <guid>http://oopschen.github.io/posts/2015/linux-cpu-admin/</guid>
       <description>Window用多了,会对操作系统的一些基础知识有所淡忘.比如这期说的CPU Governor和CPU Frequency.最近误打误撞发现linux下需要对cpu做一些特殊的设置,才能使得cpu发挥最大的效能.
 先介绍一个工具&amp;ndash;CPUPower, CPUPower是linux下展示和设置cpu相关属性的工具.
-实验机器 cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
-应用cpupower cpupower frequency-info 会看到如下的提示:
- analyzing CPU 0: driver: acpi-cpufreq
+实验机器&amp;nbsp;¶ cpu: i5-480m 笔记本: thinkpad x201 nn5, 2011年款
+应用cpupower&amp;nbsp;¶ cpupower frequency-info 会看到如下的提示:
+analyzing CPU 0: driver: acpi-cpufreq
 CPUs which run at the same hardware frequency: 0
 CPUs which need to have their frequency coordinated by software: 0
 maximum transition latency: 10.0 us.
 hardware limits: 1.20 GHz - 2.67 GHz
-available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.</description>
+available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.13 GHz, 2.00 GHz, 1.</description>
     </item>
     
     <item>
@@ -70,13 +66,13 @@ available frequency steps: 2.67 GHz, 2.67 GHz, 2.53 GHz, 2.40 GHz, 2.27 GHz, 2.1
       
       <guid>http://oopschen.github.io/posts/2014/dig-slf4j/</guid>
       <description>又开始了Java工程师之路, 总体框架为springmvc+spring+hibernate.原先的老系统使用log4j记录日志.　介入开发后准备改用slf4j+logback做日志.
-SLF4J简介 slf4j从全称就可以知道它只是类似于JCL(java common logging)的框架,从主页的介绍来看它降低了工程切换日志的工作,但我个人喜欢的则是它打日志时候的简洁语法．
+SLF4J简介&amp;nbsp;¶ slf4j从全称就可以知道它只是类似于JCL(java common logging)的框架,从主页的介绍来看它降低了工程切换日志的工作,但我个人喜欢的则是它打日志时候的简洁语法．
 logger.error(&amp;#34;This is a error message with name {}!&amp;#34;, &amp;#34;ray&amp;#34;); slf4j引以为傲的是它有一个binding的机制-只要引用了固定的binding架包就能实现日志底层实现的切换, 那说的这么玄乎, 究竟它是怎么实现的呢?
-SLF4J Bind 机制 首先我们来看看LoggerFactory这个类的bind方法:
- 查找可能的静态Logger 如果有多个静态的Logger则打印日志 初始化bind
-&amp;hellip;.  那么这个StaticLoggerBinder是什么?
+SLF4J Bind 机制&amp;nbsp;¶ 首先我们来看看LoggerFactory这个类的bind方法:
+查找可能的静态Logger 如果有多个静态的Logger则打印日志 初始化bind
+&amp;hellip;. 那么这个StaticLoggerBinder是什么?
 其实slf4j通过classloader的方式找到StaticLoggerBinder的类文件, 然后通过策略模式采用日志的实现-也就是说每个底层的日志实现都会实现同一个接口.因此每一个日志实现的架包中都会有这么一个StaticLoggerBinder来接入slf4j的框架, 而slf4j通过应用启动时的动态类加载来达到bind日志实现的目的.
-一点建议 Java的世界总是有很多框架, 在我们使用slf4j做为应用的日志系统的时候, 应用中其他框架并不一定也是用slf4j作为日志框架, 因此我们需要引用slf4j的桥接包-jcl-over-slf4j, jul-over-slf4j. 这些桥接包只是用最简单的方式实现了其他日志框架的基础类, 然后通过bind的方式接入slf4j的底层日志中.</description>
+一点建议&amp;nbsp;¶ Java的世界总是有很多框架, 在我们使用slf4j做为应用的日志系统的时候, 应用中其他框架并不一定也是用slf4j作为日志框架, 因此我们需要引用slf4j的桥接包-jcl-over-slf4j, jul-over-slf4j. 这些桥接包只是用最简单的方式实现了其他日志框架的基础类, 然后通过bind的方式接入slf4j的底层日志中.</description>
     </item>
     
     <item>
@@ -86,9 +82,9 @@ SLF4J Bind 机制 首先我们来看看LoggerFactory这个类的bind方法:
       
       <guid>http://oopschen.github.io/posts/2014/mysql-multiple-column-index/</guid>
       <description>Mysql不用多介绍,很好很强大,这篇文章主要记录innodb中复合索引的引用, 本文中的缩影指的都是二级索引.
-概述 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
+概述&amp;nbsp;¶ 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
 innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷贝一份主键!!!
-场景 先来看看如下场景
+场景&amp;nbsp;¶ 先来看看如下场景
 create table testexplain ( f0 varchar(10) primary key, f1 varchar(10), f2 varchar(10), f3 varchar(10) ); 假使我们常用的查询sql如下
 1. select * from testexplain f0 = &amp;#39;xxx&amp;#39;; 2. select * from testexplain f1 = &amp;#39;xxx&amp;#39; and f2 = &amp;#39;xxxx&amp;#39;; 3. select * from testexplain f2 = &amp;#39;xxx&amp;#39; and f3 = &amp;#39;xxxx&amp;#39;; 4. select * from testexplain f1 = &amp;#39;xxx&amp;#39; or f2 = &amp;#39;xxxx&amp;#39;; 5.</description>
     </item>
@@ -100,17 +96,17 @@ create table testexplain ( f0 varchar(10) primary key, f1 varchar(10), f2 varcha
       
       <guid>http://oopschen.github.io/posts/2014/chrome-unsafe-ports/</guid>
       <description>最近一段时间在和docker愉快的玩耍, 但卡在一个非常奇怪的问题上面&amp;ndash;新建了一个container, 基于centos6的image上安装了nginx一个app, 把host的6001端口映射到container的80端口, 把host的6000端口映射到6000端口.
-问题 开起这个container后, 在chrome中访问本地6001端口, 可以看到nginx的默认欢迎页面. 而访问6000端口则不能连接&amp;ndash;是tcp无法建立连接的那种页面. 这就非常奇怪了.
+问题&amp;nbsp;¶ 开起这个container后, 在chrome中访问本地6001端口, 可以看到nginx的默认欢迎页面. 而访问6000端口则不能连接&amp;ndash;是tcp无法建立连接的那种页面. 这就非常奇怪了.
 用命令查看
 docker port xxx 6000 输出结果是绑定了本地的6000端口没有任何异议.可是为什么无法访问呢?
-思路 如此只能用nc工具查看端口是否开起:
+思路&amp;nbsp;¶ 如此只能用nc工具查看端口是否开起:
 nc -v localhost 6000 端口是有输出的, 这就意味着端口是开启的. 接下来只能看是不是nginx的配置问题了, 当然在部署docker的时候nginx.conf文件是经过nginx -t检验的. 这时候就得用curl命令来检验了.
 curl http://localhost:6000 由于nginx的配置了autoIndex on, 所以返回的页面中会有文件目录的内容. curl的结果是在预期内的, 也就是说docker的配置和nginx的配置是完全正确的.
 是什么引发了这个问题?
-方案 由表面证据可以看到, 区别在chrome和curl. 为什么这两个agent会有什么区别? 好吧, 身为一个web开发者, 必须立马打开chrome://net-internals/#events页面查看打开6000页面的时候发生了什么问题. 结果是看到了ERR_UNSAFE_PORT错误, 而这个错误不会在错误页面出现, 当然console里也看不到. 迅速google了一下, 尼玛这确实是chrome干的好事情, 在Chromium的源代码中确实内置这么一个功能&amp;ndash;屏蔽一些已知的端口.
+方案&amp;nbsp;¶ 由表面证据可以看到, 区别在chrome和curl. 为什么这两个agent会有什么区别? 好吧, 身为一个web开发者, 必须立马打开chrome://net-internals/#events页面查看打开6000页面的时候发生了什么问题. 结果是看到了ERR_UNSAFE_PORT错误, 而这个错误不会在错误页面出现, 当然console里也看不到. 迅速google了一下, 尼玛这确实是chrome干的好事情, 在Chromium的源代码中确实内置这么一个功能&amp;ndash;屏蔽一些已知的端口.
 这是为了什么呢?
-反思 经过一系列的搜罗, 网上大致给出的解释是出于安全的考虑. 那到底会有怎么样的安全问题呢?(web开发者要有安全意识啊!!!)
-安全问题例子 假使我们有一个server listen在6000端口, 并接受request和response的模式, server也在防火墙后. 那么恶意攻击者可以怎么做才能伪造请求攻击server?(这里可以先思考几分钟, 看看有没有黑客的潜质!!!) |
+反思&amp;nbsp;¶ 经过一系列的搜罗, 网上大致给出的解释是出于安全的考虑. 那到底会有怎么样的安全问题呢?(web开发者要有安全意识啊!!!)
+安全问题例子&amp;nbsp;¶ 假使我们有一个server listen在6000端口, 并接受request和response的模式, server也在防火墙后. 那么恶意攻击者可以怎么做才能伪造请求攻击server?(这里可以先思考几分钟, 看看有没有黑客的潜质!!!) |
 |
 |
 |
@@ -127,15 +123,15 @@ curl http://localhost:6000 由于nginx的配置了autoIndex on, 所以返回的�
       
       <guid>http://oopschen.github.io/posts/2014/mysql-index/</guid>
       <description>用了蛮久的mysql,竟然对如何优化index还没有掌握,今天闲下来看看这块东西,然后总结以下.这里所表述的mysql指的是innodb的engine.
-mysql index分类 Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.
-cluster index Mysql根据如下规则建立聚簇索引:
- 如果有定义主键, 则使用主键建立索引 如果没有定义主键, 选取第一个UNIQUE的栏建立索引 如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据  secondary index 二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.
+mysql index分类&amp;nbsp;¶ Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.
+cluster index&amp;nbsp;¶ Mysql根据如下规则建立聚簇索引:
+如果有定义主键, 则使用主键建立索引 如果没有定义主键, 选取第一个UNIQUE的栏建立索引 如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据 secondary index&amp;nbsp;¶ 二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.
 Myql如果选择使用二级索引, 那么它先根据二级索引查找主键, 由于主键和数据在同一个页上, 从而加快了数据的查找和比较.
-mysql如何使用index Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?
-尽可能的覆盖查询语句中的查询条件 由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.
+mysql如何使用index&amp;nbsp;¶ Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?
+尽可能的覆盖查询语句中的查询条件&amp;nbsp;¶ 由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.
 select * from db.tbl where c1 = 1 and c2 = 2; 和
 select * from db.tbl where c1 = 1; 所以语句
-create index inx_c1_c2 on db.tbl(c1, c2); 工具 理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句.</description>
+create index inx_c1_c2 on db.tbl(c1, c2); 工具&amp;nbsp;¶ 理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句.非select语句,比如update和delete, 我们可以把where语句后的条件放入select进行explain.</description>
     </item>
     
   </channel>

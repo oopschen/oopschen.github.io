@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -43,42 +49,44 @@
 <meta name="twitter:title" content="Dig Webcore - 代码生成机制"/>
 <meta name="twitter:description" content="一直对webkit神秘的面纱抱有极大的好奇心,但是苦于一直没时间好好的对其进行研究。最近终于的空,开始对webkit进行探索并做一些摘记。
 在刚开始的时候,由于对google的偏爱,所以选择chromium进行探究,但探究了2天始终不太有头绪,感觉chromium的代码还是太复杂,因为它对渲染层的代码完全是对webkit core的扩展,而其大部分的代码都是界面和多线程架构的,最后决定还是对Webkit的代码直接进行研究。
-代码生成 在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？IDL, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。
+代码生成&nbsp;¶ 在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？IDL, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。
 webkit的代码生成主要靠make-generated-sources.sh脚本,这个脚本根据WebCore下的子目录中的idl文件和后缀为in的配置文件生成相关的.h和.cpp文件。而生成的代码则在DerivedSources/WebCore下。
-GPERF GPERF是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。
-GPERF列表  CSSPropertyNames.{h,cpp} CSSValueKeywords.{h,cpp} ColorData.cpp 以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。  IDL IDL相关的代码生成脚本在bindings/scripts下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：
-预处理 IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：
- Outputs the dependency. The format of a supplemental dependency file:
+GPERF&nbsp;¶ GPERF是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。
+GPERF列表&nbsp;¶ CSSPropertyNames.{h,cpp} CSSValueKeywords.{h,cpp} ColorData.cpp 以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。 IDL&nbsp;¶ IDL相关的代码生成脚本在bindings/scripts下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：
+预处理&nbsp;¶ IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：
+Outputs the dependency. The format of a supplemental dependency file:
 DOMWindow.idl P.idl Q.idl R.idl Document.idl S.idl Event.idl &hellip;
-The above indicates that DOMWindow.idl is supplemented by P.idl, Q.idl and R.idl, Document.idl is supplemented by S.idl, and Event.idl is supplemented by no IDLs. The IDL that supplements another IDL (e."/>
+The above indicates that DOMWindow.idl is supplemented by P.idl, Q.idl and R.idl, Document.idl is supplemented by S.idl, and Event.idl is supplemented by no IDLs. The IDL that supplements another IDL (e.g. P."/>
 
 <meta property="og:title" content="Dig Webcore - 代码生成机制" />
 <meta property="og:description" content="一直对webkit神秘的面纱抱有极大的好奇心,但是苦于一直没时间好好的对其进行研究。最近终于的空,开始对webkit进行探索并做一些摘记。
 在刚开始的时候,由于对google的偏爱,所以选择chromium进行探究,但探究了2天始终不太有头绪,感觉chromium的代码还是太复杂,因为它对渲染层的代码完全是对webkit core的扩展,而其大部分的代码都是界面和多线程架构的,最后决定还是对Webkit的代码直接进行研究。
-代码生成 在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？IDL, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。
+代码生成&nbsp;¶ 在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？IDL, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。
 webkit的代码生成主要靠make-generated-sources.sh脚本,这个脚本根据WebCore下的子目录中的idl文件和后缀为in的配置文件生成相关的.h和.cpp文件。而生成的代码则在DerivedSources/WebCore下。
-GPERF GPERF是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。
-GPERF列表  CSSPropertyNames.{h,cpp} CSSValueKeywords.{h,cpp} ColorData.cpp 以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。  IDL IDL相关的代码生成脚本在bindings/scripts下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：
-预处理 IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：
- Outputs the dependency. The format of a supplemental dependency file:
+GPERF&nbsp;¶ GPERF是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。
+GPERF列表&nbsp;¶ CSSPropertyNames.{h,cpp} CSSValueKeywords.{h,cpp} ColorData.cpp 以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。 IDL&nbsp;¶ IDL相关的代码生成脚本在bindings/scripts下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：
+预处理&nbsp;¶ IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：
+Outputs the dependency. The format of a supplemental dependency file:
 DOMWindow.idl P.idl Q.idl R.idl Document.idl S.idl Event.idl &hellip;
-The above indicates that DOMWindow.idl is supplemented by P.idl, Q.idl and R.idl, Document.idl is supplemented by S.idl, and Event.idl is supplemented by no IDLs. The IDL that supplements another IDL (e." />
+The above indicates that DOMWindow.idl is supplemented by P.idl, Q.idl and R.idl, Document.idl is supplemented by S.idl, and Event.idl is supplemented by no IDLs. The IDL that supplements another IDL (e.g. P." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2013/webkit-derivedsource/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2013/webkit-derivedsource/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2013-07-01T17:29:13+00:00" />
 <meta property="article:modified_time" content="2013-07-01T17:29:13+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -137,21 +145,26 @@ if (!doNotTrack) {
     <article role="article">
         <p>一直对webkit神秘的面纱抱有极大的好奇心,但是苦于一直没时间好好的对其进行研究。最近终于的空,开始对webkit进行探索并做一些摘记。<br>
 在刚开始的时候,由于对google的偏爱,所以选择chromium进行探究,但探究了2天始终不太有头绪,感觉chromium的代码还是太复杂,因为它对渲染层的代码完全是对webkit core的扩展,而其大部分的代码都是界面和多线程架构的,最后决定还是对Webkit的代码直接进行研究。</p>
-<h4 id="代码生成">代码生成</h4>
+
+<h4 id="代码生成" class="anchor-link"><a href="#%e4%bb%a3%e7%a0%81%e7%94%9f%e6%88%90">代码生成<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>在webkit源代码的目录中,我们能看到很多的IDL文件,他们到底是干什么用的呢？<a href="http://www.w3.org/TR/WebIDL/" title="IDL W3C">IDL</a>, 全称Interface Description Language,也就是说它是接口的定义文件。他将编程语言与接口定义分离,从而将语言的定义和实现分离。IDL的优势在于可以将独立的语言定义用代码的方式生成目标语言的接口,所以webkit采用IDL生成js相关的接口。<br>
 webkit的代码生成主要靠<em>make-generated-sources.sh</em>脚本,这个脚本根据WebCore下的子目录中的idl文件和后缀为in的配置文件生成相关的.h和.cpp文件。而生成的代码则在<em>DerivedSources/WebCore</em>下。</p>
-<h4 id="gperf">GPERF</h4>
+
+<h4 id="gperf" class="anchor-link"><a href="#gperf">GPERF<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p><a href="http://www.gnu.org/software/gperf/manual/gperf.html#Top" title="GPERF DOC">GPERF</a>是GNU的一款hash函数生成工具,他能根据配置文件将key集合固定的情况下用最合理的方式生成目标语言的代码,而这些代码的功能就是对这些固定key的快读访问。这么做的目的是加快hash的运算,因为静态的代码远比运行时期动态计算hash值快。Webkit在css属性名称和css属性值上使用gperf生成代码。</p>
-<h5 id="gperf列表">GPERF列表</h5>
+
+<h5 id="gperf列表" class="anchor-link"><a href="#gperf%e5%88%97%e8%a1%a8">GPERF列表<span class="pilcrow">&nbsp;¶</span></a></h5>
 <ol>
 <li>CSSPropertyNames.{h,cpp}</li>
 <li>CSSValueKeywords.{h,cpp}</li>
 <li>ColorData.cpp
 以上文件都是用gperf生成的hash代码,方面其他代码用key查询他的value值。</li>
 </ol>
-<h4 id="idl">IDL</h4>
+
+<h4 id="idl" class="anchor-link"><a href="#idl">IDL<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>IDL相关的代码生成脚本在<em>bindings/scripts</em>下,而IDL文件分布在各个WebCore的子文件夹下,比如dom/*.idl。处理IDL文件分为两步：</p>
-<h5 id="预处理">预处理</h5>
+
+<h5 id="预处理" class="anchor-link"><a href="#%e9%a2%84%e5%a4%84%e7%90%86">预处理<span class="pilcrow">&nbsp;¶</span></a></h5>
 <p>IDL的预处理,preprocess-idls.pl 脚本负责将环境变量和in文件生成IDL的依赖关系。而这些依赖关系的表达方式可以从脚本文件里的注释说明：</p>
 <blockquote>
 <p>Outputs the dependency.
@@ -169,9 +182,11 @@ The IDL that supplements another IDL (e.g. P.idl) never appears in the dependenc
 <pre><code>DOMWindow.idl P.idl Q.idl R.idl
 </code></pre>
 <p>这个例子表明DOMWindow.idl需要依赖P.idl, Q.idl和R.idl这几个文件</p>
-<h5 id="生成代码">生成代码</h5>
+
+<h5 id="生成代码" class="anchor-link"><a href="#%e7%94%9f%e6%88%90%e4%bb%a3%e7%a0%81">生成代码<span class="pilcrow">&nbsp;¶</span></a></h5>
 <p>generate-bindings.pl 脚本则将生成的依赖关系,html的属性文件（IDLAttributes.txt）以及多个idl文件合成cpp和h文件,也就是接口。而这些文件都是以JSxxx.h的文件名形式存在于DerivedSources/Webcore下,其中xxx是指idl的原始文件名。</p>
-<h4 id="其他">其他</h4>
+
+<h4 id="其他" class="anchor-link"><a href="#%e5%85%b6%e4%bb%96">其他<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>除了上述两种方式之外,make-generated-sources.sh脚本还利用python,perl脚本以及in配置文件生成特殊的cpp和h文件。具体可参考</p>
 <ol>
 <li>inspector/xxd.pl</li>
@@ -183,7 +198,8 @@ The IDL that supplements another IDL (e.g. P.idl) never appears in the dependenc
 <li>page/make_settings.pl</li>
 <li>inspector/generate-inspector-protocol-version(python 脚本)</li>
 </ol>
-<h4 id="总结">总结</h4>
+
+<h4 id="总结" class="anchor-link"><a href="#%e6%80%bb%e7%bb%93">总结<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>看了这么多代码生成的脚本,webkit大部分还是利用perl脚本,但其中也参杂少量的python脚本,可能也是开源的缘故造成的吧。</p>
 
     </article>
@@ -215,10 +231,13 @@ The IDL that supplements another IDL (e.g. P.idl) never appears in the dependenc
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Tue, 21 Jan 2014 10:02:11 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/linuxdesktop/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 21 Jan 2014 10:02:11 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/linuxdesktop/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>linux xmonad 小试</title>
       <link>http://oopschen.github.io/posts/2014/xmonad-desktop/</link>
@@ -19,13 +15,13 @@
       
       <guid>http://oopschen.github.io/posts/2014/xmonad-desktop/</guid>
       <description>一直在用xfce和docky构成的类mac os的桌面系统,最近看腻了,换个新鲜的玩玩。不搜不知道,一搜吓一跳,桌面系统已经有很多版本了,比如基于box概念的gnome,kde,xfce,基于tiling概念的xmonad,awesome等。今天我就来玩玩xmonad的桌面。
-特点 这个桌面主要吸引我的地方特点:
- 他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小 支持多显示器显示不同的workspace 占用资源少,稳定,启动快  唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。
-快捷键介绍 更多请查看这里
-配置文件 ~/.xmonad/xmonad.hs是本地的配置文件,在编辑完后可以用
+特点&amp;nbsp;¶ 这个桌面主要吸引我的地方特点:
+他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小 支持多显示器显示不同的workspace 占用资源少,稳定,启动快 唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。
+快捷键介绍&amp;nbsp;¶ 更多请查看这里
+配置文件&amp;nbsp;¶ ~/.xmonad/xmonad.hs是本地的配置文件,在编辑完后可以用
 xmonad --recompile 来确定自己的语法有木有错误。
 当编辑haskell文件的时候需要注意的是一个tab==8个空格。默认的Mod键是Alt.附上笔者默认的配置
-最终成品 </description>
+最终成品&amp;nbsp;¶ </description>
     </item>
     
   </channel>

@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Fri, 12 Sep 2014 17:51:56 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/multiple-columnindex/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 12 Sep 2014 17:51:56 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/multiple-columnindex/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mysql 复合索引记录</title>
       <link>http://oopschen.github.io/posts/2014/mysql-multiple-column-index/</link>
@@ -19,9 +15,9 @@
       
       <guid>http://oopschen.github.io/posts/2014/mysql-multiple-column-index/</guid>
       <description>Mysql不用多介绍,很好很强大,这篇文章主要记录innodb中复合索引的引用, 本文中的缩影指的都是二级索引.
-概述 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
+概述&amp;nbsp;¶ 索引在innodb中对缩短查询时间起到至关重要的作用, 有了索引我们可以不进行全表扫描而是对一小部分的数据进行扫描.随着业务的复杂性的增加, 单一的索引已经无法满足日常的需求.因此, 我们需要建立复合索引满足需求, 当然所有的优化必然有开销, 建立索引我们会消耗很多的磁盘空间, 同样也影响插入的速度.
 innodb的索引是将索引的列和主键关联的, 所以每个索引都会拷贝一份主键!!!
-场景 先来看看如下场景
+场景&amp;nbsp;¶ 先来看看如下场景
 create table testexplain ( f0 varchar(10) primary key, f1 varchar(10), f2 varchar(10), f3 varchar(10) ); 假使我们常用的查询sql如下
 1. select * from testexplain f0 = &amp;#39;xxx&amp;#39;; 2. select * from testexplain f1 = &amp;#39;xxx&amp;#39; and f2 = &amp;#39;xxxx&amp;#39;; 3. select * from testexplain f2 = &amp;#39;xxx&amp;#39; and f3 = &amp;#39;xxxx&amp;#39;; 4. select * from testexplain f1 = &amp;#39;xxx&amp;#39; or f2 = &amp;#39;xxxx&amp;#39;; 5.</description>
     </item>

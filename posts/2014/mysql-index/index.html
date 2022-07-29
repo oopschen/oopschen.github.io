@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,43 +48,45 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Mysql使用index基本原则"/>
 <meta name="twitter:description" content="用了蛮久的mysql,竟然对如何优化index还没有掌握,今天闲下来看看这块东西,然后总结以下.这里所表述的mysql指的是innodb的engine.
-mysql index分类 Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.
-cluster index Mysql根据如下规则建立聚簇索引:
- 如果有定义主键, 则使用主键建立索引 如果没有定义主键, 选取第一个UNIQUE的栏建立索引 如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据  secondary index 二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.
+mysql index分类&nbsp;¶ Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.
+cluster index&nbsp;¶ Mysql根据如下规则建立聚簇索引:
+如果有定义主键, 则使用主键建立索引 如果没有定义主键, 选取第一个UNIQUE的栏建立索引 如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据 secondary index&nbsp;¶ 二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.
 Myql如果选择使用二级索引, 那么它先根据二级索引查找主键, 由于主键和数据在同一个页上, 从而加快了数据的查找和比较.
-mysql如何使用index Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?
-尽可能的覆盖查询语句中的查询条件 由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.
+mysql如何使用index&nbsp;¶ Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?
+尽可能的覆盖查询语句中的查询条件&nbsp;¶ 由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.
 select * from db.tbl where c1 = 1 and c2 = 2; 和
 select * from db.tbl where c1 = 1; 所以语句
-create index inx_c1_c2 on db.tbl(c1, c2); 工具 理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句."/>
+create index inx_c1_c2 on db.tbl(c1, c2); 工具&nbsp;¶ 理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句.非select语句,比如update和delete, 我们可以把where语句后的条件放入select进行explain."/>
 
 <meta property="og:title" content="Mysql使用index基本原则" />
 <meta property="og:description" content="用了蛮久的mysql,竟然对如何优化index还没有掌握,今天闲下来看看这块东西,然后总结以下.这里所表述的mysql指的是innodb的engine.
-mysql index分类 Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.
-cluster index Mysql根据如下规则建立聚簇索引:
- 如果有定义主键, 则使用主键建立索引 如果没有定义主键, 选取第一个UNIQUE的栏建立索引 如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据  secondary index 二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.
+mysql index分类&nbsp;¶ Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.
+cluster index&nbsp;¶ Mysql根据如下规则建立聚簇索引:
+如果有定义主键, 则使用主键建立索引 如果没有定义主键, 选取第一个UNIQUE的栏建立索引 如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据 secondary index&nbsp;¶ 二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.
 Myql如果选择使用二级索引, 那么它先根据二级索引查找主键, 由于主键和数据在同一个页上, 从而加快了数据的查找和比较.
-mysql如何使用index Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?
-尽可能的覆盖查询语句中的查询条件 由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.
+mysql如何使用index&nbsp;¶ Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?
+尽可能的覆盖查询语句中的查询条件&nbsp;¶ 由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.
 select * from db.tbl where c1 = 1 and c2 = 2; 和
 select * from db.tbl where c1 = 1; 所以语句
-create index inx_c1_c2 on db.tbl(c1, c2); 工具 理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句." />
+create index inx_c1_c2 on db.tbl(c1, c2); 工具&nbsp;¶ 理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句.非select语句,比如update和delete, 我们可以把where语句后的条件放入select进行explain." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2014/mysql-index/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/mysql-index/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-07-23T09:24:37+00:00" />
 <meta property="article:modified_time" content="2014-07-23T09:24:37+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -144,28 +152,34 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>用了蛮久的mysql,竟然对如何优化index还没有掌握,今天闲下来看看这块东西,然后总结以下.这里所表述的mysql指的是innodb的engine.</p>
-<h3 id="mysql-index分类">mysql index分类</h3>
+
+<h3 id="mysql-index分类" class="anchor-link"><a href="#mysql-index%e5%88%86%e7%b1%bb">mysql index分类<span class="pilcrow">&nbsp;¶</span></a></h3>
 <p>Mysql的index分为cluster index和secondary index, 可以翻译为聚簇索引和二级索引.所谓的聚簇索引是指主键栏作为索引值的索引, 而所有非聚簇索引则是二级索引.</p>
-<h4 id="cluster-index">cluster index</h4>
+
+<h4 id="cluster-index" class="anchor-link"><a href="#cluster-index">cluster index<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>Mysql根据如下规则建立聚簇索引:</p>
 <ul>
 <li>如果有定义主键, 则使用主键建立索引</li>
 <li>如果没有定义主键, 选取第一个<em>UNIQUE</em>的栏建立索引</li>
 <li>如果以上两个条件均不满足, 则mysql默认建立一个隐藏的rowid作为建立索引的依据</li>
 </ul>
-<h4 id="secondary-index">secondary index</h4>
+
+<h4 id="secondary-index" class="anchor-link"><a href="#secondary-index">secondary index<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>二级索引是建立在cluster index之上的索引, 它包含建立自身索引的列和主键, 因此, 主键过大会造成二级索引过大, 最终导致磁盘占用量变大.<br>
 Myql如果选择使用二级索引, 那么它先根据二级索引查找主键, 由于主键和数据在同一个页上, 从而加快了数据的查找和比较.</p>
-<h3 id="mysql如何使用index">mysql如何使用index</h3>
+
+<h3 id="mysql如何使用index" class="anchor-link"><a href="#mysql%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8index">mysql如何使用index<span class="pilcrow">&nbsp;¶</span></a></h3>
 <p>Mysql首先根据查询语句做优化, 如果table的数据量很小(比如几条数据),那么mysql会选择遍历整个表.如果数据量很大, 它优先选择根据索引过滤后数据量较小的索引.那么我们建立索引索引的时候应该遵循哪些规则?</p>
-<h4 id="尽可能的覆盖查询语句中的查询条件">尽可能的覆盖查询语句中的查询条件</h4>
+
+<h4 id="尽可能的覆盖查询语句中的查询条件" class="anchor-link"><a href="#%e5%b0%bd%e5%8f%af%e8%83%bd%e7%9a%84%e8%a6%86%e7%9b%96%e6%9f%a5%e8%af%a2%e8%af%ad%e5%8f%a5%e4%b8%ad%e7%9a%84%e6%9f%a5%e8%af%a2%e6%9d%a1%e4%bb%b6">尽可能的覆盖查询语句中的查询条件<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>由于mysql可以选取部分index的列作为索引条件,因此如下两个查询条件可以共用同一个索引但是不要忘记, 增加列意味着容量的增加.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> db.tbl <span style="color:#66d9ef">where</span> c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> c2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;  
-</code></pre></div><p>和</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> db.tbl <span style="color:#66d9ef">where</span> c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;  
-</code></pre></div><p>所以语句</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">   <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> inx_c1_c2 <span style="color:#66d9ef">on</span> db.tbl(c1, c2);  
-</code></pre></div><h3 id="工具">工具</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> db.tbl <span style="color:#66d9ef">where</span> c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> c2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;  
+</span></span></code></pre></div><p>和</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> db.tbl <span style="color:#66d9ef">where</span> c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;  
+</span></span></code></pre></div><p>所以语句</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>   <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> inx_c1_c2 <span style="color:#66d9ef">on</span> db.tbl(c1, c2);  
+</span></span></code></pre></div>
+<h3 id="工具" class="anchor-link"><a href="#%e5%b7%a5%e5%85%b7">工具<span class="pilcrow">&nbsp;¶</span></a></h3>
 <p>理论上的理解还不够, 现实的问题需要显示来解决, 所以在每次使用sql前, 可以用explain的看下使用的所以是不是我们所期望的, explain只能用于select语句.非select语句,比如update和delete, 我们可以把where语句后的条件放入select进行explain.</p>
 
     </article>
@@ -197,10 +211,13 @@ Myql如果选择使用二级索引, 那么它先根据二级索引查找主键, 
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 05 Jul 2018 11:24:33 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DEPPER</title>
       <link>http://oopschen.github.io/categories/depper/</link>

@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,37 +48,39 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Haskell学习笔记- Monad, IO和Functor"/>
 <meta name="twitter:description" content="Monad这个概念是第一次在Haskell中看到, 也是haskell中比较难理解的部分之一, 但同样也是很重要的部分. 今天就来看看Monad到底是什么货, 同时也来看看Functor和IO是什么?
-Monad用法 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
+Monad用法&nbsp;¶ 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
 let a = Just 1 in a &gt;&gt;= \x -&gt; Just (x&#43;2) --output Just 2 这里我们先来回顾下lambda的用法:
 \x -&gt; Just (x&#43;2) 这个函数将输入的x加2后返回, 并且把这个值包装在Just中.
-对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到&raquo;=可以将Just中的东西提取出来.
-Monad的源码 看过了上述实例, 我们看下Monad的源码:
+对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&raquo;=*可以将Just中的东西提取出来.
+Monad的源码&nbsp;¶ 看过了上述实例, 我们看下Monad的源码:
 class Monad m where -- | Sequentially compose two actions, passing any value produced -- by the first as an argument to the second. (&gt;&gt;=) :: forall a b. m a -&gt; (a -&gt; m b) -&gt; m b -- | Sequentially compose two actions, discarding any value produced -- by the first, like sequencing operators (such as the semicolon) -- in imperative languages."/>
 
 <meta property="og:title" content="Haskell学习笔记- Monad, IO和Functor" />
 <meta property="og:description" content="Monad这个概念是第一次在Haskell中看到, 也是haskell中比较难理解的部分之一, 但同样也是很重要的部分. 今天就来看看Monad到底是什么货, 同时也来看看Functor和IO是什么?
-Monad用法 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
+Monad用法&nbsp;¶ 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
 let a = Just 1 in a &gt;&gt;= \x -&gt; Just (x&#43;2) --output Just 2 这里我们先来回顾下lambda的用法:
 \x -&gt; Just (x&#43;2) 这个函数将输入的x加2后返回, 并且把这个值包装在Just中.
-对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到&raquo;=可以将Just中的东西提取出来.
-Monad的源码 看过了上述实例, 我们看下Monad的源码:
+对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&raquo;=*可以将Just中的东西提取出来.
+Monad的源码&nbsp;¶ 看过了上述实例, 我们看下Monad的源码:
 class Monad m where -- | Sequentially compose two actions, passing any value produced -- by the first as an argument to the second. (&gt;&gt;=) :: forall a b. m a -&gt; (a -&gt; m b) -&gt; m b -- | Sequentially compose two actions, discarding any value produced -- by the first, like sequencing operators (such as the semicolon) -- in imperative languages." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-monad/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-monad/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-03-16T09:24:08+00:00" />
 <meta property="article:modified_time" content="2014-03-16T09:24:08+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -138,36 +146,38 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>Monad这个概念是第一次在Haskell中看到, 也是haskell中比较难理解的部分之一, 但同样也是很重要的部分. 今天就来看看Monad到底是什么货, 同时也来看看Functor和IO是什么?</p>
-<h1 id="monad用法">Monad用法</h1>
+
+<h1 id="monad用法" class="anchor-link"><a href="#monad%e7%94%a8%e6%b3%95">Monad用法<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>在给Monad一个正式的定义之前, 先来看看Monad的标准用法:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">Just</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">in</span> a <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (x<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>) <span style="color:#75715e">--output Just 2</span>
-</code></pre></div><p>这里我们先来回顾下lambda的用法:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (x<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)
-</code></pre></div><p>这个函数将输入的x加2后返回, 并且把这个值包装在Just中.</p>
-<p>对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到<em>&raquo;=</em>可以将Just中的东西提取出来.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">Just</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">in</span> a <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (x<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>) <span style="color:#75715e">--output Just 2</span>
+</span></span></code></pre></div><p>这里我们先来回顾下lambda的用法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (x<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>这个函数将输入的x加2后返回, 并且把这个值包装在Just中.</p>
+<p>对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&raquo;=*可以将Just中的东西提取出来.</p>
 <!-- raw HTML omitted -->
-<h1 id="monad的源码">Monad的源码</h1>
+
+<h1 id="monad的源码" class="anchor-link"><a href="#monad%e7%9a%84%e6%ba%90%e7%a0%81">Monad的源码<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>看过了上述实例, 我们看下Monad的源码:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span>  <span style="color:#66d9ef">Monad</span> m  <span style="color:#66d9ef">where</span>
-        <span style="color:#75715e">-- | Sequentially compose two actions, passing any value produced</span>
-        <span style="color:#75715e">-- by the first as an argument to the second.</span>
-        (<span style="color:#f92672">&gt;&gt;=</span>)       <span style="color:#f92672">::</span> forall a b<span style="color:#f92672">.</span> m a <span style="color:#f92672">-&gt;</span> (a <span style="color:#f92672">-&gt;</span> m b) <span style="color:#f92672">-&gt;</span> m b
-        <span style="color:#75715e">-- | Sequentially compose two actions, discarding any value produced</span>
-        <span style="color:#75715e">-- by the first, like sequencing operators (such as the semicolon)</span>
-        <span style="color:#75715e">-- in imperative languages.</span>
-        (<span style="color:#f92672">&gt;&gt;</span>)        <span style="color:#f92672">::</span> forall a b<span style="color:#f92672">.</span> m a <span style="color:#f92672">-&gt;</span> m b <span style="color:#f92672">-&gt;</span> m b
-            <span style="color:#75715e">-- Explicit for-alls so that we know what order to</span>
-            <span style="color:#75715e">-- give type arguments when desugaring</span>
-        <span style="color:#75715e">-- | Inject a value into the monadic type.</span>
-        return      <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> m a
-        <span style="color:#75715e">-- | Fail with a message.  This operation is not part of the</span>
-        <span style="color:#75715e">-- mathematical definition of a monad, but is invoked on pattern-match</span>
-        <span style="color:#75715e">-- failure in a @do@ expression.</span>
-        fail        <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> m a
-        <span style="color:#75715e">{-# INLINE (&gt;&gt;) #-}</span>
-        m <span style="color:#f92672">&gt;&gt;</span> k      <span style="color:#f92672">=</span> m <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> k
-        fail s      <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> s
-</code></pre></div><p>monad其实规范了几个行为:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span>  <span style="color:#66d9ef">Monad</span> m  <span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- | Sequentially compose two actions, passing any value produced</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- by the first as an argument to the second.</span>
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&gt;&gt;=</span>)       <span style="color:#f92672">::</span> forall a b<span style="color:#f92672">.</span> m a <span style="color:#f92672">-&gt;</span> (a <span style="color:#f92672">-&gt;</span> m b) <span style="color:#f92672">-&gt;</span> m b
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- | Sequentially compose two actions, discarding any value produced</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- by the first, like sequencing operators (such as the semicolon)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- in imperative languages.</span>
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&gt;&gt;</span>)        <span style="color:#f92672">::</span> forall a b<span style="color:#f92672">.</span> m a <span style="color:#f92672">-&gt;</span> m b <span style="color:#f92672">-&gt;</span> m b
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">-- Explicit for-alls so that we know what order to</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">-- give type arguments when desugaring</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- | Inject a value into the monadic type.</span>
+</span></span><span style="display:flex;"><span>        return      <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> m a
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- | Fail with a message.  This operation is not part of the</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- mathematical definition of a monad, but is invoked on pattern-match</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- failure in a @do@ expression.</span>
+</span></span><span style="display:flex;"><span>        fail        <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> m a
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">{-# INLINE (&gt;&gt;) #-}</span>
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">&gt;&gt;</span> k      <span style="color:#f92672">=</span> m <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> k
+</span></span><span style="display:flex;"><span>        fail s      <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> s
+</span></span></code></pre></div><p>monad其实规范了几个行为:</p>
 <ul>
 <li>&gt;&gt;, 和1相类似, 只是将第一个参数的输出舍弃</li>
 <li>return, 则是将某个值包含在类型m中</li>
@@ -176,7 +186,8 @@ if (!doNotTrack) {
 </ul>
 <p>从上面我们也能看出Monad的概念不是语言级别的, 也就是说他并不是语法, 而是一种编程思路, 可以理解为和设计模式类似的东西, 但却稍微有些不同.<br>
 笔者认为Monad是对haskell语言的一种best practice,  让代码更加直观. 另外还有一个最重要的功能就是提高代码的复用率 &ndash; 避免我们讲函数的参数在不同函数之间传递.</p>
-<h1 id="monad实例">Monad实例</h1>
+
+<h1 id="monad实例" class="anchor-link"><a href="#monad%e5%ae%9e%e4%be%8b">Monad实例<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>我们来看看最简单的Monad的实现: Maybe</p>
 <pre><code>-- Maybe的定义
 data Maybe a  =  Nothing | Just a
@@ -201,7 +212,8 @@ instance  Monad Maybe  where
 <li>return, 用Just类型构造函数包裹</li>
 <li>fail, 返回Nothing</li>
 </ol>
-<h1 id="monad的好处">Monad的好处</h1>
+
+<h1 id="monad的好处" class="anchor-link"><a href="#monad%e7%9a%84%e5%a5%bd%e5%a4%84">Monad的好处<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>讲了这么多复杂的Monad的概念, 好像没什么可对比出来的好处, 那我们来看这种场景:</p>
 <pre><code>{-
  - 输入一个整数
@@ -217,15 +229,16 @@ addNum x = do
 </code></pre>
 <p>如果我们需求需要对x做更多的处理的话, 那么这个函数是多么可怕!</p>
 <p>如果使用Monad呢?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    addNumM <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
-    addNumM x <span style="color:#f92672">=</span> 
-      maybe <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> x) (
-        <span style="color:#66d9ef">Just</span> x <span style="color:#f92672">&gt;&gt;=</span> (<span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> z <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
-          <span style="color:#f92672">&gt;&gt;=</span>  (<span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> z <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>)
-          <span style="color:#f92672">&gt;&gt;=</span>  (<span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> z <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>)
-      )
-</code></pre></div><p>如此, haskell就将整个流程串联起来, 让代码可读性大大增加.但是这个的前提是基于我们已经完全掌握了prelude中的函数, 也就是说学习haskell需要很高的学习成本, 但掌握之后会大大提高工作效率.</p>
-<h1 id="io">IO</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    addNumM <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+</span></span><span style="display:flex;"><span>    addNumM x <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>      maybe <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> x) (
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">Just</span> x <span style="color:#f92672">&gt;&gt;=</span> (<span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> z <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&gt;&gt;=</span>  (<span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> z <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&gt;&gt;=</span>  (<span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> <span style="color:#f92672">$</span> z <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>      )
+</span></span></code></pre></div><p>如此, haskell就将整个流程串联起来, 让代码可读性大大增加.但是这个的前提是基于我们已经完全掌握了prelude中的函数, 也就是说学习haskell需要很高的学习成本, 但掌握之后会大大提高工作效率.</p>
+
+<h1 id="io" class="anchor-link"><a href="#io">IO<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>IO其实和Monad关系不大, 笔者把他和Monad写在一起的原因主要是因为这两者都比较难理解, 而且IO是Monad的一个instance.<br>
 为什么会有IO?看名字, 好似只做输入输出有关的东西. 想要理解什么是IO, 我们先要理解什么是purity. Haskell所提倡的函数编程的purity, 它的本意是指对于一个函数, 给出相同的输入, 必然会得到相同的输出. 这是不是和小时候所学的数学代数类似? 只要代数的值恒定, 那么其结果必然恒定. (当然开发这个语言的坐着本来就是个数学家!).</p>
 <p>但是, 有一定编程经验的朋友肯定知道, 编程的时候可能会有全局变量, 可能会根据条件打印文字到console. 这必然违背了haskell的purity, 如果haskell放弃这些东西的话, 那这门语言必然只能局限在数学领域, 或者认为他并不是一门语言.</p>
@@ -235,16 +248,17 @@ addNum x = do
 <li>main就是一个IO</li>
 <li>IO被调用返回值是它所包含的类变量的值</li>
 </ol>
-<h1 id="functor">Functor</h1>
+
+<h1 id="functor" class="anchor-link"><a href="#functor">Functor<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>Functor其实和Monad是类似的东西, 只不过支持的东西不一样, 来看看他的定义:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">class</span>  <span style="color:#66d9ef">Functor</span> f  <span style="color:#66d9ef">where</span>
-        fmap        <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> b) <span style="color:#f92672">-&gt;</span> f a <span style="color:#f92672">-&gt;</span> f b
-        <span style="color:#75715e">-- | Replace all locations in the input with the same value.</span>
-        <span style="color:#75715e">-- The default definition is @&#39;fmap&#39; . &#39;const&#39;@, but this may be</span>
-        <span style="color:#75715e">-- overridden with a more efficient version.</span>
-        (<span style="color:#f92672">&lt;$</span>)        <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> f b <span style="color:#f92672">-&gt;</span> f a
-        (<span style="color:#f92672">&lt;$</span>)        <span style="color:#f92672">=</span>  fmap <span style="color:#f92672">.</span> const
-</code></pre></div><p>类似python的map函数.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span>  <span style="color:#66d9ef">Functor</span> f  <span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>        fmap        <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> b) <span style="color:#f92672">-&gt;</span> f a <span style="color:#f92672">-&gt;</span> f b
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- | Replace all locations in the input with the same value.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- The default definition is @&#39;fmap&#39; . &#39;const&#39;@, but this may be</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- overridden with a more efficient version.</span>
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&lt;$</span>)        <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> f b <span style="color:#f92672">-&gt;</span> f a
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&lt;$</span>)        <span style="color:#f92672">=</span>  fmap <span style="color:#f92672">.</span> const
+</span></span></code></pre></div><p>类似python的map函数.</p>
 
     </article>
 </div>
@@ -275,10 +289,13 @@ addNum x = do
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

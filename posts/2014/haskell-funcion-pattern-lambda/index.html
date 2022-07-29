@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,7 +48,7 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Haskell学习笔记一--More on function"/>
 <meta name="twitter:description" content="在haskell中我们可以对function做的更多, 这节一起来看看什么是function pattern和lambda function, 以及什么是多态类.
-Function Pattern 首先我们来看下我们在python的一段代码
+Function Pattern&nbsp;¶ 首先我们来看下我们在python的一段代码
 def sumList(l) : if 1 &gt; len(l) : return 0 if 2 &gt; len(l) : return l[0] return l[0] &#43; l[1] 那么用function pattern写会如何呢?
 sumList :: Num a =&gt; [a] -&gt; a sumList (ele:oEle) = ele &#43; sumList oEle sumList [x] = x sumList [] = 0 这段函数该如何解读?看起来我们像是对sumList定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候Funtion Pattern就开始发挥作用了.
 先来看第一段代码:
@@ -52,7 +58,7 @@ sumList [x] = x 当sumList的参数有且只有一个元素的时候返回该元
 
 <meta property="og:title" content="Haskell学习笔记一--More on function" />
 <meta property="og:description" content="在haskell中我们可以对function做的更多, 这节一起来看看什么是function pattern和lambda function, 以及什么是多态类.
-Function Pattern 首先我们来看下我们在python的一段代码
+Function Pattern&nbsp;¶ 首先我们来看下我们在python的一段代码
 def sumList(l) : if 1 &gt; len(l) : return 0 if 2 &gt; len(l) : return l[0] return l[0] &#43; l[1] 那么用function pattern写会如何呢?
 sumList :: Num a =&gt; [a] -&gt; a sumList (ele:oEle) = ele &#43; sumList oEle sumList [x] = x sumList [] = 0 这段函数该如何解读?看起来我们像是对sumList定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候Funtion Pattern就开始发挥作用了.
 先来看第一段代码:
@@ -60,21 +66,23 @@ sumList (ele:oEle) = ele &#43; sumList oEle 这段代码定义了当sumList的�
 再来看第二段代码:
 sumList [x] = x 当sumList的参数有且只有一个元素的时候返回该元素的值." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-funcion-pattern-lambda/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2014/haskell-funcion-pattern-lambda/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-01-24T13:27:21+00:00" />
 <meta property="article:modified_time" content="2014-01-24T13:27:21+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -132,52 +140,56 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>在haskell中我们可以对function做的更多, 这节一起来看看什么是function pattern和lambda function, 以及什么是多态类.</p>
-<h1 id="function-pattern">Function Pattern</h1>
+
+<h1 id="function-pattern" class="anchor-link"><a href="#function-pattern">Function Pattern<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>首先我们来看下我们在python的一段代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    def sumList(l) <span style="color:#66d9ef">:</span>  
-        <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> len(l) <span style="color:#66d9ef">:</span>  
-          return <span style="color:#ae81ff">0</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">&gt;</span> len(l) <span style="color:#66d9ef">:</span>  
-          return l[<span style="color:#ae81ff">0</span>] 
-        return l[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> l[<span style="color:#ae81ff">1</span>] 
-</code></pre></div><p>那么用function pattern写会如何呢?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    sumList <span style="color:#f92672">::</span> <span style="color:#66d9ef">Num</span> a <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> a  
-    sumList (ele<span style="color:#66d9ef">:</span>oEle) <span style="color:#f92672">=</span> ele <span style="color:#f92672">+</span> sumList oEle  
-    sumList [x] <span style="color:#f92672">=</span> x
-    sumList <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</code></pre></div><p>这段函数该如何解读?看起来我们像是对<em>sumList</em>定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候<strong>Funtion Pattern</strong>就开始发挥作用了.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    def sumList(l) <span style="color:#66d9ef">:</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> len(l) <span style="color:#66d9ef">:</span>  
+</span></span><span style="display:flex;"><span>          return <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">&gt;</span> len(l) <span style="color:#66d9ef">:</span>  
+</span></span><span style="display:flex;"><span>          return l[<span style="color:#ae81ff">0</span>] 
+</span></span><span style="display:flex;"><span>        return l[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> l[<span style="color:#ae81ff">1</span>] 
+</span></span></code></pre></div><p>那么用function pattern写会如何呢?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    sumList <span style="color:#f92672">::</span> <span style="color:#66d9ef">Num</span> a <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> a  
+</span></span><span style="display:flex;"><span>    sumList (ele<span style="color:#66d9ef">:</span>oEle) <span style="color:#f92672">=</span> ele <span style="color:#f92672">+</span> sumList oEle  
+</span></span><span style="display:flex;"><span>    sumList [x] <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>    sumList <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>这段函数该如何解读?看起来我们像是对<em>sumList</em>定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候<strong>Funtion Pattern</strong>就开始发挥作用了.</p>
 <p>先来看第一段代码:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    sumList (ele<span style="color:#66d9ef">:</span>oEle) <span style="color:#f92672">=</span> ele <span style="color:#f92672">+</span> sumList oEle  
-</code></pre></div><p>这段代码定义了当sumList的参数多余一个元素的时候将第一个元素的值和后续元素递归调用后的值相加.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    sumList (ele<span style="color:#66d9ef">:</span>oEle) <span style="color:#f92672">=</span> ele <span style="color:#f92672">+</span> sumList oEle  
+</span></span></code></pre></div><p>这段代码定义了当sumList的参数多余一个元素的时候将第一个元素的值和后续元素递归调用后的值相加.</p>
 <p>再来看第二段代码:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    sumList [x] <span style="color:#f92672">=</span> x
-</code></pre></div><p>当sumList的参数有且只有一个元素的时候返回该元素的值.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    sumList [x] <span style="color:#f92672">=</span> x
+</span></span></code></pre></div><p>当sumList的参数有且只有一个元素的时候返回该元素的值.</p>
 <p>最后是第三段代码:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    sumList <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</code></pre></div><p>这段代码是最容易理解的,当为空数组的时候返回0.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    sumList <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>这段代码是最容易理解的,当为空数组的时候返回0.</p>
 <p>好了,这就是Funcion Pattern的功用了, 他没有定义了3次函数, 而是根据不同参数定义不同的函数, 实现了上述python的功能.</p>
-<h1 id="lambda">Lambda</h1>
+
+<h1 id="lambda" class="anchor-link"><a href="#lambda">Lambda<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>接下来我们来看看lambda, 可以理解为没有函数名字的函数, 一般用在这个函数极其简单, 且只会被使用一次.还是先来看看python是如何写lambda的:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    (lambda x<span style="color:#66d9ef">:</span> x<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)(<span style="color:#ae81ff">1</span>)
-</code></pre></div><p>再来看看haskell是如何写的:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    (<span style="color:#a6e22e">\</span> x <span style="color:#f92672">-&gt;</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#ae81ff">1</span>
-</code></pre></div><p>其中**\**表示lambda函数的开头, 其他就和一般函数定义是一样的.</p>
-<h1 id="多态类polymorphic-types和类构造器type-constructors">多态类(Polymorphic Types)和类构造器(Type Constructors)</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    (lambda x<span style="color:#66d9ef">:</span> x<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)(<span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>再来看看haskell是如何写的:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    (<span style="color:#a6e22e">\</span> x <span style="color:#f92672">-&gt;</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>其中**\**表示lambda函数的开头, 其他就和一般函数定义是一样的.</p>
+
+<h1 id="多态类polymorphic-types和类构造器type-constructors" class="anchor-link"><a href="#%e5%a4%9a%e6%80%81%e7%b1%bbpolymorphic-types%e5%92%8c%e7%b1%bb%e6%9e%84%e9%80%a0%e5%99%a8type-constructors">多态类(Polymorphic Types)和类构造器(Type Constructors)<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>来看下这么一段超级奇怪的代码:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    main <span style="color:#f92672">=</span> return ()
-</code></pre></div><p>main同样是所有Haskell程序的入口, 这段代码是最简单的Haskell程序.他的功能只是把main这个变量赋值成一个类型,而这个类型是null, 也就是我们看到的**()**. 可以把他理解成python中的None.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    main <span style="color:#f92672">=</span> return ()
+</span></span></code></pre></div><p>main同样是所有Haskell程序的入口, 这段代码是最简单的Haskell程序.他的功能只是把main这个变量赋值成一个类型,而这个类型是null, 也就是我们看到的**()**. 可以把他理解成python中的None.</p>
 <p>再来看看关于main的一种定义:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    main <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
-</code></pre></div><p>咋看起来,这怎么像python中的函数调用?等等,Haskell 的函数调用也不是这样的,而且在定义中也没办法出现函数调用呀?这货到底是什么?首先,IO就是我们说的多态类, 他接受一个类型的参数, 也就是(). 而这段定义是说main是被IO构造出来的类型, 而IO接受一个()的参数.</p>
-<h1 id="maybe">Maybe</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    main <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
+</span></span></code></pre></div><p>咋看起来,这怎么像python中的函数调用?等等,Haskell 的函数调用也不是这样的,而且在定义中也没办法出现函数调用呀?这货到底是什么?首先,IO就是我们说的多态类, 他接受一个类型的参数, 也就是(). 而这段定义是说main是被IO构造出来的类型, 而IO接受一个()的参数.</p>
+
+<h1 id="maybe" class="anchor-link"><a href="#maybe">Maybe<span class="pilcrow">&nbsp;¶</span></a></h1>
 <p>我们再来看一个标准库中Maybe的模块.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Maybe</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Just</span> a
-</code></pre></div><p><em>data</em>是用来定义类型的关键字, 这段代码是把a这个类型定义为Nothing或者Just a.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Maybe</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Just</span> a
+</span></span></code></pre></div><p><em>data</em>是用来定义类型的关键字, 这段代码是把a这个类型定义为Nothing或者Just a.</p>
 <p>再来看下一个例子</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell">    showPet <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int</span>, <span style="color:#66d9ef">String</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
-    showPet <span style="color:#66d9ef">Nothing</span>		<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;none&#34;</span>
-    showPet (<span style="color:#66d9ef">Just</span> (name, age, species))	<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a &#34;</span> <span style="color:#f92672">++</span> species <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; named &#34;</span> <span style="color:#f92672">++</span> name <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;, aged &#34;</span> <span style="color:#f92672">++</span> (show age)
-</code></pre></div><p>这个例子我们可以看到showPet接收一个Maybe类型的参数, 当参数为Nothing的时候返回none的字符串.而当参数的类型是Just (name, age, species)类型的时候, 他就是一个(name, age, species)类型.真是要彻底颠覆对类型(也就是type)的理解了.对这里笔者还是不十分理解,有待深入研究Maybe到底干了什么事情.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span>    showPet <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int</span>, <span style="color:#66d9ef">String</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>    showPet <span style="color:#66d9ef">Nothing</span>		<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;none&#34;</span>
+</span></span><span style="display:flex;"><span>    showPet (<span style="color:#66d9ef">Just</span> (name, age, species))	<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a &#34;</span> <span style="color:#f92672">++</span> species <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; named &#34;</span> <span style="color:#f92672">++</span> name <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;, aged &#34;</span> <span style="color:#f92672">++</span> (show age)
+</span></span></code></pre></div><p>这个例子我们可以看到showPet接收一个Maybe类型的参数, 当参数为Nothing的时候返回none的字符串.而当参数的类型是Just (name, age, species)类型的时候, 他就是一个(name, age, species)类型.真是要彻底颠覆对类型(也就是type)的理解了.对这里笔者还是不十分理解,有待深入研究Maybe到底干了什么事情.</p>
 
     </article>
 </div>
@@ -208,10 +220,13 @@ if (!doNotTrack) {
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

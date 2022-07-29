@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Fri, 25 Oct 2013 10:27:27 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/timer/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 25 Oct 2013 10:27:27 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/timer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>在linux下删除setitimer设置的timer</title>
       <link>http://oopschen.github.io/posts/2013/how-to-delete-timer-set-by-setitimer/</link>
@@ -19,11 +15,11 @@
       
       <guid>http://oopschen.github.io/posts/2013/how-to-delete-timer-set-by-setitimer/</guid>
       <description>最近的项目需要用一个timer设置超时检测,看了timer_create和setitimer的文档,选择使用比较简单的setitimer方式进行检测,当然这种方式的可移植性不太好,建议选择timer_create（基于posix标准）方式进行超时设置。后来碰到一个问题：setitimer并没有对应的删除timer的系统调用,而文档也是一句带过：
- A timer which is set to zero (it_value is zero or the timer expires and it_interval is zero) stops.
- 上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：
-实验设计  设定主程序监听alarm信号,打印日志 开起timer 设定主程序监听SIGUSR1事件,停止timer 利用{% highlight bash %}kill -SIGUSR1 {% endhighlight %}方式停止timer  预期：
+A timer which is set to zero (it_value is zero or the timer expires and it_interval is zero) stops.
+上面的意思是,当it_value和it_interval的值都为0的时候,计时器自动停止,那没有方法可以手动停止么？带着这个疑问来测试下把：
+实验设计&amp;nbsp;¶ 设定主程序监听alarm信号,打印日志 开起timer 设定主程序监听SIGUSR1事件,停止timer 利用{% highlight bash %}kill -SIGUSR1 {% endhighlight %}方式停止timer 预期：
 主程序停止打印日志
-1. 设置timer的值为0 整体代码如下：
+1. 设置timer的值为0&amp;nbsp;¶ 整体代码如下：
 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;signal.h&amp;gt; #include &amp;lt;sys/time.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; static struct timeval __intrvl; static struct timeval __timer_val; static struct itimerval __timer; void hdl(int sigNum) { printf(&amp;#34;sig num %d, %ld-%ld, %ld-%ld\n&amp;#34;, sigNum, __timer_val.</description>
     </item>
     

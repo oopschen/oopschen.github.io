@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Sat, 25 Jan 2014 15:36:26 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/grammer/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 25 Jan 2014 15:36:26 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/grammer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell学习笔记三--语法</title>
       <link>http://oopschen.github.io/posts/2014/haskell-syntax/</link>
@@ -19,7 +15,7 @@
       
       <guid>http://oopschen.github.io/posts/2014/haskell-syntax/</guid>
       <description>这篇blog要记录下笔者在看haskell的BNF的种种, 希望能全面的了解haskell的语法规则.这里的语法规则主要指的是Haskell 2010.
-Lexeme BNF program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace  上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义.</description>
+Lexeme BNF&amp;nbsp;¶ program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace 上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义.</description>
     </item>
     
   </channel>

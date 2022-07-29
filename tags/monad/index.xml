@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Sun, 16 Mar 2014 09:24:08 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/monad/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 16 Mar 2014 09:24:08 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/monad/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell学习笔记- Monad, IO和Functor</title>
       <link>http://oopschen.github.io/posts/2014/haskell-monad/</link>
@@ -19,11 +15,11 @@
       
       <guid>http://oopschen.github.io/posts/2014/haskell-monad/</guid>
       <description>Monad这个概念是第一次在Haskell中看到, 也是haskell中比较难理解的部分之一, 但同样也是很重要的部分. 今天就来看看Monad到底是什么货, 同时也来看看Functor和IO是什么?
-Monad用法 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
+Monad用法&amp;nbsp;¶ 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
 let a = Just 1 in a &amp;gt;&amp;gt;= \x -&amp;gt; Just (x+2) --output Just 2 这里我们先来回顾下lambda的用法:
 \x -&amp;gt; Just (x+2) 这个函数将输入的x加2后返回, 并且把这个值包装在Just中.
-对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到&amp;raquo;=可以将Just中的东西提取出来.
-Monad的源码 看过了上述实例, 我们看下Monad的源码:
+对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&amp;raquo;=*可以将Just中的东西提取出来.
+Monad的源码&amp;nbsp;¶ 看过了上述实例, 我们看下Monad的源码:
 class Monad m where -- | Sequentially compose two actions, passing any value produced -- by the first as an argument to the second. (&amp;gt;&amp;gt;=) :: forall a b. m a -&amp;gt; (a -&amp;gt; m b) -&amp;gt; m b -- | Sequentially compose two actions, discarding any value produced -- by the first, like sequencing operators (such as the semicolon) -- in imperative languages.</description>
     </item>
     

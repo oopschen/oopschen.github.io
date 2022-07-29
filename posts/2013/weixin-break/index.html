@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -42,39 +48,41 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="微信破解研究总结"/>
 <meta name="twitter:description" content="微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。
-理论分析 首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：
- android版本 iphone版本  由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。
-实践 android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择APK进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是smali的机制,我们可以根据Dalvik的字节码总结出源代码&ndash;基本能和java的源代码相对应。
-微信客户端的架构 微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c&#43;&#43;代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c&#43;&#43;的反编译代码了。libnetwork.so这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,libMMProtocalJni.so这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。 而java代码封装了UI和网络适配器,基本流程如下：
-java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作 这样的结构,确实增加了破译的难度,除非耐着性子看完800K&#43;汇编代码。
-libMMProtocalJni 通过libMMProtocalJni的反汇编代码,我们可以看到关键字aes和cbc,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。
-另类的破解 与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。"/>
+理论分析&nbsp;¶ 首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：
+android版本 iphone版本 由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。
+实践&nbsp;¶ android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择APK进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是smali的机制,我们可以根据Dalvik的字节码总结出源代码&ndash;基本能和java的源代码相对应。
+微信客户端的架构&nbsp;¶ 微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c&#43;&#43;代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c&#43;&#43;的反编译代码了。libnetwork.so这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,libMMProtocalJni.so这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。 而java代码封装了UI和网络适配器,基本流程如下：
+java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作 这样的结构,确实增加了破译的难度,除非耐着性子看完**800K&#43;**汇编代码。
+libMMProtocalJni&nbsp;¶ 通过libMMProtocalJni的反汇编代码,我们可以看到关键字aes和cbc,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。
+另类的破解&nbsp;¶ 与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。"/>
 
 <meta property="og:title" content="微信破解研究总结" />
 <meta property="og:description" content="微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。
-理论分析 首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：
- android版本 iphone版本  由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。
-实践 android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择APK进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是smali的机制,我们可以根据Dalvik的字节码总结出源代码&ndash;基本能和java的源代码相对应。
-微信客户端的架构 微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c&#43;&#43;代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c&#43;&#43;的反编译代码了。libnetwork.so这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,libMMProtocalJni.so这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。 而java代码封装了UI和网络适配器,基本流程如下：
-java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作 这样的结构,确实增加了破译的难度,除非耐着性子看完800K&#43;汇编代码。
-libMMProtocalJni 通过libMMProtocalJni的反汇编代码,我们可以看到关键字aes和cbc,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。
-另类的破解 与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。" />
+理论分析&nbsp;¶ 首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：
+android版本 iphone版本 由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。
+实践&nbsp;¶ android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择APK进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是smali的机制,我们可以根据Dalvik的字节码总结出源代码&ndash;基本能和java的源代码相对应。
+微信客户端的架构&nbsp;¶ 微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c&#43;&#43;代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c&#43;&#43;的反编译代码了。libnetwork.so这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,libMMProtocalJni.so这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。 而java代码封装了UI和网络适配器,基本流程如下：
+java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作 这样的结构,确实增加了破译的难度,除非耐着性子看完**800K&#43;**汇编代码。
+libMMProtocalJni&nbsp;¶ 通过libMMProtocalJni的反汇编代码,我们可以看到关键字aes和cbc,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。
+另类的破解&nbsp;¶ 与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://oopschen.github.io/posts/2013/weixin-break/" />
+<meta property="og:url" content="http://oopschen.github.io/posts/2013/weixin-break/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2013-09-30T19:59:29+00:00" />
 <meta property="article:modified_time" content="2013-09-30T19:59:29+00:00" />
 
 
-<script type="application/javascript">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -114,23 +122,28 @@ if (!doNotTrack) {
     <hr />
     <article role="article">
         <p>微信作为腾讯部署移动互联网的棋子,以闪电般的速度占领了市场。而最近,我也经常发现在查看附近的人或者摇一摇的时候会出现一些广告。说实话,这种广告确实比在PC上看到的广告更具真实性,毕竟人就在附近。因此,我萌发了想要偷窥下他协议的冲动。说干咱就干。</p>
-<h4 id="理论分析">理论分析</h4>
+
+<h4 id="理论分析" class="anchor-link"><a href="#%e7%90%86%e8%ae%ba%e5%88%86%e6%9e%90">理论分析<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>首先想到的是抓包对协议分析,显然这是不可取的,一般IM的通信都是加密的,靠猜那是事倍功半的事情。所以,从源代码着手是比较靠谱的事情,眼下微信有两个版本：</p>
 <ol>
 <li>android版本</li>
 <li>iphone版本</li>
 </ol>
 <p>由于iphone平台的不开放性,和java的字节代码的高可读性,最终决定还是选择android平台进行源码分析。</p>
-<h4 id="实践">实践</h4>
+
+<h4 id="实践" class="anchor-link"><a href="#%e5%ae%9e%e8%b7%b5">实践<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>android平台的应用不是java平台的工具能进行反编译的,两者的字节码是截然不同的,vm相差也是十万八千里。所以我们选择<a href="https://code.google.com/p/android-apktool/" title="APK">APK</a>进行反编译,意料之中的是反编译出来的东西是混淆的代码,而我们可以根据每一个按键的文字找到对应的入口。apk反编译采用的是<a href="https://code.google.com/p/smali/" title="Smali">smali</a>的机制,我们可以根据<a href="http://source.android.com/devices/tech/dalvik/dalvik-bytecode.html" title="Dalvik Bytecode Format">Dalvik的字节码</a>总结出源代码&ndash;基本能和java的源代码相对应。</p>
-<h4 id="微信客户端的架构">微信客户端的架构</h4>
+
+<h4 id="微信客户端的架构" class="anchor-link"><a href="#%e5%be%ae%e4%bf%a1%e5%ae%a2%e6%88%b7%e7%ab%af%e7%9a%84%e6%9e%b6%e6%9e%84">微信客户端的架构<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>微信客户端采用的是TCP长连接的模式,而有专属的通信协议,并且这些协议是通过JNI方式用c++代码进行封装,因此想要破解并不容易&ndash;看了一天就没什么信心再去看c++的反编译代码了。<em>libnetwork.so</em>这个文件主要封装了微信的网络操作&ndash;长连接和短链接的创建,dns的查询等等,<em>libMMProtocalJni.so</em>这个文件封装了微信的所有通信协议&ndash;包括加密和压缩。
 而java代码封装了UI和网络适配器,基本流程如下：<br>
 java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMProtocalJni解密,然后回调java进行界面操作
-这样的结构,确实增加了破译的难度,除非耐着性子看完<strong>800K+</strong>汇编代码。</p>
-<h5 id="libmmprotocaljni">libMMProtocalJni</h5>
+这样的结构,确实增加了破译的难度,除非耐着性子看完**800K+**汇编代码。</p>
+
+<h5 id="libmmprotocaljni" class="anchor-link"><a href="#libmmprotocaljni">libMMProtocalJni<span class="pilcrow">&nbsp;¶</span></a></h5>
 <p>通过libMMProtocalJni的反汇编代码,我们可以看到关键字<strong>aes</strong>和<strong>cbc</strong>,我们有理由相信微信的底层加密是用AES的CBC模式加密,至于有多少位和密钥是什么则是封装在libnetwork中。</p>
-<h4 id="另类的破解">另类的破解</h4>
+
+<h4 id="另类的破解" class="anchor-link"><a href="#%e5%8f%a6%e7%b1%bb%e7%9a%84%e7%a0%b4%e8%a7%a3">另类的破解<span class="pilcrow">&nbsp;¶</span></a></h4>
 <p>与其说是一种破解,不如说是模拟,我们可以把破解提到一个更高的语言级别&ndash;通过在模拟器模拟java代码从而弄清楚so文件和java之间的通信方式,进而部分破解出微信。当然,想要使用这种方式开发出类似微信群发的工具,需要在破解出so和java之间的调用后,结合使用android模拟器,通过控制jni调用从而控制微信的通信协议, 达到破解微信的目的。这个方式也有弊端,在效率上肯定比不上直接破解so文件的方式。而且当so文件里有控制并发的逻辑,那么效率会更加的低。</p>
 
     </article>
@@ -162,10 +175,13 @@ java代码通过适配器,调用jni;而服务端返回的内容,先通过libMMPr
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
 </nav>

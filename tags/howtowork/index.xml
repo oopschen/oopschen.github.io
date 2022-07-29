@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Thu, 23 Jan 2014 17:18:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/howtowork/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 23 Jan 2014 17:18:00 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/howtowork/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell学习笔记二--理解Haskell的思路</title>
       <link>http://oopschen.github.io/posts/2014/haskell-for-c-programmer/</link>
@@ -19,12 +15,12 @@
       
       <guid>http://oopschen.github.io/posts/2014/haskell-for-c-programmer/</guid>
       <description>想要使用好一门语言, 必须先掌握他的核心思想. 对于熟悉C语言的程序员来说, 过程就是一切, 而对熟悉java语言的程序员来说对象就是一切, 那么Haskell又如何?先给大家打一支止痛针, 因为看得真的头痛.
-金科玉律  It is often easier to code the general definition for something than to write a function that generates a specific value
- 也就是说定义事情的特性远比实现他做什么容易么?
-有趣的例子 我们先来看一段代码
+金科玉律&amp;nbsp;¶ It is often easier to code the general definition for something than to write a function that generates a specific value
+也就是说定义事情的特性远比实现他做什么容易么?
+有趣的例子&amp;nbsp;¶ 我们先来看一段代码
 myList :: [Int] myList = 0 : 1 : [ a * b | (a, b) &amp;lt;- zip myList (tail myList)] 初看过去,这段代码究竟干了什么事情.是定义了一个函数?是定义了一个列表?还是定义了一个货?在解析这段代码之前先来补点基础知识.
 *:*符号在haskell中代码数组的连接符
-1 : [2] -- output [1, 2] |符号在haskell中代表输入,也就是说|右边的值当作左边表达式的输入
+1 : [2] -- output [1, 2] *|*符号在haskell中代表输入,也就是说|右边的值当作左边表达式的输入
 *&amp;lt;-*表示把右边的值依次赋值给左边
 zip是haskell定义的一个函数
 zip [1,2] [3,4] -- ouput [(1,3), (2,4)] zip [1] [3,4] -- ouput [(1,3)] tail同样也是haskell定义的一个函数</description>

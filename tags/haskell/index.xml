@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Sun, 16 Mar 2014 09:24:08 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 16 Mar 2014 09:24:08 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell学习笔记- Monad, IO和Functor</title>
       <link>http://oopschen.github.io/posts/2014/haskell-monad/</link>
@@ -19,11 +15,11 @@
       
       <guid>http://oopschen.github.io/posts/2014/haskell-monad/</guid>
       <description>Monad这个概念是第一次在Haskell中看到, 也是haskell中比较难理解的部分之一, 但同样也是很重要的部分. 今天就来看看Monad到底是什么货, 同时也来看看Functor和IO是什么?
-Monad用法 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
+Monad用法&amp;nbsp;¶ 在给Monad一个正式的定义之前, 先来看看Monad的标准用法:
 let a = Just 1 in a &amp;gt;&amp;gt;= \x -&amp;gt; Just (x+2) --output Just 2 这里我们先来回顾下lambda的用法:
 \x -&amp;gt; Just (x+2) 这个函数将输入的x加2后返回, 并且把这个值包装在Just中.
-对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到&amp;raquo;=可以将Just中的东西提取出来.
-Monad的源码 看过了上述实例, 我们看下Monad的源码:
+对了, 这就是Monad的标准用法, 很直观的一个好处: 让代码更加的可读和简洁. 虽然我们不知道Just的实现, 但是我们可以猜到*&amp;raquo;=*可以将Just中的东西提取出来.
+Monad的源码&amp;nbsp;¶ 看过了上述实例, 我们看下Monad的源码:
 class Monad m where -- | Sequentially compose two actions, passing any value produced -- by the first as an argument to the second. (&amp;gt;&amp;gt;=) :: forall a b. m a -&amp;gt; (a -&amp;gt; m b) -&amp;gt; m b -- | Sequentially compose two actions, discarding any value produced -- by the first, like sequencing operators (such as the semicolon) -- in imperative languages.</description>
     </item>
     
@@ -34,7 +30,7 @@ class Monad m where -- | Sequentially compose two actions, passing any value pro
       
       <guid>http://oopschen.github.io/posts/2014/haskell-typeclass/</guid>
       <description>新的一年新的开始. 技术还是要连续, 继续我的haskell旅行. 今天要看看haskell中异常强大的TypeClass, type和class放在一起, 会有怎样的化学反应呢?
-首先来了解这么一个事实&amp;ndash;Haskell中语言中没有对所有类型定义==操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?
+首先来了解这么一个事实&amp;ndash;Haskell中语言中没有对所有类型定义*==*操作符. 回想下其他语言, 比如c, ==的意义是对比两个内存位置, python中则是根据不同类型对比他们的内容.那么haskell为什么没有默认的实现, 它又是怎么实现的呢?
 在Haskell中, 所有操作符, 比如+, =, .等, 都是函数, 我想这也可能是他是最纯粹的函数语言的原因之一. 所以这些操作符都是由用户实现的, 而实现他们的正是标准库Prelude. 貌似扯远了, 再回到Typeclass. Haskell就是通过Typeclass从而实现了, 操作符对不同类型的支持.
 先来看段完整的例子:
 data People = Peo { peoId :: Int, peoAge :: Int } deriving (Show) class MyEq a where xy :: a -&amp;gt; a -&amp;gt; Bool instance MyEq People where xy x y = (peoId x) == (peoId y) main = print $ show $ (Peo 1 2) 这个例子的作用:</description>
@@ -47,8 +43,8 @@ data People = Peo { peoId :: Int, peoAge :: Int } deriving (Show) class MyEq a w
       
       <guid>http://oopschen.github.io/posts/2014/haskell-declaration/</guid>
       <description>即将到年三十了, 好学的年轻人还是决定在今天花一个小时提升下自己的技能. 今天来看看Haskell 2010语言规范中的Declarations和Bindings.
-Declarations 这部分在理解Haskell中很重要, 因为他诠释了haskell这门语言是如何定义事情的, 他的定义会告诉编译器把这些代码生成低级机器语言.
-module	→	module modid [exports] where body |	body body	→	{ impdecls ; topdecls } |	{ impdecls } |	{ topdecls } topdecls	→	topdecl1 ; … ; topdecln	(n ≥ 1) topdecl	→	type simpletype = type |	data [context =&amp;gt;] simpletype [= constrs] [deriving] |	newtype [context =&amp;gt;] simpletype = newconstr [deriving] |	class [scontext =&amp;gt;] tycls tyvar [where cdecls] |	instance [scontext =&amp;gt;] qtycls inst [where idecls] |	default (type1 , … , typen)	(n ≥ 0) |	foreign fdecl |	decl decls	→	{ decl1 ; … ; decln }	(n ≥ 0) decl	→	gendecl |	(funlhs | pat) rhs cdecls	→	{ cdecl1 ; … ; cdecln }	(n ≥ 0) cdecl	→	gendecl |	(funlhs | var) rhs idecls	→	{ idecl1 ; … ; idecln }	(n ≥ 0) idecl	→	(funlhs | var) rhs |	(empty) gendecl	→	vars :: [context =&amp;gt;] type	(type signature) |	fixity [integer] ops	(fixity declaration) |	(empty declaration) ops	→	op1 , … , opn	(n ≥ 1) vars	→	var1 , … , varn	(n ≥ 1) fixity	→	infixl | infixr | infix  从上面我们可以看到有topdecls和decls的区分, topdecls只能在module的top level中被声明, 而不能在其他的scope(比如where, let等)中被声明.</description>
+Declarations&amp;nbsp;¶ 这部分在理解Haskell中很重要, 因为他诠释了haskell这门语言是如何定义事情的, 他的定义会告诉编译器把这些代码生成低级机器语言.
+module	→	module modid [exports] where body |	body body	→	{ impdecls ; topdecls } |	{ impdecls } |	{ topdecls } topdecls	→	topdecl1 ; … ; topdecln	(n ≥ 1) topdecl	→	type simpletype = type |	data [context =&amp;gt;] simpletype [= constrs] [deriving] |	newtype [context =&amp;gt;] simpletype = newconstr [deriving] |	class [scontext =&amp;gt;] tycls tyvar [where cdecls] |	instance [scontext =&amp;gt;] qtycls inst [where idecls] |	default (type1 , … , typen)	(n ≥ 0) |	foreign fdecl |	decl decls	→	{ decl1 ; … ; decln }	(n ≥ 0) decl	→	gendecl |	(funlhs | pat) rhs cdecls	→	{ cdecl1 ; … ; cdecln }	(n ≥ 0) cdecl	→	gendecl |	(funlhs | var) rhs idecls	→	{ idecl1 ; … ; idecln }	(n ≥ 0) idecl	→	(funlhs | var) rhs |	(empty) gendecl	→	vars :: [context =&amp;gt;] type	(type signature) |	fixity [integer] ops	(fixity declaration) |	(empty declaration) ops	→	op1 , … , opn	(n ≥ 1) vars	→	var1 , … , varn	(n ≥ 1) fixity	→	infixl | infixr | infix 从上面我们可以看到有topdecls和decls的区分, topdecls只能在module的top level中被声明, 而不能在其他的scope(比如where, let等)中被声明.</description>
     </item>
     
     <item>
@@ -58,7 +54,7 @@ module	→	module modid [exports] where body |	body body	→	{ impdecls ; topdec
       
       <guid>http://oopschen.github.io/posts/2014/haskell-expression/</guid>
       <description>休息了一天,今天本想再偷懒下的,还是不能太放纵自己,把这宝贵的一小时奉献给Haskell.今天来看看haskell expression的定义.
-Expression 全局的看下Haskell的expression的定义.
+Expression&amp;nbsp;¶ 全局的看下Haskell的expression的定义.
 exp	→	infixexp :: [context =&amp;gt;] type	(expression type signature) |	infixexp infixexp	→	lexp qop infixexp	(infix operator application) |	- infixexp	(prefix negation) |	lexp lexp	→	\ apat1 … apatn -&amp;gt; exp	(lambda abstraction, n ≥ 1) |	let decls in exp	(let expression) |	if exp [;] then exp [;] else exp	(conditional) |	case exp of { alts }	(case expression) |	do { stmts }	(do expression) |	fexp fexp	→	[fexp] aexp	(function application) aexp	→	qvar	(variable) |	gcon	(general constructor) |	literal |	( exp )	(parenthesized expression) |	( exp1 , … , expk )	(tuple, k ≥ 2) |	[ exp1 , … , expk ]	(list, k ≥ 1) |	[ exp1 [, exp2] .</description>
     </item>
     
@@ -69,7 +65,7 @@ exp	→	infixexp :: [context =&amp;gt;] type	(expression type signature) |	infix
       
       <guid>http://oopschen.github.io/posts/2014/haskell-syntax/</guid>
       <description>这篇blog要记录下笔者在看haskell的BNF的种种, 希望能全面的了解haskell的语法规则.这里的语法规则主要指的是Haskell 2010.
-Lexeme BNF program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace  上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义.</description>
+Lexeme BNF&amp;nbsp;¶ program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvarsym | qconsym |	literal | special | reservedop | reservedid whitespace	→	whitestuff {whitestuff} whitestuff	→	whitechar | comment | ncomment whitechar	→	newline | vertab | space | tab | uniWhite newline	→	return linefeed | return | linefeed | formfeed return	→	a carriage return linefeed	→	a line feed vertab	→	a vertical tab formfeed	→	a form feed space	→	a space tab	→	a horizontal tab uniWhite	→	any Unicode character defined as whitespace 上面的BNF定义了haskell的程序是由lexeme和whitespace组成的,lexeme也给出了他自己的定义.</description>
     </item>
     
     <item>
@@ -79,7 +75,7 @@ Lexeme BNF program	→	{ lexeme | whitespace } lexeme	→	qvarid | qconid | qvar
       
       <guid>http://oopschen.github.io/posts/2014/haskell-funcion-pattern-lambda/</guid>
       <description>在haskell中我们可以对function做的更多, 这节一起来看看什么是function pattern和lambda function, 以及什么是多态类.
-Function Pattern 首先我们来看下我们在python的一段代码
+Function Pattern&amp;nbsp;¶ 首先我们来看下我们在python的一段代码
 def sumList(l) : if 1 &amp;gt; len(l) : return 0 if 2 &amp;gt; len(l) : return l[0] return l[0] + l[1] 那么用function pattern写会如何呢?
 sumList :: Num a =&amp;gt; [a] -&amp;gt; a sumList (ele:oEle) = ele + sumList oEle sumList [x] = x sumList [] = 0 这段函数该如何解读?看起来我们像是对sumList定义了3遍,但是每次定义的样子都不一样,这样会不会让函数的定义混乱?这时候Funtion Pattern就开始发挥作用了.
 先来看第一段代码:
@@ -95,12 +91,12 @@ sumList [x] = x 当sumList的参数有且只有一个元素的时候返回该元
       
       <guid>http://oopschen.github.io/posts/2014/haskell-for-c-programmer/</guid>
       <description>想要使用好一门语言, 必须先掌握他的核心思想. 对于熟悉C语言的程序员来说, 过程就是一切, 而对熟悉java语言的程序员来说对象就是一切, 那么Haskell又如何?先给大家打一支止痛针, 因为看得真的头痛.
-金科玉律  It is often easier to code the general definition for something than to write a function that generates a specific value
- 也就是说定义事情的特性远比实现他做什么容易么?
-有趣的例子 我们先来看一段代码
+金科玉律&amp;nbsp;¶ It is often easier to code the general definition for something than to write a function that generates a specific value
+也就是说定义事情的特性远比实现他做什么容易么?
+有趣的例子&amp;nbsp;¶ 我们先来看一段代码
 myList :: [Int] myList = 0 : 1 : [ a * b | (a, b) &amp;lt;- zip myList (tail myList)] 初看过去,这段代码究竟干了什么事情.是定义了一个函数?是定义了一个列表?还是定义了一个货?在解析这段代码之前先来补点基础知识.
 *:*符号在haskell中代码数组的连接符
-1 : [2] -- output [1, 2] |符号在haskell中代表输入,也就是说|右边的值当作左边表达式的输入
+1 : [2] -- output [1, 2] *|*符号在haskell中代表输入,也就是说|右边的值当作左边表达式的输入
 *&amp;lt;-*表示把右边的值依次赋值给左边
 zip是haskell定义的一个函数
 zip [1,2] [3,4] -- ouput [(1,3), (2,4)] zip [1] [3,4] -- ouput [(1,3)] tail同样也是haskell定义的一个函数</description>

@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Tue, 21 Jan 2014 10:02:11 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/categories/%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 21 Jan 2014 10:02:11 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/categories/%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>linux xmonad 小试</title>
       <link>http://oopschen.github.io/posts/2014/xmonad-desktop/</link>
@@ -19,13 +15,13 @@
       
       <guid>http://oopschen.github.io/posts/2014/xmonad-desktop/</guid>
       <description>一直在用xfce和docky构成的类mac os的桌面系统,最近看腻了,换个新鲜的玩玩。不搜不知道,一搜吓一跳,桌面系统已经有很多版本了,比如基于box概念的gnome,kde,xfce,基于tiling概念的xmonad,awesome等。今天我就来玩玩xmonad的桌面。
-特点 这个桌面主要吸引我的地方特点:
- 他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小 支持多显示器显示不同的workspace 占用资源少,稳定,启动快  唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。
-快捷键介绍 更多请查看这里
-配置文件 ~/.xmonad/xmonad.hs是本地的配置文件,在编辑完后可以用
+特点&amp;nbsp;¶ 这个桌面主要吸引我的地方特点:
+他可以抛弃鼠标操作,完全用键盘操作每个应用的排列和大小 支持多显示器显示不同的workspace 占用资源少,稳定,启动快 唯一不足的就是它用的是Haskell的这种函数语言(对笔者来说真TM晦涩),所以我又要多学一门语言么,咋就不用点流行的,python也好啊。
+快捷键介绍&amp;nbsp;¶ 更多请查看这里
+配置文件&amp;nbsp;¶ ~/.xmonad/xmonad.hs是本地的配置文件,在编辑完后可以用
 xmonad --recompile 来确定自己的语法有木有错误。
 当编辑haskell文件的时候需要注意的是一个tab==8个空格。默认的Mod键是Alt.附上笔者默认的配置
-最终成品 </description>
+最终成品&amp;nbsp;¶ </description>
     </item>
     
     <item>
@@ -37,11 +33,11 @@ xmonad --recompile 来确定自己的语法有木有错误。
       <description>自接触电脑以来,就听过虚拟货币,80后第一反应就能想到Q币,这种等价物可以买很多QQ的服务,但是不能提现。以前也有一些人通过收取Q币来服务他人,换句话说用Q币换取他人的资源。这样Q币就有了一些货币的意味。然后,Q币的发行确实无止境的,这也就意味着,只要腾讯愿意Q币可以无限贬值。
 Ripple币或者数是比特币是发行量固定（按照官方的说法是固定的,其实鬼知道）的货币。这样ripple币就具有一般货币的性质了,我们来看看我们ripple币交易的流程。
 首先我们来看看ripple的两个重要角色G和R：
-R&amp;ndash;ripple币的网络 所谓网络,我们可以理解为一个发行单位和印钞单位的合体,他的职责就是控制发行ripple的数量和个个网关之间通信的桥梁。
-G&amp;ndash;网关 网络上的网关的意义和通道的意思是一样的,这里也不例外。网关主要负责现实生活中的货币,比如人民币,美元,澳元等和ripple币之间汇率的转换。
-交易流程 假设C为买家,S为卖家,G为网关,R为ripple的网络。假设有这样一个场景：在美国的C通过ripple币购买了在中国的S的点卡价值1rmb, 1rmb=1ripple币, 1dollar=10ripple币。那么C通过网关G,充值了1美元,然后支付1个ripple币。而S收到1个ripple币,并把他提现成1人民币。
-赚钱行为 就目前我的了解,ripple币是会浮动的,所以一些投资者可以通过买入和卖出的差价从中获益。而还没发现有什么通过ripple进行的交易,属于虚拟经济。
-总结 这样的交易流程不仅脱离了现实生活中银行之间的现金流转,也让汇率的存在变的没有任何意义。假使ripple开始在各国流通,那么ripple公司完全可以通过操纵ripple币来摧毁一个国家的经济。这样的野心真是很可怕,阴谋论者可以说这是美帝欠钱不还的又一利器。
+R&amp;ndash;ripple币的网络&amp;nbsp;¶ 所谓网络,我们可以理解为一个发行单位和印钞单位的合体,他的职责就是控制发行ripple的数量和个个网关之间通信的桥梁。
+G&amp;ndash;网关&amp;nbsp;¶ 网络上的网关的意义和通道的意思是一样的,这里也不例外。网关主要负责现实生活中的货币,比如人民币,美元,澳元等和ripple币之间汇率的转换。
+交易流程&amp;nbsp;¶ 假设C为买家,S为卖家,G为网关,R为ripple的网络。假设有这样一个场景：在美国的C通过ripple币购买了在中国的S的点卡价值1rmb, 1rmb=1ripple币, 1dollar=10ripple币。那么C通过网关G,充值了1美元,然后支付1个ripple币。而S收到1个ripple币,并把他提现成1人民币。
+赚钱行为&amp;nbsp;¶ 就目前我的了解,ripple币是会浮动的,所以一些投资者可以通过买入和卖出的差价从中获益。而还没发现有什么通过ripple进行的交易,属于虚拟经济。
+总结&amp;nbsp;¶ 这样的交易流程不仅脱离了现实生活中银行之间的现金流转,也让汇率的存在变的没有任何意义。假使ripple开始在各国流通,那么ripple公司完全可以通过操纵ripple币来摧毁一个国家的经济。这样的野心真是很可怕,阴谋论者可以说这是美帝欠钱不还的又一利器。
 另外大家想玩的话,可以给我的ripple钱包充电钱哈哈： rMffqNoGBzzdzWTqtdeGto74GypdToywML</description>
     </item>
     
@@ -52,19 +48,19 @@ G&amp;ndash;网关 网络上的网关的意义和通道的意思是一样的,这
       
       <guid>http://oopschen.github.io/posts/2013/hello-github-page-with-jekyll/</guid>
       <description>作为一个80后准软件工程专业毕业的程序员,身处在软件行业成指数型发展的大环境下,人难免会有些轻浮。各种的框架,各种的技术博客,各种开源的代码以及各种好用的IDE都让我们开始迷失在茫茫的码海里。为了不继续迷失下去,我们必须知道从哪里来,才能知道到哪里去。因此,我的工作台也从win转向linux,从eclipse转向vim,变成语言也从Java扩展到c90,c89,python以及cortex指令集等。就这么不知不觉过了好几年,这确实带给我不少好处,了解了不少软件行业的历史,渐渐对以前的程序员所处的环境感同身受,才会发现现在的程序员真是太幸福了,同时也太嫩了。
-为什么要迁移到jekyll 扯着扯着跑题了,因为太喜欢vim的简单,快速,敏捷,以致于对鼠标开始感到陌生。2012年的时候有些想法想要找到一个免费的,用vim写博客的服务。但始终没能如愿。2013年偶然间看到github上出了个pages的服务,我不的惊呼这不是我在找的东西么。
- 免费的博客服务 使用git保存博客 可以利用vim写博客 不用高配的服务器挂博客,因为没有数据库,只有html文件  jekyll jekyll是ruby写的静态化工具,它由以下几部分组成:
- liquid模板指令 ruby plugins实现定制  jekyll具有博客的天生气质,他将文件分成配置文件,posts文件（不知道怎么翻译合适,意思是每篇博客）以及不需要处理的文件（图片,样式,脚本等）。jekyll通过配置文件将posts文件按照规则生成html文件,而在这个过程中,用户可以定制不同的插件来生成不同的html文件,从而实现整站静态化。但是,个人觉得用ruby实现真是一个败笔: 在使用一个星期后,当文档越多,jekyll处理的非常缓慢。文档的缺失也让这个工具不是那么好用。相比较wordpress而言,jekyll所拥有的主题也少的可能,不过这可以通过一些html模板来弥补。
+为什么要迁移到jekyll&amp;nbsp;¶ 扯着扯着跑题了,因为太喜欢vim的简单,快速,敏捷,以致于对鼠标开始感到陌生。2012年的时候有些想法想要找到一个免费的,用vim写博客的服务。但始终没能如愿。2013年偶然间看到github上出了个pages的服务,我不的惊呼这不是我在找的东西么。
+免费的博客服务 使用git保存博客 可以利用vim写博客 不用高配的服务器挂博客,因为没有数据库,只有html文件 jekyll&amp;nbsp;¶ jekyll是ruby写的静态化工具,它由以下几部分组成:
+liquid模板指令 ruby plugins实现定制 jekyll具有博客的天生气质,他将文件分成配置文件,posts文件（不知道怎么翻译合适,意思是每篇博客）以及不需要处理的文件（图片,样式,脚本等）。jekyll通过配置文件将posts文件按照规则生成html文件,而在这个过程中,用户可以定制不同的插件来生成不同的html文件,从而实现整站静态化。但是,个人觉得用ruby实现真是一个败笔: 在使用一个星期后,当文档越多,jekyll处理的非常缓慢。文档的缺失也让这个工具不是那么好用。相比较wordpress而言,jekyll所拥有的主题也少的可能,不过这可以通过一些html模板来弥补。
 Liquid, 本是液体的意思,大概作者是希望他能想液体一样胶合设计者和代码。个人使用后,他并没有达到预期的想法。就单单赋值这块而言,它居然有两种写法。
- {% assign var = 1 %} {% capture %}{{ page.title }}{% endcapture %} assign的写法是为了赋值一个常量,而capture的写法是赋值变量,这让程序员情何以堪。而且,错误提示信息不够,很难判断到底哪里出错了。
+{% assign var = 1 %} {% capture %}{{ page.title }}{% endcapture %} assign的写法是为了赋值一个常量,而capture的写法是赋值变量,这让程序员情何以堪。而且,错误提示信息不够,很难判断到底哪里出错了。
 下面列举一些可参考的文档 jeyll的官方网站 liquid的文档
-Github Pages Github Pages是github推出的一个网页的服务。通常github上的代码有一个Readme来作为代码的简介,但是这样少了很多亮丽的元素&amp;ndash;比如说图片,html5支持。所以Pages的服务类似于对一个项目的宣传页,它允许用户在repository上建立一个gh-pages的分支作为该repository的宣传页。同时,它也支持这个repository单单作为一个网站使用。这里要注意的是想要做为单纯的网站,必须符合两个条件：
- repository的名称必须是username.github.io, username是github页上的username 一个帐号只能建立一个网站  同样,Github Pages有一个缺点,它不能实时发布,因为jekyll每次重新生成所有页面,所消耗的cpu是很大的,所以每次我们push博客到github repository,它都需要10分钟的时间来进行发布。这可能也是出于对服务器资源的保护,毕竟是免费的。
+Github Pages&amp;nbsp;¶ Github Pages是github推出的一个网页的服务。通常github上的代码有一个Readme来作为代码的简介,但是这样少了很多亮丽的元素&amp;ndash;比如说图片,html5支持。所以Pages的服务类似于对一个项目的宣传页,它允许用户在repository上建立一个gh-pages的分支作为该repository的宣传页。同时,它也支持这个repository单单作为一个网站使用。这里要注意的是想要做为单纯的网站,必须符合两个条件：
+repository的名称必须是username.github.io, username是github页上的username 一个帐号只能建立一个网站 同样,Github Pages有一个缺点,它不能实时发布,因为jekyll每次重新生成所有页面,所消耗的cpu是很大的,所以每次我们push博客到github repository,它都需要10分钟的时间来进行发布。这可能也是出于对服务器资源的保护,毕竟是免费的。
 这里要提醒大家,这个Github Pages上的所有内容都是可以通过github中的repository页面访问,所以请不要放一些私隐的东东。
-迁移过程 首先我们建立如下几个目录:
- _layouts, mvc模式中v的职责 _posts,博客内容,文件名称的格式必须是yyyy-mm-dd-blogtitle.format, format可以是md,html等,具体查看文档 _includes, 常量文件,_layouts,_posts和目录下的所有文件可以使用**{%raw%}{% include filename %}{%endraw%}**引用此文件  _config.yml负责这些目录的可配化,具体参考文档
+迁移过程&amp;nbsp;¶ 首先我们建立如下几个目录:
+_layouts, mvc模式中v的职责 _posts,博客内容,文件名称的格式必须是yyyy-mm-dd-blogtitle.format, format可以是md,html等,具体查看文档 _includes, 常量文件,_layouts,_posts和目录下的所有文件可以使用**{%raw%}{% include filename %}{%endraw%}**引用此文件 _config.yml负责这些目录的可配化,具体参考文档
 由于现在jekyll使用的主题很少,爱美的博主可以去拷贝一些html模板,然后分别拆分放在这些目录下,或者使用jekyllbootstrap或者Octopress来下载模板和初始化jekyll。
-问题概要  jekyll缺少稳定的插件支持,虽然能在网上搜索到很多插件的源码,但是都不太好用。比如相关文章插件,分类插件等等。 jekyly的速度是一个很大的问题,如果能支持增量生成就好了。  Best practice 通过一段时间的使用,在github上使用Jekyll的问题挺多,最大的问题就是速度,其次是自定义插件无法使用,因此最好的利用github page的方法是在本地安装Jekyll,在本地生成静态文件,然后将这些静态文件上传到github page。（记住在根目录添加.</description>
+问题概要&amp;nbsp;¶ jekyll缺少稳定的插件支持,虽然能在网上搜索到很多插件的源码,但是都不太好用。比如相关文章插件,分类插件等等。 jekyly的速度是一个很大的问题,如果能支持增量生成就好了。 Best practice&amp;nbsp;¶ 通过一段时间的使用,在github上使用Jekyll的问题挺多,最大的问题就是速度,其次是自定义插件无法使用,因此最好的利用github page的方法是在本地安装Jekyll,在本地生成静态文件,然后将这些静态文件上传到github page。（记住在根目录添加.nojekyll文件,这是为了告诉github page不使用Jekyll渲染你的代码）</description>
     </item>
     
   </channel>

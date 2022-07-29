@@ -25,7 +25,13 @@
 
 
 
-<link rel="stylesheet" href="/css/main.min.3c9fa6b3264a9f8be4f27730f1d5f0ded496304d03812ed49d97703ffb28122a.css" integrity="sha256-PJ&#43;msyZKn4vk8ncw8dXw3tSWME0DgS7UnZdwP/soEio=" crossorigin="anonymous" media="screen">
+<link rel="stylesheet" href="/css/main.min.c5514d3530979d291f3497facc20da1cec870028dbc2a3630b64bab8721bbe49.css" integrity="sha256-xVFNNTCXnSkfNJf6zCDaHOyHACjbwqNjC2S6uHIbvkk=" crossorigin="anonymous" media="screen">
+
+
+
+
+  
+
 
 
 
@@ -50,16 +56,17 @@
 
 
 
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VMH3F6F5VS"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-49453400-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-VMH3F6F5VS', { 'anonymize_ip': false });
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
     
@@ -84,62 +91,63 @@ if (!doNotTrack) {
     <main class="wrap">
         
 <article class="flex-container">
-    <h3 id="mr-c-profile">Mr. C Profile</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-    <span style="color:#75715e">#define CHINA_PROVINCE_ZHEJIANG 0x1
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">#define SEX_MALE 0x1
-</span><span style="color:#75715e"></span>
-    <span style="color:#66d9ef">struct</span> Mr_c {
-      uint8_t sex;
-      uint8_t born_province;
-      uint16_t born_year;
-      uint16_t ever_worked_companies_len;
-      uint16_t program_langs_len;
-      uint8_t <span style="color:#f92672">**</span> ever_worked_companies;
-      uint8_t <span style="color:#f92672">**</span> program_langs;
-    };
-
-    <span style="color:#75715e">/**
-</span><span style="color:#75715e">     * It is up to you to implement.
-</span><span style="color:#75715e">     */</span>
-    <span style="color:#66d9ef">static</span> uint8_t <span style="color:#a6e22e">hire</span>(<span style="color:#66d9ef">struct</span> Mr_c <span style="color:#f92672">*</span> employee);
-
-    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-      <span style="color:#66d9ef">struct</span> Mr_c me;
-      me.sex <span style="color:#f92672">=</span> SEX_MALE;
-      me.born_province <span style="color:#f92672">=</span> CHINA_PROVINCE_ZHEJIANG;
-      me.born_year <span style="color:#f92672">=</span> <span style="color:#ae81ff">1988</span>;
-
-      me.ever_worked_companies_len <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(me.ever_worked_companies <span style="color:#f92672">=</span> 
-            calloc(me.ever_worked_companies_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#f92672">*</span>(me.ever_worked_companies))))) {
-        perror(<span style="color:#e6db74">&#34;Out of Memory!&#34;</span>);
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
-      }
-      me.ever_worked_companies[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;www.alisoft.com&#34;</span>;
-      me.ever_worked_companies[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;www.baidu.com&#34;</span>;
-
-      me.program_langs_len <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
-      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(me.program_langs <span style="color:#f92672">=</span> calloc(me.program_langs_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#f92672">*</span>(me.program_langs))))) {
-        free(me.ever_worked_companies);
-        perror(<span style="color:#e6db74">&#34;Out of Memory!&#34;</span>);
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
-      }
-      me.program_langs[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;C&#34;</span>;
-      me.program_langs[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Java&#34;</span>;
-      me.program_langs[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Python2.x&#34;</span>;
-      me.program_langs[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Python3.x&#34;</span>;
-      me.program_langs[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Javascript&#34;</span>;
-      me.program_langs[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Haskell&#34;</span>;
-      me.program_langs[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Coffee&#34;</span>;
-      me.program_langs[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Rust&#34;</span>;
-
-      <span style="color:#66d9ef">return</span> hire(<span style="color:#f92672">&amp;</span>me);
-    }
-</code></pre></div>
+    
+<h3 id="mr-c-profile" class="anchor-link"><a href="#mr-c-profile">Mr. C Profile<span class="pilcrow">&nbsp;¶</span></a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#define CHINA_PROVINCE_ZHEJIANG 0x1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">#define SEX_MALE 0x1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> Mr_c {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">uint8_t</span> sex;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">uint8_t</span> born_province;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">uint16_t</span> born_year;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">uint16_t</span> ever_worked_companies_len;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">uint16_t</span> program_langs_len;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">uint8_t</span> <span style="color:#f92672">**</span> ever_worked_companies;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">uint8_t</span> <span style="color:#f92672">**</span> program_langs;
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * It is up to you to implement.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">uint8_t</span> <span style="color:#a6e22e">hire</span>(<span style="color:#66d9ef">struct</span> Mr_c <span style="color:#f92672">*</span> employee);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">struct</span> Mr_c me;
+</span></span><span style="display:flex;"><span>      me.sex <span style="color:#f92672">=</span> SEX_MALE;
+</span></span><span style="display:flex;"><span>      me.born_province <span style="color:#f92672">=</span> CHINA_PROVINCE_ZHEJIANG;
+</span></span><span style="display:flex;"><span>      me.born_year <span style="color:#f92672">=</span> <span style="color:#ae81ff">1988</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      me.ever_worked_companies_len <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(me.ever_worked_companies <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>            calloc(me.ever_worked_companies_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#f92672">*</span>(me.ever_worked_companies))))) {
+</span></span><span style="display:flex;"><span>        perror(<span style="color:#e6db74">&#34;Out of Memory!&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      me.ever_worked_companies[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;www.alisoft.com&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.ever_worked_companies[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;www.baidu.com&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      me.program_langs_len <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(me.program_langs <span style="color:#f92672">=</span> calloc(me.program_langs_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#f92672">*</span>(me.program_langs))))) {
+</span></span><span style="display:flex;"><span>        free(me.ever_worked_companies);
+</span></span><span style="display:flex;"><span>        perror(<span style="color:#e6db74">&#34;Out of Memory!&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;C&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Java&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Python2.x&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Python3.x&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Javascript&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Haskell&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Coffee&#34;</span>;
+</span></span><span style="display:flex;"><span>      me.program_langs[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Rust&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> hire(<span style="color:#f92672">&amp;</span>me);
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div>
 </article>
 <nav role="navigation">
     <ul>
@@ -169,10 +177,13 @@ if (!doNotTrack) {
             <a href="/about">我是谁?</a>
         
     
-    &#183; 
-    <a href="/">
-        主页
-    </a>
+    
+    
+        &#183; 
+        <a href="/">
+            主页
+        </a>
+    
 
 </p>
         </nav>

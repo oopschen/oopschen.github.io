@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>版权归Ray所有, 授权在MIT协议下.</copyright>
-    <lastBuildDate>Tue, 04 Jun 2013 09:51:35 +0000</lastBuildDate>
-    
-	<atom:link href="http://oopschen.github.io/tags/ramdisk/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 04 Jun 2013 09:51:35 +0000</lastBuildDate><atom:link href="http://oopschen.github.io/tags/ramdisk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux下的Ramdisk使用</title>
       <link>http://oopschen.github.io/posts/2013/linux-ramdisk-usage/</link>
@@ -19,12 +15,12 @@
       
       <guid>http://oopschen.github.io/posts/2013/linux-ramdisk-usage/</guid>
       <description>内存技术日益发展的今天,一台电脑随随便便都有8g以上的内存,然后win系统只占了1.5G,linux也就200M,所以大部分的内存资源都是浪费的。因为大部分的软件都考虑了内存不足的情况,会把一些不必要的数据存在硬盘上,而这样小的读写对硬盘的寿命都是有害的,而且容易造成碎片,同时速度也不快。那么我们为什么不把这些临时文件存在内存里呢？这时,linux内核自带的ramdisk就非常好用。
-使用 下面我们来看下如何在linux下使用ramdisk：
+使用&amp;nbsp;¶ 下面我们来看下如何在linux下使用ramdisk：
 mount -t tmpfs -o size=xxm,uid=xx,gid=xx tmpfs /xxx/xx 我们也可以将其配置在**/etc/fstab**下：
- tmpfs /xxx/xxx tmpfs defaults,size=xxm,uid=xx,gid=xx 0 2
- 如果想使用ramfs则把上面的tmpfs替换成ramfs
-ramfs和tmpfs区别 setcap 经在centos 6.4上测试,setcap无法在tmpfs的文件上执行,错误信息是Operation not support。查找相关资料后,redhat应该在11年的时候就修复了,不知道为啥centos上还是出问题,具体bug链接。同样ramfs也是使用,其他linux发行版未测试。
-综述 ramdisk并不是万能的解药,他只适合用于加速磁盘读写频繁的应用,而且断电后ramdisk上的数据全部丢失。所以可以用它来当eclipse或chrome的工作目录。</description>
+tmpfs /xxx/xxx tmpfs defaults,size=xxm,uid=xx,gid=xx 0 2
+如果想使用ramfs则把上面的tmpfs替换成ramfs
+ramfs和tmpfs区别&amp;nbsp;¶ setcap&amp;nbsp;¶ 经在centos 6.4上测试,setcap无法在tmpfs的文件上执行,错误信息是Operation not support。查找相关资料后,redhat应该在11年的时候就修复了,不知道为啥centos上还是出问题,具体bug链接。同样ramfs也是使用,其他linux发行版未测试。
+综述&amp;nbsp;¶ ramdisk并不是万能的解药,他只适合用于加速磁盘读写频繁的应用,而且断电后ramdisk上的数据全部丢失。所以可以用它来当eclipse或chrome的工作目录。</description>
     </item>
     
   </channel>
