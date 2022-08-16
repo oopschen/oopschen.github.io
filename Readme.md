@@ -2,8 +2,7 @@
 
 ## Deployment
 ```
-rm -rf blog/public
-cd blog & hugo
-mv blog/public/* deploy/
+rm -rf public/*&
+hugo
 # run commit
 ```
